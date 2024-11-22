@@ -47,3 +47,9 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# ignore the data directory - best not to store data on github
+data/*
+
+# macos detritus
+.DS_Store
