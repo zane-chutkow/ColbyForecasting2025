@@ -1,5 +1,5 @@
 #' This file is used to check for needed R packages (from CRAN and github). If the 
-#' packages are installed locvally then they are simply loaded. If they are 
+#' packages are installed locally then they are simply loaded. If they are 
 #' not installed then they are installed first and then loaded.
 
 
@@ -32,4 +32,3 @@ suppressPackageStartupMessages({
 for (f in list.files("functions", pattern = glob2rx("*.R"))) {
   source(f, echo = FALSE)
 }
-
