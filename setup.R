@@ -29,6 +29,9 @@ suppressPackageStartupMessages({
 })
 
 # Next we check the 'functions' directory for ".R" files and source those
-for (f in list.files("functions", pattern = glob2rx("*.R"))) {
+for (f in list.files("functions", pattern = glob2rx("*.R"), full.names = TRUE)) {
   source(f, echo = FALSE)
 }
+
+# set paths (if they haven't been set already)
+bman_path = set_brickman_path()
