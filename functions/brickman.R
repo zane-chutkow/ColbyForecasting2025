@@ -22,7 +22,7 @@ brickman_path = function(filename = "~/.colby-brickman"){
 #' 
 #' @param interval chr, one of "mon" (monthly), "ann" (annual) or "all"
 #' @return table
-brickman_layers = function(interval = c("mon", "ann", "all")[1]){
+brickman_variables = function(interval = c("mon", "ann", "all")[1]){
   x = dplyr::tribble(
     ~name, ~group, ~longname, ~description, ~units,
     'depth', "static", "Bathy_depth", "bathymetric depth", "m",
