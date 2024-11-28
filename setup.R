@@ -5,8 +5,8 @@
 
 # Here we list the packages by name, CRAN is easier than GITHUB
 packages = list(
-  CRAN = c("remotes", "dplyr", "ggplot2", "readr", "tidyr", "tidymodels", "sf", "stars", 
-           "rnaturalearth", "robis"),
+  CRAN = c("remotes", "dplyr", "ggplot2", "readr", "tidyr", "tidymodels", "sf", 
+           "stars", "rnaturalearth", "robis"),
   GITHUB = list(tidysdm = c(repo = "EvolEcolGroup/tidysdm", ref = "dev"))
 )
 
