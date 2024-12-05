@@ -55,8 +55,6 @@ data/*
 # macos detritus
 .DS_Store
 
-# the wiki
-ColbyForecasting2025.wiki/*
-
-
+# quarto stuff
 /.quarto/
+/_site/
