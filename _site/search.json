@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Brought to you by the Tandy Center for Ocean Forecasting at Bigelow Laboratory for Ocean Science and Colby College.\nContacts:\nDr. Nick Record Ben Tupper\nRaising questions or issues: If you have a question, start a new “issue” on the github issues tab. If a question has been posed by another, and you think you can help with the answer then please feel free to respond."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Colby Forecasting",
+    "section": "",
+    "text": "Welcome to the Colby Forecasting 2025 workbook!\nThis document is comprised of sections: forecasting and coding with R programming language.\n\nContacts:\nDr. Nick Record Ben Tupper\n\n\nQuestions and issues\nWe have a saying at Bigelow Lab, “there’s no such thing as a dumb question, but the quality of the answers you get may vary widely.” This is so true!\nIf you have a class, coding or forecasting question, start a new “issue” on the github issues tab. If a question has been posed by another, and you think you can help with the answer, then please feel free to respond. If you have a personal question or issue, then contact the instructors directly.\n\n\nThe wiki\nSome ancillary content for the course has been placed in what is called a wiki. In theory anyone can contribute to a wiki, but in practice only a few do. We are open to suggestions."
+  }
+]

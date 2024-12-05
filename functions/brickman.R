@@ -1,22 +1,5 @@
-#' Set the brickman path
-#' 
-#' @param path chr, the path to the brickman data
-#' @param filename chr, the name of the file to store the path
-#' @param the known brickman path
-set_brickman_path = function(path = "/mnt/s1/projects/ecocast/projects/ColbyForecasting/data/brickman", 
-                             filename = "~/.colby-brickman"){
-  cat(path, sep = "\n", file = filename)
-  brickman_path()
 
-}
-#' Retrieve the path to the brickman data
-#' 
-#' @param filename the name of the config file where brickman data is stored
-#' @return the path to the brickman config file
-brickman_path = function(filename = "~/.colby-brickman"){
-  if(!file.exists(filename)) stop("please use set_brickman_path() first")
-  readLines(filename)
-}
+
 
 #' Retrieve a listing of all Brickman variables
 #' 
@@ -51,11 +34,13 @@ brickman_variables = function(interval = c("mon", "ann", "all")[1]){
 }
 
 
+
+
 #' Read the Brickman database
 #' 
 #' @param path chr, the path to the data
 #' @return tabular database
-brickman_database = function(path = brickman_path()){
+brickman_database = function(path = file.path(ROOT_DATA_PATH, "brickman")){
   readr::read_csv(file.path(path, "database.csv"), col_types = "cccc")
 }
 

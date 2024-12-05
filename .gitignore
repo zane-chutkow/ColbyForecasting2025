@@ -58,3 +58,5 @@ data/*
 # the wiki
 ColbyForecasting2025.wiki/*
 
+
+/.quarto/

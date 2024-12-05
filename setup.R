@@ -33,5 +33,9 @@ for (f in list.files("functions", pattern = glob2rx("*.R"), full.names = TRUE)) 
   source(f, echo = FALSE)
 }
 
-# set paths (if they haven't been set already)
-bman_path = set_brickman_path()
+# Finally set path to the data
+# The data directory has top level subdirectories ("buoys", "coast", "brickman")
+# that contain data used by all.  It also may have one or more yearly directories
+# for "personal data directories" ala "2024", "2025"
+ROOT_DATA_PATH = "/mnt/s1/projects/ecocast/projects/ColbyForecasting/data"
+

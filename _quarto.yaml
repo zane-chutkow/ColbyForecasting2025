@@ -1,0 +1,49 @@
+
+project:
+  type: website
+  output-dir: docs
+  execute-dir: project
+  render:
+    - index.qmd
+    - F00_forecasting.qmd
+    - C00_coding.qmd
+    - about.qmd
+execute: 
+  cache: false
+
+website:
+  title: "Colby Forecasting 2025"
+  page-navigation: true
+  back-to-top-navigation: true
+  page-footer: "Copyright 2025, Bigelow Laboratory for Ocean Science" 
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: Home
+        href: index.qmd
+      - text: Forecasting
+        href: F00_forecasting.qmd
+      - text: Coding
+        href: C00_coding.qmd
+        contents:
+      - text: About
+        href: about.qmd
+    tools:
+      - icon: github
+        menu:
+          - text: Source Code
+            url:  https://github.com/BigelowLab/ColbyForecasting2025
+          - text: Report a bug or ask a question
+            url:  https://github.com/BigelowLab/ColbyForecasting2025/issues
+          - text: Wiki
+            url:  https://github.com/BigelowLab/ColbyForecasting2025/wiki
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    number-sections: true
+
+editor: source
+
