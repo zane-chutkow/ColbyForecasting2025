@@ -57,6 +57,15 @@ brickman_path = function(root = ROOT_DATA_PATH){
 }
 
 
+#' Retrieve the path to the coastline data
+#' 
+#' @param root chr, the root global data directory
+#' @return the path to the coastline data directory
+coastline_path = function(root = ROOT_DATA_PATH){
+  file.path(root, "coastline")
+}
+
+
 #' Retrieve the path to the obis data
 #' 
 #' @param root chr, the root personal data directory
