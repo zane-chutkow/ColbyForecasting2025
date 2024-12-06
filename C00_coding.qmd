@@ -9,9 +9,9 @@ Coding is the practice of writing instructions for computers to follow; computer
 
 In the early days, coding was pretty barebones - all one needed was a text editor and access to the programming language - no frills there, no pretty images, no buttons to push, just typing.  As time passed, volunteers added niceties to the text editor, like visualizing plots of data, buttons to save files, colorized text for the typed code, and other bells and whistles. These editors became know as graphical user interfaces (GUI for short.) GUIs keep getting easier and easier for people to use.  We will use the GUI known as [RStudio](https://posit.co/). It's best to think of GUIs as wrappers around the core programming language; they are really nice and pretty, but they can't do math. The programming language itself (which does do math!), evolved only as it needed to to fix bugs and make general improvements.
 
-# One of manu GUIs: RStudio
+# One of many available GUIs: RStudio
 
-RStudio is a free GUI that wraps around two languages (R and Python, and soon to be more).  When you invoke is you'll see that it is laid out in a multi-panel application that runs inside your browser. It will look something like this screenshot.
+RStudio is a free GUI that wraps around two languages (R and Python, and soon to be more).  When you invoke RStudio you'll see that it is laid out as a multi-panel application that runs inside your browser. It will look something like this screenshot.
 
 ![Rstudio screenshot](images/Rstudio.png)
 There are many [RStudio tutorials](https://duckduckgo.com/?q=introduction+to+rstudio&t=ffab&atb=v342-1&iax=videos&ia=videos&iai=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dw8ooTMStQV0&pn=1) online.  We encourage you to check them out.
@@ -92,12 +92,16 @@ text(buoys, labels = buoys$id, cex = 0.7, adj = c(1,-0.1))
 
 Often spatial data comes in grids, like regular arrays of pixels.  These are great for all sorts of data like satellite images, contour maps and environmental modeling data.  We'll be workign with environmental modeling data which we call "Brickman data".  You can learn more about [Brickman data in the wiki](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman).  We'll be glossing over the details here, but there's lots of detail in the wiki.
 
-We';; read in the database and then immediately filter out the rows that define the "PRESENT" scenario (where present means 1982–2013) and monthly climatology models.
+We'll read in the database and then immediately filter out the rows that define the "PRESENT" scenario (where present means 1982–2013) and monthly climatology models.
+
 ```{r brickman_database}
 db = brickman_database() |>
   filter(scenario == "PRESENT", interval == "mon") # note the double '=='
 db
 ```
+
+You might be wondering what that `|>` is doing. It is called a pipe, and it delivers the output of one function as the p of the next function. For example, `brickman_database()` produces a table, that table is immediately passed into `filter()` to choose rows that match our crieteria.   
+
 Now that we have the database listing just the records we want, we pass it to the `read_brickman()` function.
 
 ```{r read_brickman}
@@ -112,7 +116,23 @@ Here we plot all 12 months of sea surface temperature, `SST`.  Note the they all
 plot(current['SST'])
 ```
 
-Just as we are able to plot polylines/polygons along side points, we can also plot these arrays (rasters).  There is one slight modification to be made since a single call to `plot()` actually gets invoked 12 times for this data.  So were to add in the buoys and coast? Fortunately, we can create what is called a "hook" function - who knows where the name hook came from?  Once the hook function is defined, it will be applied to the each of the 12 subplots.
+Just as we are able to plot polylines/polygons along side points, we can also plot these with arrays (rasters).  To do this for one month ("Apr") of one variable ("SSS") we simply need to slice that data out of the `current` variable. 
+
+```{r april_sss}
+april_sss = current['SSS'] |>
+  slice("month", "Apr")
+april_sss
+```
+
+Then it's just plot, plot, plot.
+
+```{r april_sss_plot}
+plot(april_sss, axes = TRUE, reset = FALSE)
+plot(coast, add = TRUE, col = "orange", lwd = 2)
+points(buoys, pch = 16, col = "purple")
+```
+
+We can plot **ALL** twelve months of a variable ("SST") with the coast and points shown. There is one slight modification to be made since a single call to `plot()` actually gets invoked 12 times for this data.  So where do we add in the buoys and coast? Fortunately, we can create what is called a "hook" function - who knows where the name hook came from?  Once the hook function is defined, it will be applied to the each of the 12 subplots.
 
 ```{r hooking}
 hook_function = function(){
