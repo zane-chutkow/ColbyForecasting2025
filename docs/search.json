@@ -1,0 +1,102 @@
+[
+  {
+    "objectID": "C00_coding.html",
+    "href": "C00_coding.html",
+    "title": "Coding",
+    "section": "",
+    "text": "Coding is the practice of writing instructions for computers to follow; computers aren’t clever by themselves - they need to be told what to do. Most coding is text-based; people writing coding instructions into simple text documents. But some coding is graphical or visual. We shall be using text-based coding. We are going to use a free and open source general programming language called R. R programming language has its roots in statistics and science, but it really can be used for anything.\nIn the early days, coding was pretty barebones - all one needed was a text editor and access to the programming language - no frills there, no pretty images, no buttons to push, just typing. As time passed, volunteers added niceties to the text editor, like visualizing plots of data, buttons to save files, colorized text for the typed code, and other bells and whistles. These editors became know as graphical user interfaces (GUI for short.) GUIs keep getting easier and easier for people to use. We will use the GUI known as RStudio. It’s best to think of GUIs as wrappers around the core programming language; they are really nice and pretty, but they can’t do math. The programming language itself (which does do math!), evolved only as it needed to to fix bugs and make general improvements.",
+    "crumbs": [
+      "Coding"
+    ]
+  },
+  {
+    "objectID": "C00_coding.html#loading-the-necessary-tools",
+    "href": "C00_coding.html#loading-the-necessary-tools",
+    "title": "Coding",
+    "section": "5.1 Loading the necessary tools",
+    "text": "5.1 Loading the necessary tools\nFor any coding project you will need to access a select number of tools, often stored on your computer in what is called a package (it’s just a file really). When the package is loaded, all of the functionality the author built in to that package is exposed for you to use in your project. We have created a single file that will both install (if needed) and load (if not already loaded) each of these packages. It’s easy to run.\nFirst, make sure that you have loaded the project (File &gt; Open Project) if you haven’t already. Then at the console type the following…\n\nsource(\"setup.R\")\n\nAfter a few moments the command prompt will return to focus. Be sure to run that command at the beginning of every new R session or anytime you are adding new functionality.\nNow we are ready to load some data.",
+    "crumbs": [
+      "Coding"
+    ]
+  },
+  {
+    "objectID": "C00_coding.html#spatial-data",
+    "href": "C00_coding.html#spatial-data",
+    "title": "Coding",
+    "section": "5.2 Spatial data",
+    "text": "5.2 Spatial data\nSpatial data is any data that has been assigned to a location on a planet (or even between planets!); that means environmental data is mapped to locations on oblate spheroids (like Earth). The oblate spheroid shape presents interesting but challenging math to the data scientist. Modern spatial data is designed to make data science easier by handling all of the location information in a discrete and standardized manner. By discrete we mean that we don’t have to sweat the details.\n\n5.2.1 Point data\nMany spatial data sets come as point data - locations (longitude, latitude and maybe altitude/depth and/or time) with one or more measurements (temperature, cloudiness, probability of precipitation, abundance of fish, population density, etc) attached to that point. Here is an example of point data about long-term oceanographic monitoring buoys in the Gulf of Maine (“gom”). We’ll read the buoy data into a variabel, buoy. Tnen we can print the result simply by typing the name.\n\nbuoys = gom_buoys()\nbuoys\n\nSimple feature collection with 6 features and 3 fields\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: -70.4277 ymin: 42.3233 xmax: -65.9267 ymax: 44.10163\nGeodetic CRS:  WGS 84\n# A tibble: 6 × 4\n  name  longname            id                geometry\n* &lt;chr&gt; &lt;chr&gt;               &lt;chr&gt;          &lt;POINT [°]&gt;\n1 wms   Western Maine Shelf B01    (-70.4277 43.18065)\n2 cms   Central Maine Shelf E01     (-69.3578 43.7148)\n3 pb    Penobscot Bay       F01   (-68.99689 44.05495)\n4 ems   Eastern Maine Shelf I01   (-68.11359 44.10163)\n5 jb    Jordan Basin        M01   (-67.88029 43.49041)\n6 nec   Northeast Channel   N01     (-65.9267 42.3233)\n\n\nSo there are 6 buoys, each with an attached attribute “name”, “longname” and “id”, as well as the spatial location data (just longitude and latitude in this case). We can easily plot these using the “name” column as a color key.\n\nplot(buoys['name'], axes = TRUE, pch = 16)\n\n\n\n\n\n\n\n\nWell, that’s pretty, but without a shoreline it lacks context.",
+    "crumbs": [
+      "Coding"
+    ]
+  },
+  {
+    "objectID": "C00_coding.html#polyline-and-polygon-data",
+    "href": "C00_coding.html#polyline-and-polygon-data",
+    "title": "Coding",
+    "section": "5.3 Polyline and polygon data",
+    "text": "5.3 Polyline and polygon data\nPolylines (open shapes) and polygons (closed shapew) are much like point data, except that each polyline or polygon. We have a set of polygons/polylines that represent the coastline.\n\ncoast = read_coastline()\ncoast\n\nSimple feature collection with 14 features and 0 fields\nGeometry type: MULTILINESTRING\nDimension:     XY\nBounding box:  xmin: -74.9 ymin: 38.95218 xmax: -65 ymax: 46.06477\nGeodetic CRS:  WGS 84\n# A tibble: 14 × 1\n                                                                            geom\n                                                           &lt;MULTILINESTRING [°]&gt;\n 1 ((-72.1019 41.01504, -72.15127 41.05146, -72.18389 41.04678, -72.28745 41.02…\n 2 ((-73.68745 45.56143, -73.85293 45.51572, -73.96055 45.44141, -73.92021 45.4…\n 3 ((-73.69531 45.5855, -73.57236 45.69448, -73.72466 45.67183, -73.85771 45.57…\n 4 ((-66.32412 44.25732, -66.27378 44.29229, -66.21035 44.39204, -66.25049 44.3…\n 5 ((-68.69077 44.24873, -68.70303 44.23198, -68.70171 44.18267, -68.66118 44.1…\n 6 ((-66.89707 44.62891, -66.7625 44.68179, -66.75337 44.70981, -66.74541 44.79…\n 7 ((-68.29941 44.45649, -68.34702 44.43037, -68.40947 44.36426, -68.41172 44.2…\n 8 ((-71.39307 41.46675, -71.36533 41.48525, -71.35449 41.54229, -71.36431 41.5…\n 9 ((-74.25049 39.52939, -74.1332 39.68076, -74.10674 39.74644, -74.25317 39.55…\n10 ((-74.18818 40.6146, -74.23589 40.5187, -74.18813 40.52285, -74.13853 40.541…\n11 ((-70.67373 41.44854, -70.7605 41.37358, -70.8292 41.35898, -70.7853 41.3274…\n12 ((-71.34624 41.46938, -71.29092 41.4646, -71.24141 41.49194, -71.23203 41.65…\n13 ((-70.0627 41.32847, -70.08662 41.31758, -70.23306 41.28633, -70.05508 41.24…\n14 ((-74.9 39.14709, -74.89702 39.14546, -74.9 39.1329), (-74.9 38.95218, -74.7…\n\n\nIn this case, each line represents one polygon or polyline. Note that no other data is in this table.\nLet’s plot these, and add the points on top.\n\nplot(coast, col = \"orange\", lwd = 2, axes = TRUE, reset = FALSE,\n     main = \"Buoys in the Gulf of Maine\")\npoints(buoys, pch = 1, cex = 0.5)\ntext(buoys, labels = buoys$id, cex = 0.7, adj = c(1,-0.1))",
+    "crumbs": [
+      "Coding"
+    ]
+  },
+  {
+    "objectID": "C00_coding.html#array-data-aka-raster-data",
+    "href": "C00_coding.html#array-data-aka-raster-data",
+    "title": "Coding",
+    "section": "5.4 Array data (aka raster data)",
+    "text": "5.4 Array data (aka raster data)\nOften spatial data comes in grids, like regular arrays of pixels. These are great for all sorts of data like satellite images, contour maps and environmental modeling data. We’ll be workign with environmental modeling data which we call “Brickman data”. You can learn more about Brickman data in the wiki. We’ll be glossing over the details here, but there’s lots of detail in the wiki.\nWe’;; read in the database and then immediately filter out the rows that define the “PRESENT” scenario (where present means 1982–2013) and monthly climatology models.\n\ndb = brickman_database() |&gt;\n  filter(scenario == \"PRESENT\", interval == \"mon\") # note the double '=='\ndb\n\n# A tibble: 8 × 4\n  scenario year    interval var  \n  &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;\n1 PRESENT  PRESENT mon      MLD  \n2 PRESENT  PRESENT mon      Sbtm \n3 PRESENT  PRESENT mon      SSS  \n4 PRESENT  PRESENT mon      SST  \n5 PRESENT  PRESENT mon      Tbtm \n6 PRESENT  PRESENT mon      U    \n7 PRESENT  PRESENT mon      V    \n8 PRESENT  PRESENT mon      Xbtm \n\n\nNow that we have the database listing just the records we want, we pass it to the read_brickman() function.\n\ncurrent = read_brickman(db)\ncurrent\n\nstars object with 3 dimensions and 8 attributes\nattribute(s):\n               Min.      1st Qu.       Median         Mean      3rd Qu.\nMLD    1.011275e+00  5.583339810 15.967359543 18.910421492 2.809953e+01\nSbtm   2.324167e+01 32.136343956 34.232215881 33.507147254 3.491243e+01\nSSS    1.644333e+01 30.735633373 31.104771614 31.492407921 3.203519e+01\nSST   -7.826599e-01  6.434107542 12.359498501 12.151707840 1.763068e+01\nTbtm  -2.676387e-01  3.595118523  6.110801697  6.122372065 7.521761e+00\nU     -2.121380e-01 -0.010892980 -0.002634738 -0.010139401 7.229637e-04\nV     -1.883337e-01 -0.010722862 -0.002858645 -0.008474233 9.565173e-04\nXbtm   3.275602e-06  0.001458065  0.003088348  0.008360344 7.256525e-03\n              Max.  NA's\nMLD   106.69815063 59796\nSbtm   35.15741730 59796\nSSS    35.59160995 59796\nSST    26.43147278 59796\nTbtm   24.60999298 59796\nU       0.07469980 59796\nV       0.05264002 59796\nXbtm    0.18996811 59796\ndimension(s):\n      from  to offset    delta refsys point      values x/y\nx        1 121 -74.93  0.08226 WGS 84 FALSE        NULL [x]\ny        1  89  46.08 -0.08226 WGS 84 FALSE        NULL [y]\nmonth    1  12     NA       NA     NA    NA Jan,...,Dec    \n\n\nThis loads quite a complex set of arrays, but they have spatial information attached in the dimensions section. The x and y dimensions represent longitude and latitude respectively. The 3rd dimension, month, is time based.\nHere we plot all 12 months of sea surface temperature, SST. Note the they all d=share the same color scale.\n\nplot(current['SST'])\n\n\n\n\n\n\n\n\nJust as we are able to plot polylines/polygons along side points, we can also plot these arrays (rasters). There is one slight modification to be made since a single call to plot() actually gets invoked 12 times for this data. So were to add in the buoys and coast? Fortunately, we can create what is called a “hook” function - who knows where the name hook came from? Once the hook function is defined, it will be applied to the each of the 12 subplots.\n\nhook_function = function(){\n  plot(coast, col = \"orange\", lwd = 2, add = TRUE)\n  points(buoys, pch = 16, col = \"purple\")\n}\n\nplot(current['SST'], hook = hook_function)",
+    "crumbs": [
+      "Coding"
+    ]
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Brought to you by the Tandy Center for Ocean Forecasting at Bigelow Laboratory for Ocean Science and Colby College.\nContacts:\nDr. Nick Record Ben Tupper\nRaising questions or issues: If you have a question, start a new “issue” on the github issues tab. If a question has been posed by another, and you think you can help with the answer then please feel free to respond.\n\n\n\n Back to top",
+    "crumbs": [
+      "About"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Colby Forecasting",
+    "section": "",
+    "text": "Welcome to the Colby Forecasting 2025 workbook!\nThis document is comprised of sections: forecasting and coding with R programming language.\n\n1 Contacts:\nDr. Nick Record and Ben Tupper\n\n\n2 Questions and issues\nWe have a saying at Bigelow Lab, “there’s no such thing as a dumb question, but the quality of the answers you get may vary widely.” This is so true!\nIf you have a class, coding or forecasting question, start a new “issue” on the github issues tab. If a question has been posed by another, and you think you can help with the answer, then please feel free to respond. If you have a personal question or issue, then contact the instructors directly.\n\n\n3 The wiki\nSome ancillary content for the course has been placed in what is called a wiki. In theory anyone can contribute to a wiki, but in practice only a few do. We are open to suggestions.\n\n\n4 The secure server\nYou can access your account on the server here. You may be required to change your password the first time you log in. Don’t forget to record these credentails (username and password) in a secure location.\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
+    "objectID": "F00_forecasting.html",
+    "href": "F00_forecasting.html",
+    "title": "Forecasting",
+    "section": "",
+    "text": "Add pages names FXX_description.qmd to make your life easier. (Coding sections will be CXX_description.qmd).\nEdit _quarto.yaml in two sections: website &gt; sidebar and project &gt; render as you add pages.\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "crumbs": [
+      "Forecasting"
+    ]
+  },
+  {
+    "objectID": "F00_forecasting.html#nick-stuff-goes-here.",
+    "href": "F00_forecasting.html#nick-stuff-goes-here.",
+    "title": "Forecasting",
+    "section": "",
+    "text": "Add pages names FXX_description.qmd to make your life easier. (Coding sections will be CXX_description.qmd).\nEdit _quarto.yaml in two sections: website &gt; sidebar and project &gt; render as you add pages.\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "crumbs": [
+      "Forecasting"
+    ]
+  },
+  {
+    "objectID": "F00_forecasting.html#running-code",
+    "href": "F00_forecasting.html#running-code",
+    "title": "Forecasting",
+    "section": "2 Running Code",
+    "text": "2 Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).",
+    "crumbs": [
+      "Forecasting"
+    ]
+  }
+]
