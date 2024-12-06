@@ -17,7 +17,10 @@ tidy_obis = function(x = fetch_obis(),
   cnames = colnames(x)
   if ("eventDate" %in% cnames) {
     dates = substring(x$eventDate, 1,10) |> as.Date()
-    x = dplyr::mutate(x, eventDate = dates)
+    x = dplyr::mutate(x, eventDate = dates,
+                      year = suppressWarnings(as.numeric(format(eventDate, "%Y"))),
+                      month = suppressWarnings(format(eventDate, "%b")),
+                      .after = eventDate)
   }
   if ("individualCount" %in% cnames) {
     x = dplyr::mutate(x,individualCount = suppressWarnings(as.numeric(individualCount)))
@@ -25,7 +28,7 @@ tidy_obis = function(x = fetch_obis(),
   
   sf::st_as_sf(x, 
                coords = c("decimalLongitude", "decimalLatitude"),
-               crs = crs)
+               crs = crs) 
 }
 
 
