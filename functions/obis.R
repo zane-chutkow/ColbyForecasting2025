@@ -19,7 +19,8 @@ tidy_obis = function(x = fetch_obis(),
     dates = substring(x$eventDate, 1,10) |> as.Date()
     x = dplyr::mutate(x, eventDate = dates,
                       year = suppressWarnings(as.numeric(format(eventDate, "%Y"))),
-                      month = suppressWarnings(format(eventDate, "%b")),
+                      month = suppressWarnings(format(eventDate, "%b")) |>
+                        factor(levels = month.abb),
                       .after = eventDate)
   }
   if ("individualCount" %in% cnames) {
