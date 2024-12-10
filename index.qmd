@@ -19,8 +19,5 @@ If you have a class, coding or forecasting question, start a new "issue" on [the
 
 # The [wiki](https://en.wikipedia.org/wiki/Wiki)
 
-Some ancillary content for the course has been placed in what is called a [wiki](https://github.com/BigelowLab/ColbyForecasting2025/wiki). In theory anyone can contribute to a wiki, but in practice only a few do. We are open to suggestions.
+Some ancillary content for the course has been placed in what is called a [wiki](https://github.com/BigelowLab/ColbyForecasting2025/wiki). In theory anyone can contribute to a wiki, but in practice only a few do. We are open to suggestions for improvements and additions.
 
-# The secure server
-
-You can access your account on the server [here](http://ecocast.bigelow.org).  You may be required to change your password the first time you log in.  Don't forget to record these credentails (username and password) in a secure location.

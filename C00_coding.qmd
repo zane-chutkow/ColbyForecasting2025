@@ -16,38 +16,33 @@ RStudio is a free GUI that wraps around two languages (R and Python, and soon to
 ![Rstudio screenshot](images/Rstudio.png)
 There are many [RStudio tutorials](https://duckduckgo.com/?q=introduction+to+rstudio&t=ffab&atb=v342-1&iax=videos&ia=videos&iai=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dw8ooTMStQV0&pn=1) online.  We encourage you to check them out.
 
-We are using a central server with RStudio and R pre-installed, but you can install them onto your own computer, too, if you like.  Keep in mind that to access the environmental data we'll be using, you'll need to be on the server. 
-
 # Getting the software you will need
 
-We have already developed what we call the "courseware", which is the software for this course. We have stored it on a coding repository called [github](https://github.com). You will need to make your own github account if you don't have one already.  
-
-Next you will need to fork our [courseware repository](https://github.com/BigelowLab/ColbyForecasting2025).  Use the fork button to create the fork. 
-![fork the original repos](images/repos-fork.png)
-
-# Creating and RStudio project
-
-Once you have the repos in your directory, you need to fire up RStudio and ask it to create a new project in in an exsiting directory (`File > New Project`).  Navigate to your newly cloned directory and create the project there.  RStudio may restart and it will make the directoiry yoru "working directory".
+Use this [wiki page](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Courseware) to guide you through the process of installing the software you'll need for this course, "the courseware".
 
 # Coding with R
  
-There are [SO MANY TUTORIALS](https://duckduckgo.com/?t=ffab&q=introduction+to+R&atb=v342-1&ia=web), some a great and some not so much. [This one](https://intro2r.com/) is a pretty good baby steps approach and is quote up-to-date. You may find another that you prefer - let us know what works for you.
+There are [SO MANY TUTORIALS](https://duckduckgo.com/?t=ffab&q=introduction+to+R&atb=v342-1&ia=web), some a great and some not so much. [This one](https://intro2r.com/) is a pretty good baby-steps approach and is quite up-to-date. You may find another that you prefer - let us know what works for you.
 
-There is so much to learning a programming language - it takes diving in to really get going. We'll try to give you enough so that you can continue learning on your own.  So, let's dive in.
+Take time to look at the tutorials in our [wiki](https://github.com/BigelowLab/ColbyForecasting2025/wiki).  Especially the one on [working with tabular data](https://github.com/BigelowLab/ColbyForecasting2025/wiki/tables).
+
+There is so much to learning a programming language - it takes diving in to really get going. We'll try to give you enough so that you can continue learning on your own.  
+
+[A journey of a thousand miles begins with a single step](https://en.wikipedia.org/wiki/A_journey_of_a_thousand_miles_begins_with_a_single_step); so let's dive in.
 
 ## Loading the necessary tools
 
-For any coding project you will need to access a select number of tools, often stored on your computer in what is called a package (it's just a file really).  When the package is loaded, all of the functionality the author built in to that package is exposed for you to use in your project.  We have created a single file that will both install (if needed) and load (if not already loaded) each of these packages.  It's easy to run.
+For any coding project you will need to access a select number of tools, often stored on your computer in what is called a package library (it's just a directory/folder really).  When the package is loaded from the library, all of the functionality the author built in to that package is exposed for you to use in your project.  We have created a single file that will both install (if needed) and load (if not already loaded) each of these packages.  It's easy to run.
 
-First, make sure that you have loaded the project (File > Open Project) if you haven't already.  Then at the console type the following...
+First, make sure that you have loaded the project (File > Open Project) if you haven't already.  Then at the R console pane type the following...
 
-```{r source_setup}
+```{r source_setup, warning = FALSE}
 source("setup.R")
 ```
 
 After a few moments the command prompt will return to focus.  Be sure to run that command at the beginning of every new R session or anytime you are adding new functionality.
 
-Now we are ready to load some data.
+Now we are ready to load some data into your R session.
 
 ## Spatial data
 
@@ -55,13 +50,13 @@ Spatial data is any data that has been assigned to a location on a planet (or ev
 
 ### Point data
 
-Many spatial data sets come as point data - locations (longitude, latitude and maybe altitude/depth and/or time) with one or more measurements (temperature, cloudiness, probability of precipitation, abundance of fish, population density, etc) attached to that point.  Here is an example of point data about long-term oceanographic monitoring buoys in the Gulf of Maine ("gom").  We'll read the buoy data into a variabel, `buoy`.  Tnen we can print the result simply by typing the name.
+Many spatial data sets come as point data - locations (longitude, latitude and maybe altitude/depth and/or time) with one or more measurements (temperature, cloudiness, probability of precipitation, abundance of fish, population density, etc) attached to that point.  Here is an example of point data about long-term oceanographic monitoring buoys in the Gulf of Maine ("gom").  We'll read the buoy data into a variable, `buoy`.  Next we can print the result simply by typing the name (or you could type `print(buoys)` if you like all the extra typing.)
 
 ```{r read_buoys}
 buoys = gom_buoys()
 buoys
 ```
-So there are 6 buoys, each with an attached attribute "name", "longname" and "id", as well as the spatial location data (just longitude and latitude in this case). We can easily plot these using the "name" column as a color key.
+So there are 6 buoys, each with an attached attribute "name", "longname" and "id", as well as the spatial location datain the "geometry" column (just longitude and latitude in this case). We can easily plot these using the "name" column as a color key.
 
 ```{r plot_buoys}
 plot(buoys['name'], axes = TRUE, pch = 16)
@@ -69,17 +64,17 @@ plot(buoys['name'], axes = TRUE, pch = 16)
 
 Well, that's pretty, but without a shoreline it lacks context.  
 
-## Polyline and polygon data
+## Linestrings and polygon data
 
-Polylines (open shapes) and polygons (closed shapew) are much like point data, except that each polyline or polygon.  We have a set of polygons/polylines that represent the coastline.
+Linestrings (open shapes) and polygons (closed shape) are much like point data, except that each geometry is linestring or polygon.  We have a set of polygons/linestring that represent the coastline.
 
 ```{r coast}
 coast = read_coastline()
 coast
 ```
-In this case, each line represents one polygon or polyline.  Note that no other data is in this table.
+In this case, each record of geometry is a "MULTILINESTRING", which is a group of one or more limestrings.  Note that no other data is in this table - it's just the geometry.
 
-Let's plot these, and add the points on top.
+Let's plot these geometries, and add the points on top.
 
 ```{r plot_coast_and_points}
 plot(coast, col = "orange", lwd = 2, axes = TRUE, reset = FALSE,
@@ -90,17 +85,19 @@ text(buoys, labels = buoys$id, cex = 0.7, adj = c(1,-0.1))
 
 ## Array data (aka raster data)
 
-Often spatial data comes in grids, like regular arrays of pixels.  These are great for all sorts of data like satellite images, contour maps and environmental modeling data.  We'll be workign with environmental modeling data which we call "Brickman data".  You can learn more about [Brickman data in the wiki](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman).  We'll be glossing over the details here, but there's lots of detail in the wiki.
+Often spatial data comes in grids, like regular arrays of pixels.  These are great for all sorts of data like satellite images, bathymetry maps and environmental modeling data.  We'll be working with environmental modeling data which we call "Brickman data".  You can learn more about [Brickman data in the wiki](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman).  We'll be glossing over the details here, but there's lots of detail in the wiki.
 
-We'll read in the database and then immediately filter out the rows that define the "PRESENT" scenario (where present means 1982–2013) and monthly climatology models.
+We'll read in the database that tracks 82 Brickman data files, and then immediately filter out the rows that define the "PRESENT" scenario (where present means 1982–2013) and monthly climatology models.
 
 ```{r brickman_database}
 db = brickman_database() |>
-  filter(scenario == "PRESENT", interval == "mon") # note the double '=='
+  filter(scenario == "PRESENT", interval == "mon") # note the double '==', it's comparative
 db
 ```
 
-You might be wondering what that `|>` is doing. It is called a pipe, and it delivers the output of one function as the p of the next function. For example, `brickman_database()` produces a table, that table is immediately passed into `filter()` to choose rows that match our crieteria.   
+If you are wondering about filtering a table, be sure to [check out the wiki on tabular data](https://github.com/BigelowLab/ColbyForecasting2025/wiki/tables) to get started.
+
+You might be wondering what that `|>` is doing. It is called a pipe, and it delivers the output of one function to the next function as the first parameter (aka argument). For example, `brickman_database()` produces a table, that table is immediately passed into `filter()` to choose rows that match our criteria.   
 
 Now that we have the database listing just the records we want, we pass it to the `read_brickman()` function.
 
@@ -110,13 +107,13 @@ current
 ```
 This loads quite a complex set of arrays, but they have spatial information attached in the `dimensions` section.  The `x` and `y` dimensions represent longitude and latitude respectively.  The 3rd dimension, `month`, is time based.  
 
-Here we plot all 12 months of sea surface temperature, `SST`.  Note the they all d=share the same color scale.
+Here we plot all 12 months of sea surface temperature, `SST`.  Note the they all share the same color scale so that they are easy to compare.
 
 ```{r plot_brickman}
 plot(current['SST'])
 ```
 
-Just as we are able to plot polylines/polygons along side points, we can also plot these with arrays (rasters).  To do this for one month ("Apr") of one variable ("SSS") we simply need to slice that data out of the `current` variable. 
+Just as we are able to plot linestrings/polygons along side points, we can also plot these with arrays (rasters).  To do this for one month ("Apr") of one variable ("SSS") we simply need to slice that data out of the `current` variable. 
 
 ```{r april_sss}
 april_sss = current['SSS'] |>
@@ -132,13 +129,26 @@ plot(coast, add = TRUE, col = "orange", lwd = 2)
 points(buoys, pch = 16, col = "purple")
 ```
 
-We can plot **ALL** twelve months of a variable ("SST") with the coast and points shown. There is one slight modification to be made since a single call to `plot()` actually gets invoked 12 times for this data.  So where do we add in the buoys and coast? Fortunately, we can create what is called a "hook" function - who knows where the name hook came from?  Once the hook function is defined, it will be applied to the each of the 12 subplots.
+We can plot **ALL** twelve months of a variable ("SST") with the coast and points shown. There is one slight modification to be made since a single call to `plot()` actually gets invoked 12 times for this data.  So where do we add in the buoys and coast? Fortunately, we can create what is called a "hook" function - *who knows where the name hook came from?*  Once the hook function is defined, it will be applied to the each of the 12 subplots.
 
 ```{r hooking}
-hook_function = function(){
+# a little function that gets called just after each sub-plot
+# it simple adds the coast and buoy
+add_coast_and_buoys = function(){
   plot(coast, col = "orange", lwd = 2, add = TRUE)
   points(buoys, pch = 16, col = "purple")
 }
 
-plot(current['SST'], hook = hook_function)
+# here we call the plot, and tell R where to call `add_coast_and_buoys()` after
+# each subplot is made
+plot(current['SST'], hook = add_coast_and_buoys)
 ```
+
+::: {.callout-note appearance="simple"}
+
+## Coding Challenge
+
+Use the [Brickman tutorial](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman) to extract data from the location of Buoy M01 for RCP4.5 2055. Make a plot of `SST` (y-axis) as a function of `month` (x-axis).  Here's one possible outcome.
+
+![Buoy M01, RCP4.5 2055]("images/buoy_M01_RCP45_2055.png")
+:::

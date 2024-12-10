@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.543">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -81,7 +81,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "start",
   "type": "textbox",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -90,6 +96,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -106,12 +113,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./C00_coding.html">Coding</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./C00_coding.html">Coding</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -121,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">Colby Forecasting 2025</a> 
@@ -183,7 +190,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -193,16 +200,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background"><span class="header-section-number">1</span> Background</a></li>
   <li><a href="#one-of-many-available-guis-rstudio" id="toc-one-of-many-available-guis-rstudio" class="nav-link" data-scroll-target="#one-of-many-available-guis-rstudio"><span class="header-section-number">2</span> One of many available GUIs: RStudio</a></li>
   <li><a href="#getting-the-software-you-will-need" id="toc-getting-the-software-you-will-need" class="nav-link" data-scroll-target="#getting-the-software-you-will-need"><span class="header-section-number">3</span> Getting the software you will need</a></li>
-  <li><a href="#creating-and-rstudio-project" id="toc-creating-and-rstudio-project" class="nav-link" data-scroll-target="#creating-and-rstudio-project"><span class="header-section-number">4</span> Creating and RStudio project</a></li>
-  <li><a href="#coding-with-r" id="toc-coding-with-r" class="nav-link" data-scroll-target="#coding-with-r"><span class="header-section-number">5</span> Coding with R</a>
+  <li><a href="#coding-with-r" id="toc-coding-with-r" class="nav-link" data-scroll-target="#coding-with-r"><span class="header-section-number">4</span> Coding with R</a>
   <ul class="collapse">
-  <li><a href="#loading-the-necessary-tools" id="toc-loading-the-necessary-tools" class="nav-link" data-scroll-target="#loading-the-necessary-tools"><span class="header-section-number">5.1</span> Loading the necessary tools</a></li>
-  <li><a href="#spatial-data" id="toc-spatial-data" class="nav-link" data-scroll-target="#spatial-data"><span class="header-section-number">5.2</span> Spatial data</a>
+  <li><a href="#loading-the-necessary-tools" id="toc-loading-the-necessary-tools" class="nav-link" data-scroll-target="#loading-the-necessary-tools"><span class="header-section-number">4.1</span> Loading the necessary tools</a></li>
+  <li><a href="#spatial-data" id="toc-spatial-data" class="nav-link" data-scroll-target="#spatial-data"><span class="header-section-number">4.2</span> Spatial data</a>
   <ul class="collapse">
-  <li><a href="#point-data" id="toc-point-data" class="nav-link" data-scroll-target="#point-data"><span class="header-section-number">5.2.1</span> Point data</a></li>
+  <li><a href="#point-data" id="toc-point-data" class="nav-link" data-scroll-target="#point-data"><span class="header-section-number">4.2.1</span> Point data</a></li>
   </ul></li>
-  <li><a href="#polyline-and-polygon-data" id="toc-polyline-and-polygon-data" class="nav-link" data-scroll-target="#polyline-and-polygon-data"><span class="header-section-number">5.3</span> Polyline and polygon data</a></li>
-  <li><a href="#array-data-aka-raster-data" id="toc-array-data-aka-raster-data" class="nav-link" data-scroll-target="#array-data-aka-raster-data"><span class="header-section-number">5.4</span> Array data (aka raster data)</a></li>
+  <li><a href="#linestrings-and-polygon-data" id="toc-linestrings-and-polygon-data" class="nav-link" data-scroll-target="#linestrings-and-polygon-data"><span class="header-section-number">4.3</span> Linestrings and polygon data</a></li>
+  <li><a href="#array-data-aka-raster-data" id="toc-array-data-aka-raster-data" class="nav-link" data-scroll-target="#array-data-aka-raster-data"><span class="header-section-number">4.4</span> Array data (aka raster data)</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -225,7 +231,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <section id="background" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Background</h1>
@@ -236,37 +244,33 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="2"><span class="header-section-number">2</span> One of many available GUIs: RStudio</h1>
 <p>RStudio is a free GUI that wraps around two languages (R and Python, and soon to be more). When you invoke RStudio you’ll see that it is laid out as a multi-panel application that runs inside your browser. It will look something like this screenshot.</p>
 <p><img src="images/Rstudio.png" class="img-fluid" alt="Rstudio screenshot"> There are many <a href="https://duckduckgo.com/?q=introduction+to+rstudio&amp;t=ffab&amp;atb=v342-1&amp;iax=videos&amp;ia=videos&amp;iai=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dw8ooTMStQV0&amp;pn=1">RStudio tutorials</a> online. We encourage you to check them out.</p>
-<p>We are using a central server with RStudio and R pre-installed, but you can install them onto your own computer, too, if you like. Keep in mind that to access the environmental data we’ll be using, you’ll need to be on the server.</p>
 </section>
 <section id="getting-the-software-you-will-need" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Getting the software you will need</h1>
-<p>We have already developed what we call the “courseware”, which is the software for this course. We have stored it on a coding repository called <a href="https://github.com">github</a>. You will need to make your own github account if you don’t have one already.</p>
-<p>Next you will need to fork our <a href="https://github.com/BigelowLab/ColbyForecasting2025">courseware repository</a>. Use the fork button to create the fork. <img src="images/repos-fork.png" class="img-fluid" alt="fork the original repos"></p>
+<p>Use this <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Courseware">wiki page</a> to guide you through the process of installing the software you’ll need for this course, “the courseware”.</p>
 </section>
-<section id="creating-and-rstudio-project" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Creating and RStudio project</h1>
-<p>Once you have the repos in your directory, you need to fire up RStudio and ask it to create a new project in in an exsiting directory (<code>File &gt; New Project</code>). Navigate to your newly cloned directory and create the project there. RStudio may restart and it will make the directoiry yoru “working directory”.</p>
-</section>
-<section id="coding-with-r" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Coding with R</h1>
-<p>There are <a href="https://duckduckgo.com/?t=ffab&amp;q=introduction+to+R&amp;atb=v342-1&amp;ia=web">SO MANY TUTORIALS</a>, some a great and some not so much. <a href="https://intro2r.com/">This one</a> is a pretty good baby steps approach and is quote up-to-date. You may find another that you prefer - let us know what works for you.</p>
-<p>There is so much to learning a programming language - it takes diving in to really get going. We’ll try to give you enough so that you can continue learning on your own. So, let’s dive in.</p>
-<section id="loading-the-necessary-tools" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="loading-the-necessary-tools"><span class="header-section-number">5.1</span> Loading the necessary tools</h2>
-<p>For any coding project you will need to access a select number of tools, often stored on your computer in what is called a package (it’s just a file really). When the package is loaded, all of the functionality the author built in to that package is exposed for you to use in your project. We have created a single file that will both install (if needed) and load (if not already loaded) each of these packages. It’s easy to run.</p>
-<p>First, make sure that you have loaded the project (File &gt; Open Project) if you haven’t already. Then at the console type the following…</p>
+<section id="coding-with-r" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Coding with R</h1>
+<p>There are <a href="https://duckduckgo.com/?t=ffab&amp;q=introduction+to+R&amp;atb=v342-1&amp;ia=web">SO MANY TUTORIALS</a>, some a great and some not so much. <a href="https://intro2r.com/">This one</a> is a pretty good baby-steps approach and is quite up-to-date. You may find another that you prefer - let us know what works for you.</p>
+<p>Take time to look at the tutorials in our <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki">wiki</a>. Especially the one on <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/tables">working with tabular data</a>.</p>
+<p>There is so much to learning a programming language - it takes diving in to really get going. We’ll try to give you enough so that you can continue learning on your own.</p>
+<p><a href="https://en.wikipedia.org/wiki/A_journey_of_a_thousand_miles_begins_with_a_single_step">A journey of a thousand miles begins with a single step</a>; so let’s dive in.</p>
+<section id="loading-the-necessary-tools" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="loading-the-necessary-tools"><span class="header-section-number">4.1</span> Loading the necessary tools</h2>
+<p>For any coding project you will need to access a select number of tools, often stored on your computer in what is called a package library (it’s just a directory/folder really). When the package is loaded from the library, all of the functionality the author built in to that package is exposed for you to use in your project. We have created a single file that will both install (if needed) and load (if not already loaded) each of these packages. It’s easy to run.</p>
+<p>First, make sure that you have loaded the project (File &gt; Open Project) if you haven’t already. Then at the R console pane type the following…</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"setup.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>After a few moments the command prompt will return to focus. Be sure to run that command at the beginning of every new R session or anytime you are adding new functionality.</p>
-<p>Now we are ready to load some data.</p>
+<p>Now we are ready to load some data into your R session.</p>
 </section>
-<section id="spatial-data" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="spatial-data"><span class="header-section-number">5.2</span> Spatial data</h2>
+<section id="spatial-data" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="spatial-data"><span class="header-section-number">4.2</span> Spatial data</h2>
 <p>Spatial data is any data that has been assigned to a location on a planet (or even between planets!); that means environmental data is mapped to locations on oblate spheroids (like Earth). The oblate spheroid shape presents interesting but challenging math to the data scientist. Modern spatial data is designed to make data science easier by handling all of the location information in a discrete and standardized manner. By discrete we mean that we don’t have to sweat the details.</p>
-<section id="point-data" class="level3" data-number="5.2.1">
-<h3 data-number="5.2.1" class="anchored" data-anchor-id="point-data"><span class="header-section-number">5.2.1</span> Point data</h3>
-<p>Many spatial data sets come as point data - locations (longitude, latitude and maybe altitude/depth and/or time) with one or more measurements (temperature, cloudiness, probability of precipitation, abundance of fish, population density, etc) attached to that point. Here is an example of point data about long-term oceanographic monitoring buoys in the Gulf of Maine (“gom”). We’ll read the buoy data into a variabel, <code>buoy</code>. Tnen we can print the result simply by typing the name.</p>
+<section id="point-data" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="point-data"><span class="header-section-number">4.2.1</span> Point data</h3>
+<p>Many spatial data sets come as point data - locations (longitude, latitude and maybe altitude/depth and/or time) with one or more measurements (temperature, cloudiness, probability of precipitation, abundance of fish, population density, etc) attached to that point. Here is an example of point data about long-term oceanographic monitoring buoys in the Gulf of Maine (“gom”). We’ll read the buoy data into a variable, <code>buoy</code>. Next we can print the result simply by typing the name (or you could type <code>print(buoys)</code> if you like all the extra typing.)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>buoys <span class="ot">=</span> <span class="fu">gom_buoys</span>()</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>buoys</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -287,19 +291,23 @@ Geodetic CRS:  WGS 84
 6 nec   Northeast Channel   N01     (-65.9267 42.3233)</code></pre>
 </div>
 </div>
-<p>So there are 6 buoys, each with an attached attribute “name”, “longname” and “id”, as well as the spatial location data (just longitude and latitude in this case). We can easily plot these using the “name” column as a color key.</p>
+<p>So there are 6 buoys, each with an attached attribute “name”, “longname” and “id”, as well as the spatial location datain the “geometry” column (just longitude and latitude in this case). We can easily plot these using the “name” column as a color key.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(buoys[<span class="st">'name'</span>], <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="C00_coding_files/figure-html/plot_buoys-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="C00_coding_files/figure-html/plot_buoys-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Well, that’s pretty, but without a shoreline it lacks context.</p>
 </section>
 </section>
-<section id="polyline-and-polygon-data" class="level2" data-number="5.3">
-<h2 data-number="5.3" class="anchored" data-anchor-id="polyline-and-polygon-data"><span class="header-section-number">5.3</span> Polyline and polygon data</h2>
-<p>Polylines (open shapes) and polygons (closed shapew) are much like point data, except that each polyline or polygon. We have a set of polygons/polylines that represent the coastline.</p>
+<section id="linestrings-and-polygon-data" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="linestrings-and-polygon-data"><span class="header-section-number">4.3</span> Linestrings and polygon data</h2>
+<p>Linestrings (open shapes) and polygons (closed shape) are much like point data, except that each geometry is linestring or polygon. We have a set of polygons/linestring that represent the coastline.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>coast <span class="ot">=</span> <span class="fu">read_coastline</span>()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>coast</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -328,25 +336,29 @@ Geodetic CRS:  WGS 84
 14 ((-74.9 39.14709, -74.89702 39.14546, -74.9 39.1329), (-74.9 38.95218, -74.7…</code></pre>
 </div>
 </div>
-<p>In this case, each line represents one polygon or polyline. Note that no other data is in this table.</p>
-<p>Let’s plot these, and add the points on top.</p>
+<p>In this case, each record of geometry is a “MULTILINESTRING”, which is a group of one or more limestrings. Note that no other data is in this table - it’s just the geometry.</p>
+<p>Let’s plot these geometries, and add the points on top.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>,</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Buoys in the Gulf of Maine"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(buoys, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">0.5</span>)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(buoys, <span class="at">labels =</span> buoys<span class="sc">$</span>id, <span class="at">cex =</span> <span class="fl">0.7</span>, <span class="at">adj =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="sc">-</span><span class="fl">0.1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="C00_coding_files/figure-html/plot_coast_and_points-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="C00_coding_files/figure-html/plot_coast_and_points-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
-<section id="array-data-aka-raster-data" class="level2" data-number="5.4">
-<h2 data-number="5.4" class="anchored" data-anchor-id="array-data-aka-raster-data"><span class="header-section-number">5.4</span> Array data (aka raster data)</h2>
-<p>Often spatial data comes in grids, like regular arrays of pixels. These are great for all sorts of data like satellite images, contour maps and environmental modeling data. We’ll be workign with environmental modeling data which we call “Brickman data”. You can learn more about <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman">Brickman data in the wiki</a>. We’ll be glossing over the details here, but there’s lots of detail in the wiki.</p>
-<p>We’ll read in the database and then immediately filter out the rows that define the “PRESENT” scenario (where present means 1982–2013) and monthly climatology models.</p>
+<section id="array-data-aka-raster-data" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="array-data-aka-raster-data"><span class="header-section-number">4.4</span> Array data (aka raster data)</h2>
+<p>Often spatial data comes in grids, like regular arrays of pixels. These are great for all sorts of data like satellite images, bathymetry maps and environmental modeling data. We’ll be working with environmental modeling data which we call “Brickman data”. You can learn more about <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman">Brickman data in the wiki</a>. We’ll be glossing over the details here, but there’s lots of detail in the wiki.</p>
+<p>We’ll read in the database that tracks 82 Brickman data files, and then immediately filter out the rows that define the “PRESENT” scenario (where present means 1982–2013) and monthly climatology models.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>db <span class="ot">=</span> <span class="fu">brickman_database</span>() <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="st">"PRESENT"</span>, interval <span class="sc">==</span> <span class="st">"mon"</span>) <span class="co"># note the double '=='</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="st">"PRESENT"</span>, interval <span class="sc">==</span> <span class="st">"mon"</span>) <span class="co"># note the double '==', it's comparative</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>db</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 8 × 4
@@ -362,7 +374,8 @@ Geodetic CRS:  WGS 84
 8 PRESENT  PRESENT mon      Xbtm </code></pre>
 </div>
 </div>
-<p>You might be wondering what that <code>|&gt;</code> is doing. It is called a pipe, and it delivers the output of one function as the p of the next function. For example, <code>brickman_database()</code> produces a table, that table is immediately passed into <code>filter()</code> to choose rows that match our crieteria.</p>
+<p>If you are wondering about filtering a table, be sure to <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/tables">check out the wiki on tabular data</a> to get started.</p>
+<p>You might be wondering what that <code>|&gt;</code> is doing. It is called a pipe, and it delivers the output of one function to the next function as the first parameter (aka argument). For example, <code>brickman_database()</code> produces a table, that table is immediately passed into <code>filter()</code> to choose rows that match our criteria.</p>
 <p>Now that we have the database listing just the records we want, we pass it to the <code>read_brickman()</code> function.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>current <span class="ot">=</span> <span class="fu">read_brickman</span>(db)</span>
@@ -396,14 +409,18 @@ month    1  12     NA       NA     NA    NA Jan,...,Dec    </code></pre>
 </div>
 </div>
 <p>This loads quite a complex set of arrays, but they have spatial information attached in the <code>dimensions</code> section. The <code>x</code> and <code>y</code> dimensions represent longitude and latitude respectively. The 3rd dimension, <code>month</code>, is time based.</p>
-<p>Here we plot all 12 months of sea surface temperature, <code>SST</code>. Note the they all d=share the same color scale.</p>
+<p>Here we plot all 12 months of sea surface temperature, <code>SST</code>. Note the they all share the same color scale so that they are easy to compare.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(current[<span class="st">'SST'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="C00_coding_files/figure-html/plot_brickman-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="C00_coding_files/figure-html/plot_brickman-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
-<p>Just as we are able to plot polylines/polygons along side points, we can also plot these with arrays (rasters). To do this for one month (“Apr”) of one variable (“SSS”) we simply need to slice that data out of the <code>current</code> variable.</p>
+</div>
+<p>Just as we are able to plot linestrings/polygons along side points, we can also plot these with arrays (rasters). To do this for one month (“Apr”) of one variable (“SSS”) we simply need to slice that data out of the <code>current</code> variable.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>april_sss <span class="ot">=</span> current[<span class="st">'SSS'</span>] <span class="sc">|&gt;</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="st">"month"</span>, <span class="st">"Apr"</span>)</span>
@@ -425,19 +442,50 @@ y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(buoys, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"purple"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="C00_coding_files/figure-html/april_sss_plot-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="C00_coding_files/figure-html/april_sss_plot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
-<p>We can plot <strong>ALL</strong> twelve months of a variable (“SST”) with the coast and points shown. There is one slight modification to be made since a single call to <code>plot()</code> actually gets invoked 12 times for this data. So where do we add in the buoys and coast? Fortunately, we can create what is called a “hook” function - who knows where the name hook came from? Once the hook function is defined, it will be applied to the each of the 12 subplots.</p>
+</div>
+<p>We can plot <strong>ALL</strong> twelve months of a variable (“SST”) with the coast and points shown. There is one slight modification to be made since a single call to <code>plot()</code> actually gets invoked 12 times for this data. So where do we add in the buoys and coast? Fortunately, we can create what is called a “hook” function - <em>who knows where the name hook came from?</em> Once the hook function is defined, it will be applied to the each of the 12 subplots.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>hook_function <span class="ot">=</span> <span class="cf">function</span>(){</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(buoys, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"purple"</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(current[<span class="st">'SST'</span>], <span class="at">hook =</span> hook_function)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a little function that gets called just after each sub-plot</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># it simple adds the coast and buoy</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>add_coast_and_buoys <span class="ot">=</span> <span class="cf">function</span>(){</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">points</span>(buoys, <span class="at">pch =</span> <span class="dv">16</span>, <span class="at">col =</span> <span class="st">"purple"</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># here we call the plot, and tell R where to call `add_coast_and_buoys()` after</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co"># each subplot is made</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(current[<span class="st">'SST'</span>], <span class="at">hook =</span> add_coast_and_buoys)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="C00_coding_files/figure-html/hooking-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="C00_coding_files/figure-html/hooking-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Coding Challenge
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Use the <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman">Brickman tutorial</a> to extract data from the location of Buoy M01 for RCP4.5 2055. Make a plot of <code>SST</code> (y-axis) as a function of <code>month</code> (x-axis). Here’s one possible outcome.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="&quot;images/buoy_M01_RCP45_2055.png&quot;" class="img-fluid figure-img"></p>
+<figcaption>Buoy M01, RCP4.5 2055</figcaption>
+</figure>
+</div>
 </div>
 </div>
 
@@ -525,10 +573,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -538,8 +585,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -552,6 +608,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -595,6 +770,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -620,6 +796,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -681,12 +883,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./F00_forecasting.html" class="pagination-link">
+      <a href="./F00_forecasting.html" class="pagination-link  aria-label=" forecasting"="">
         <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Forecasting</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link">
+      <a href="./about.html" class="pagination-link" aria-label="About">
         <span class="nav-page-text">About</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
@@ -697,12 +899,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     <div class="nav-footer-left">
       &nbsp;
     </div>   
-    <div class="nav-footer-center">Copyright 2025, Bigelow Laboratory for Ocean Science</div>
+    <div class="nav-footer-center">
+<p>Copyright 2025, Bigelow Laboratory for Ocean Science</p>
+</div>
     <div class="nav-footer-right">
       &nbsp;
     </div>
   </div>
 </footer>
+
 
 
 
