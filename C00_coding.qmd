@@ -146,9 +146,9 @@ plot(current['SST'], hook = add_coast_and_buoys)
 
 ::: {.callout-note appearance="simple"}
 
-## Coding Challenge
+## Coding Assignment
 
-Use the menu option `File > New File > R Script` to create a blank file. Save the file (even though it is empty) in the "challenges" directory as "challenge_script_1.R".  Use this file to build a script that meets the following challenge.  Note that the existing file, "challenge_script_0.R" is already there as an example.
+Use the menu option `File > New File > R Script` to create a blank file. Save the file (even though it is empty) in the "assignment" directory as "assignment_script_1.R".  Use this file to build a script that meets the following challenge.  Note that the existing file, "assignment_script_0.R" is already there as an example.
 
 Use the [Brickman tutorial](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman) to extract data from the location of Buoy M01 for RCP4.5 2055. Make a plot of `SST` (y-axis) as a function of `month` (x-axis).  Here's one possible outcome.
 

@@ -95,3 +95,23 @@ read_obis = function(scientificname = "Mola mola",
     dplyr::bind_rows()
   return(xx)
 }
+
+
+
+#' Browse the record for one unique id
+#' 
+#' @param id chr, a unique ID or an OBIS record (one row) If multiples are 
+#'   provided all but the first are ignored.
+#' @param root_url chr, the root url
+#' @return NULL invisibly
+#' @examples
+#' \dontrun{
+#'   obs = read_obis(scientificname = "Mola mola")
+#'   one = obis |> slice(202)
+#'   browse_obis(one)
+#' }
+browse_obis = function(id = "00040fa1-7acd-4731-bf1e-6dc16e30c7d4",
+                       base_url = "https://api.obis.org/v3/occurrence"){
+  if (inherits(id, "data.frame")) id = dplyr::pull(id, id)
+  httr::BROWSE(file.path(base_url, id[1]))
+}

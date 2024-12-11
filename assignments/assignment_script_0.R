@@ -1,6 +1,6 @@
-# This is an example of a challenge script
+# This is an example of a assignment script
 #
-# Challenge Script
+# Assignment Script
 #
 # Use the [Brickman tutorial](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman) 
 # to extract data from the location of Buoy N01 for current conditions. Extract
@@ -57,3 +57,6 @@ ggplot(data = x,
        title = "Temp difference at buoy N01")
 
 # tahdah!
+
+# bonus... save the image
+ggsave("images/N01_dT.png")

@@ -6,7 +6,7 @@
 # Here we list the packages by name, CRAN is easier than GITHUB
 packages = list(
   CRAN = c("remotes", "dplyr", "ggplot2", "readr", "tidyr", "tidymodels", "sf", 
-           "stars", "rnaturalearth", "robis"),
+           "stars", "rnaturalearth", "robis", "httr"),
   GITHUB = NULL, #list(tidysdm = c(repo = "EvolEcolGroup/tidysdm", ref = "dev"))
   RUNIV = list(tidysdm = c("https://evolecolgroup.r-universe.dev", 
                              "https://cloud.r-project.org"))
@@ -53,4 +53,4 @@ for (f in list.files("functions", pattern = glob2rx("*.R"), full.names = TRUE)) 
 # The data directory has top level subdirectories ("buoys", "coast", "brickman")
 # that contain data used by all.  It also may have one or more yearly directories
 # for "personal data directories" ala "2024", "2025"
-ROOT_DATA_PATH = "~/Dropbox/code/projects/ColbyForecasting_data/"
+ROOT_DATA_PATH = "~/Dropbox/code/projects/ColbyForecasting_data"
