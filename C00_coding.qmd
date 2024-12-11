@@ -76,7 +76,7 @@ In this case, each record of geometry is a "MULTILINESTRING", which is a group o
 
 Let's plot these geometries, and add the points on top.
 
-```{r plot_coast_and_points}
+```{r plot_coast_and_points, warning = FALSE}
 plot(coast, col = "orange", lwd = 2, axes = TRUE, reset = FALSE,
      main = "Buoys in the Gulf of Maine")
 plot(buoys, pch = 1, cex = 0.5, add = TRUE)
@@ -148,7 +148,9 @@ plot(current['SST'], hook = add_coast_and_buoys)
 
 ## Coding Challenge
 
+Use the menu option `File > New File > R Script` to create a blank file. Save the file (even though it is empty) in the "challenges" directory as "challenge_script_1.R".  Use this file to build a script that meets the following challenge.  Note that the existing file, "challenge_script_0.R" is already there as an example.
+
 Use the [Brickman tutorial](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman) to extract data from the location of Buoy M01 for RCP4.5 2055. Make a plot of `SST` (y-axis) as a function of `month` (x-axis).  Here's one possible outcome.
 
-![Buoy M01, RCP4.5 2055]("images/buoy_M01_RCP45_2055.png")
+![Buoy M01, RCP4.5 2055](images/buoy_M01_RCP45_2055.png)
 :::
