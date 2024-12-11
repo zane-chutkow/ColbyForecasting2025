@@ -28,7 +28,7 @@ website:
       - text: Coding
         href: C00_coding.qmd
       - text: Observations
-        href: C01_Observations.qmd
+        href: C01_observations.qmd
       - text: About
         href: about.qmd
     tools:
