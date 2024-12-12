@@ -8,6 +8,7 @@ project:
     - F00_forecasting.qmd
     - C00_coding.qmd
     - C01_observations.qmd
+    - C02_background.qmd
     - about.qmd
 execute: 
   cache: false
@@ -29,6 +30,8 @@ website:
         href: C00_coding.qmd
       - text: Observations
         href: C01_observations.qmd
+      - text: Background
+        href: C02_background.qmd
       - text: About
         href: about.qmd
     tools:

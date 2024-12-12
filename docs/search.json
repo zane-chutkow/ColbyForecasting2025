@@ -10,6 +10,116 @@
     ]
   },
   {
+    "objectID": "C01_observations.html",
+    "href": "C01_observations.html",
+    "title": "Observations",
+    "section": "",
+    "text": "Follow this wiki page on obtaining data from OBIS. Keep in mind that you will probably want a species with sufficient number of records in the northwest Atlantic. Just what constitutes “sufficient” is probably subject to some debate, but a couple of hundred as a minumum will be helpful for learning. One thing that might help is to be on alert species that are only congregate in one area such as right along the shoreline or only appear in a few months of the year. It isn’t that those species are not worthy of study, but they may make the learning process harder.\nYou should feel free to get the data for a couple of different species, if one becomes a headache with our given resources, then you can switch easily to another.",
+    "crumbs": [
+      "Observations"
+    ]
+  },
+  {
+    "objectID": "C01_observations.html#basisofrecord",
+    "href": "C01_observations.html#basisofrecord",
+    "title": "Observations",
+    "section": "5.1 basisOfRecord",
+    "text": "5.1 basisOfRecord\nNext we should examine the basisOfRecord variable to get an understanding of how these observations were made.\n\nobs |&gt; count(basisOfRecord)\n\nSimple feature collection with 4 features and 2 fields\nGeometry type: GEOMETRY\nDimension:     XY\nBounding box:  xmin: -74.65 ymin: 38.8 xmax: -65.00391 ymax: 45.1333\nGeodetic CRS:  WGS 84\n# A tibble: 4 × 3\n  basisOfRecord              n                                              geom\n* &lt;chr&gt;                  &lt;int&gt;                                    &lt;GEOMETRY [°]&gt;\n1 HumanObservation        9354 MULTIPOINT ((-65.07 42.68), (-65.067 42.65), (-6…\n2 NomenclaturalChecklist     1                        POINT (-65.80602 44.97985)\n3 Occurrence                 1                          POINT (-65.2852 42.6243)\n4 PreservedSpecimen        170 MULTIPOINT ((-67.05534 45.09908), (-66.35 45.133…\n\n\nIf you are using a different species you may have different values for basisOfRecord. Let’s take a closer look at the complete records for one from each group.\n\nhuman = obs |&gt;\n  filter(basisOfRecord == \"HumanObservation\") |&gt;\n  slice(1) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/00040fa1-7acd-4731-bf1e-6dc16e30c7d4\n\npreserved = obs |&gt;\n  filter(basisOfRecord == \"PreservedSpecimen\") |&gt;\n  slice(1) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/003abd48-a98a-4c2f-adc2-8f1d6f71dfa1\n\nchecklist = obs |&gt;\n  filter(basisOfRecord == \"NomenclaturalChecklist\") |&gt;\n  slice(1) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/1b967631-4d90-44d0-b57e-cf71c554ee5c\n\noccurrence = obs |&gt;\n  filter(basisOfRecord == \"Occurrence\") |&gt;\n  slice(1) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/d6e7882e-a850-435d-a546-73adaf625031\n\n\nNext let’s think about what our minimum requirements might be in oirder to build a model. To answer that we need to think about our environmental covariates in the Brickman data](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman). That data has dimensions of x (longitude), y (latitude) and month. In order to match obseravtions with that data, our observations must be complete in those three variables. Let’s take a look at a summary of the observations which will indicate the number of elements missing in each variable.\n\nsummary(obs)\n\n      id            basisOfRecord        eventDate               year     \n Length:9526        Length:9526        Min.   :1932-09-15   Min.   :1932  \n Class :character   Class :character   1st Qu.:2003-10-02   1st Qu.:2003  \n Mode  :character   Mode  :character   Median :2009-07-11   Median :2009  \n                                       Mean   :2006-10-02   Mean   :2006  \n                                       3rd Qu.:2016-11-05   3rd Qu.:2016  \n                                       Max.   :2021-10-14   Max.   :2021  \n                                       NA's   :7            NA's   :7     \n    month            eventTime         individualCount             geom     \n Length:9526        Length:9526        Min.   : 1.000   POINT        :9526  \n Class :character   Class :character   1st Qu.: 1.000   epsg:4326    :   0  \n Mode  :character   Mode  :character   Median : 1.000   +proj=long...:   0  \n                                       Mean   : 1.112                       \n                                       3rd Qu.: 1.000                       \n                                       Max.   :25.000                       \n                                       NA's   :318",
+    "crumbs": [
+      "Observations"
+    ]
+  },
+  {
+    "objectID": "C01_observations.html#eventdate",
+    "href": "C01_observations.html#eventdate",
+    "title": "Observations",
+    "section": "5.2 eventDate",
+    "text": "5.2 eventDate\nFor Mola mola there are some rows where eventDate is NA. We need to filter those. The filter function looks for a vector of TRUE/FALSE values - one for each row. In our case, we test the eventDate column to see if it is NA, but then we reverse the TRUE/FALSE logical with the preceding ! (pronounded “bang!”). This we retain only the rows where eventDate is notNA`, and then we print the summary again.\n\nobs = obs |&gt;\n  filter(!is.na(eventDate))\nsummary(obs)\n\n      id            basisOfRecord        eventDate               year     \n Length:9519        Length:9519        Min.   :1932-09-15   Min.   :1932  \n Class :character   Class :character   1st Qu.:2003-10-02   1st Qu.:2003  \n Mode  :character   Mode  :character   Median :2009-07-11   Median :2009  \n                                       Mean   :2006-10-02   Mean   :2006  \n                                       3rd Qu.:2016-11-05   3rd Qu.:2016  \n                                       Max.   :2021-10-14   Max.   :2021  \n                                                                          \n    month            eventTime         individualCount             geom     \n Length:9519        Length:9519        Min.   : 1.000   POINT        :9519  \n Class :character   Class :character   1st Qu.: 1.000   epsg:4326    :   0  \n Mode  :character   Mode  :character   Median : 1.000   +proj=long...:   0  \n                                       Mean   : 1.112                       \n                                       3rd Qu.: 1.000                       \n                                       Max.   :25.000                       \n                                       NA's   :315",
+    "crumbs": [
+      "Observations"
+    ]
+  },
+  {
+    "objectID": "C01_observations.html#individualcount",
+    "href": "C01_observations.html#individualcount",
+    "title": "Observations",
+    "section": "5.3 individualCount",
+    "text": "5.3 individualCount\nThat’s better, but we still have 315 NA values for individualCount. Let’s look at at least one record of those in detail; filter out one, and browse it.\n\nobs |&gt;\n  filter(is.na(individualCount)) |&gt;\n  slice(1) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/003abd48-a98a-4c2f-adc2-8f1d6f71dfa1\n\n\nEeek! It’s a carcas that washed up on shore! We checked a number of others, and they are all carcases. Is that a presence? Is that what we model are modeling? If not then we should filer those out.\n\nobs = obs |&gt;\n  filter(!is.na(individualCount))\nsummary(obs)\n\n      id            basisOfRecord        eventDate               year     \n Length:9204        Length:9204        Min.   :1932-09-15   Min.   :1932  \n Class :character   Class :character   1st Qu.:2003-07-26   1st Qu.:2003  \n Mode  :character   Mode  :character   Median :2009-07-11   Median :2009  \n                                       Mean   :2006-08-17   Mean   :2006  \n                                       3rd Qu.:2016-11-05   3rd Qu.:2016  \n                                       Max.   :2021-10-14   Max.   :2021  \n    month            eventTime         individualCount             geom     \n Length:9204        Length:9204        Min.   : 1.000   POINT        :9204  \n Class :character   Class :character   1st Qu.: 1.000   epsg:4326    :   0  \n Mode  :character   Mode  :character   Median : 1.000   +proj=long...:   0  \n                                       Mean   : 1.112                       \n                                       3rd Qu.: 1.000                       \n                                       Max.   :25.000                       \n\n\nWell now one has to wonder about a single observation of 25 animals. Let’s check that out.\n\nobs |&gt;\n  filter(individualCount == 25) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/c907349a-2c52-4a51-a69a-5a338c5d492a\n\n\nOK, that seems legitmate. And it is possible, Mola mola can congregate for feeding, mating and possibly for karaoke parties.",
+    "crumbs": [
+      "Observations"
+    ]
+  },
+  {
+    "objectID": "C01_observations.html#year",
+    "href": "C01_observations.html#year",
+    "title": "Observations",
+    "section": "5.4 year",
+    "text": "5.4 year\nWe know that the “current” climate scenario for the Brickman model data define “current” as the 1982-2013 window. It’s just an average, and if you have values from 1970 to the current year, you probably are safe in including them. But do your observations fall into those years? Let’s make a plot of the counts per year, with dashed lines shown the Brickman “current” cliamtology period.\n\nggplot(data = obs,\n       mapping = aes(x = year)) + \n  geom_bar() + \n  geom_vline(xintercept = c(1982, 2013), linetype = \"dashed\") + \n  labs(title = \"Counts per year\")\n\n\n\n\n\n\n\n\nFor this species, it seem like it is only the record from 1932 that might be a stretch, so let’s filter that out by rejecting records before 1970. This time, instead of asking for a sumamry, we’ll print the dimensions (rows, columns) of the table.\n\nobs = obs |&gt;\n  filter(year &gt;= 1970)\ndim(obs)\n\n[1] 9203    8\n\n\nThat’s still a lot of records. Now let’s check out the distribution across the months of the year.",
+    "crumbs": [
+      "Observations"
+    ]
+  },
+  {
+    "objectID": "C01_observations.html#month",
+    "href": "C01_observations.html#month",
+    "title": "Observations",
+    "section": "5.5 month",
+    "text": "5.5 month\nWe will be making models and predictions for each month of the for the 4 future projection climates. Species and observers do show some seasonality, but it that seasonality so extreme that it might be impossible to model some months because of sparse data? Let’s make a plot of the counts per month.\n\nggplot(data = obs,\n       mapping = aes(x = month)) + \n  geom_bar() + \n  labs(title = \"Counts per month\")\n\n\n\n\n\n\n\n\nOh, rats! By default ggplot plots in alpha-numeric order, which scrambles our month order. To fix that we have to convert the month in a factor type while specifying the order of the factors, and we’ll use the mutate() function to help us.\n\nobs = obs |&gt;\n  mutate(month = factor(month, levels = month.abb))\n\nggplot(data = obs,\n       mapping = aes(x = month)) + \n  geom_bar() + \n  labs(title = \"Counts per month\")\n\n\n\n\n\n\n\n\nThat’s better! So, it may be the for Mola mola we might not be able to successfully model in the cold winter months. That’s good to keep in mind.",
+    "crumbs": [
+      "Observations"
+    ]
+  },
+  {
+    "objectID": "C01_observations.html#geometry",
+    "href": "C01_observations.html#geometry",
+    "title": "Observations",
+    "section": "5.6 geometry",
+    "text": "5.6 geometry\nLast, but certainly not least, we should consider the possibility that some observations might be on shore. It happens! We already know that some records included fish that were washed up on shore. It’s possible someone mis-keyed the longitude or latitude when entering the vaklues into the database. It’s alos possible that some observations fall just outside the areas where the Brickman data has values. To look for these points, we’ll load the Brickman mask (defines land vs water. Well, really it defines data vs no-data), and use that for further filtering.\nWe need to load the Brickman database, and then filter it for the static variable called “mask”.\n\ndb = brickman_database() |&gt;\n  filter(scenario == \"STATIC\", var == \"mask\")\nmask = read_brickman(db)\nmask\n\nstars object with 2 dimensions and 1 attribute\nattribute(s):\n      Min. 1st Qu. Median Mean 3rd Qu. Max. NA's\nmask     1       1      1    1       1    1 4983\ndimension(s):\n  from  to offset    delta refsys point x/y\nx    1 121 -74.93  0.08226 WGS 84 FALSE [x]\ny    1  89  46.08 -0.08226 WGS 84 FALSE [y]\n\n\nLet’s see what our mask looks like with the observations drizzled on top. Because the mask only has values of 1 (data) or NA (no-data). You’ll note that we only want to plot the locations of the observations, so we strip obs of everyhting except its geometery.\n\nplot(mask, breaks = \"equal\", axes = TRUE, reset = FALSE)\nplot(st_geometry(obs), pch = \".\", add = TRUE)\n\n\n\n\n\n\n\n\nMaybe with proper with squinting we can see some that faal into no-data areas. The sure-fire way to tell is to extract the mask values at the point locations.\n\nhitOrMiss = extract_brickman(mask, obs)\nhitOrMiss\n\n# A tibble: 9,203 × 3\n   point name  value\n   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n 1 p0001 mask      1\n 2 p0002 mask      1\n 3 p0003 mask      1\n 4 p0004 mask      1\n 5 p0005 mask      1\n 6 p0006 mask      1\n 7 p0007 mask      1\n 8 p0008 mask      1\n 9 p0009 mask      1\n10 p0010 mask      1\n# ℹ 9,193 more rows\n\n\nOK, let’s tally the “value” variable.\n\ncount(hitOrMiss, value)\n\n# A tibble: 2 × 2\n  value     n\n  &lt;dbl&gt; &lt;int&gt;\n1     1  9170\n2    NA    33\n\n\nOoooo, 33 records in obs don’t line up with values in the mask (or in any Brickman data). We should filter those out; we’ll do so with a filter(). Note that we a “reaching” into the hitOrMiss table to access the value column when we use this hitOrMiss$value. Let’s figure out how many records we have dropped with all of this filtering.\n\nobs = obs |&gt;\n  filter(!is.na(hitOrMiss$value))\ndim_end = dim(obs)\n\ndropped_records = dim_start[1] - dim_end[1]\ndropped_records\n\n[1] 356\n\n\nSo, we dropped 356 records which is about 3.7% of the raw OBIS data. Is it worth all that to drop just 4% of the data? Yes! Models are like all things computer… if you put garbage in you should expect to get garbage back out.",
+    "crumbs": [
+      "Observations"
+    ]
+  },
+  {
+    "objectID": "F00_forecasting.html",
+    "href": "F00_forecasting.html",
+    "title": "Forecasting",
+    "section": "",
+    "text": "Add pages names FXX_description.qmd to make your life easier. (Coding sections will be CXX_description.qmd).\nEdit _quarto.yaml in two sections: website &gt; sidebar and project &gt; render as you add pages.\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "crumbs": [
+      "Forecasting"
+    ]
+  },
+  {
+    "objectID": "F00_forecasting.html#nick-stuff-goes-here.",
+    "href": "F00_forecasting.html#nick-stuff-goes-here.",
+    "title": "Forecasting",
+    "section": "",
+    "text": "Add pages names FXX_description.qmd to make your life easier. (Coding sections will be CXX_description.qmd).\nEdit _quarto.yaml in two sections: website &gt; sidebar and project &gt; render as you add pages.\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "crumbs": [
+      "Forecasting"
+    ]
+  },
+  {
+    "objectID": "F00_forecasting.html#running-code",
+    "href": "F00_forecasting.html#running-code",
+    "title": "Forecasting",
+    "section": "2 Running Code",
+    "text": "2 Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).",
+    "crumbs": [
+      "Forecasting"
+    ]
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Colby Forecasting",
+    "section": "",
+    "text": "Welcome to the Colby Forecasting 2025 workbook!\nThis document is comprised of sections: forecasting and coding with R programming language.\n\n1 Contacts:\nDr. Nick Record and Ben Tupper\n\n\n2 Questions and issues\nWe have a saying at Bigelow Lab, “there’s no such thing as a dumb question, but the quality of the answers you get may vary widely.” This is so true!\nIf you have a class, coding or forecasting question, start a new “issue” on the github issues tab. If a question has been posed by another, and you think you can help with the answer, then please feel free to respond. If you have a personal question or issue, then contact the instructors directly.\n\n\n3 The wiki\nSome ancillary content for the course has been placed in what is called a wiki. In theory anyone can contribute to a wiki, but in practice only a few do. We are open to suggestions for improvements and additions.\n\n\n\n\n Back to top",
+    "crumbs": [
+      "Home"
+    ]
+  },
+  {
     "objectID": "C00_coding.html",
     "href": "C00_coding.html",
     "title": "Coding",
@@ -60,113 +170,33 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Colby Forecasting",
+    "objectID": "C02_background.html",
+    "href": "C02_background.html",
+    "title": "Background",
     "section": "",
-    "text": "Welcome to the Colby Forecasting 2025 workbook!\nThis document is comprised of sections: forecasting and coding with R programming language.\n\n1 Contacts:\nDr. Nick Record and Ben Tupper\n\n\n2 Questions and issues\nWe have a saying at Bigelow Lab, “there’s no such thing as a dumb question, but the quality of the answers you get may vary widely.” This is so true!\nIf you have a class, coding or forecasting question, start a new “issue” on the github issues tab. If a question has been posed by another, and you think you can help with the answer, then please feel free to respond. If you have a personal question or issue, then contact the instructors directly.\n\n\n3 The wiki\nSome ancillary content for the course has been placed in what is called a wiki. In theory anyone can contribute to a wiki, but in practice only a few do. We are open to suggestions for improvements and additions.\n\n\n\n\n Back to top",
+    "text": "Traditional ecological surveys are systematic, for a given species survey data sets tell us where the species is found and where it is absent. Using an observational data (like OBIS) set we only know where the species is found, which leaves us guessing about where they might not be found. This difference is what distinguishes a presence-abscence data set from a presence-only data set, and this difference guides the modeling process.\nWhen we model, we are trying to define the environs where we should expect to find a species as well as the environs we would not expect to find a species. We have in hand the locations of observations, and we can extract the environmental data at those locations. But to characterize the less suitable environments we are going to have to sample what is called “background”. We want these background samples to roughly match the regional preferences of the observations; that is we want to avoid having observations that are mostly over Georges Bank while our background samples are primarily around the Bay of Fundy.",
     "crumbs": [
-      "Home"
+      "Background"
     ]
   },
   {
-    "objectID": "F00_forecasting.html",
-    "href": "F00_forecasting.html",
-    "title": "Forecasting",
-    "section": "",
-    "text": "Add pages names FXX_description.qmd to make your life easier. (Coding sections will be CXX_description.qmd).\nEdit _quarto.yaml in two sections: website &gt; sidebar and project &gt; render as you add pages.\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "objectID": "C02_background.html#observation-density-map",
+    "href": "C02_background.html#observation-density-map",
+    "title": "Background",
+    "section": "2.1 Observation density map",
+    "text": "2.1 Observation density map\nThe first thing we need is a map that matches our environmental data arrays in cell size and extent, but we want the values to be the counts of observations in each cell. This process is called “rasterizing” - turning points into rasters (arrays).\n\ndensity = rasterize_point_density(obs, mask, mask = mask)\ndensity\n\nstars object with 2 dimensions and 1 attribute\nattribute(s):\n       Min. 1st Qu. Median     Mean 3rd Qu. Max. NA's\ncount     1       1      2 3.408677       4   64 8115\ndimension(s):\n  from  to offset    delta refsys point x/y\nx    1 122 -74.93  0.08226 WGS 84 FALSE [x]\ny    1  89  46.08 -0.08226 WGS 84 FALSE [y]\n\n\n\nnbreaks = 11\nplot(density['count'], \n     breaks = \"equal\",\n     nbreaks = nbreaks,\n     col = rev(grey(1:(nbreaks - 1)/nbreaks)),\n     axes = TRUE, \n     reset = FALSE)\nplot(coast, add = TRUE, col = \"orange\")",
     "crumbs": [
-      "Forecasting"
+      "Background"
     ]
   },
   {
-    "objectID": "F00_forecasting.html#nick-stuff-goes-here.",
-    "href": "F00_forecasting.html#nick-stuff-goes-here.",
-    "title": "Forecasting",
-    "section": "",
-    "text": "Add pages names FXX_description.qmd to make your life easier. (Coding sections will be CXX_description.qmd).\nEdit _quarto.yaml in two sections: website &gt; sidebar and project &gt; render as you add pages.\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org.",
+    "objectID": "C02_background.html#sample-background",
+    "href": "C02_background.html#sample-background",
+    "title": "Background",
+    "section": "2.2 Sample background",
+    "text": "2.2 Sample background\nNext we sample the background as guided by the density map.\n\nnaive_input = sample_background(obs, density, \n                              n = 2 * nrow(obs),\n                              method = \"bias\",\n                              class_label = \"background\",\n                              return_pres = TRUE)\n\nWarning in sample_background(obs, density, n = 2 * nrow(obs), method = \"bias\", : There are fewer available cells for raster 'NA' (9518 presences) than the requested 19036 background points. Only 2743 will be returned.\n\nnaive_input\n\nSimple feature collection with 12261 features and 1 field\nGeometry type: POINT\nDimension:     XY\nBounding box:  xmin: -74.65 ymin: 38.8 xmax: -65.00391 ymax: 45.1333\nGeodetic CRS:  WGS 84\n# A tibble: 12,261 × 2\n   class                geometry\n * &lt;fct&gt;             &lt;POINT [°]&gt;\n 1 presence    (-72.8074 39.056)\n 2 presence (-66.46659 42.28054)\n 3 presence     (-72.283 39.733)\n 4 presence      (-70.75 41.467)\n 5 presence  (-68.82699 40.3212)\n 6 presence (-70.02453 41.93132)\n 7 presence (-67.80027 42.43374)\n 8 presence (-67.54333 42.54742)\n 9 presence   (-68.80433 42.501)\n10 presence (-69.99383 43.18084)\n# ℹ 12,251 more rows\n\n\nYou may encounter a warning message that says, “There are fewer available cells for raster…”. This is useful information, there simply weren’t a lot of non-NA cells to sample from. Let’s plot this.\n\nplot(naive_input['class'], axes = TRUE,  pch = \".\", extent = density, reset = FALSE)\nplot(coast, col = \"orange\", add = TRUE)\n\n\n\n\n\n\n\n\nHmmm, let’s tally the class labels.\n\ncount(naive_input, class)\n\nSimple feature collection with 2 features and 2 fields\nGeometry type: MULTIPOINT\nDimension:     XY\nBounding box:  xmin: -74.65 ymin: 38.8 xmax: -65.00391 ymax: 45.1333\nGeodetic CRS:  WGS 84\n# A tibble: 2 × 3\n  class          n                                                      geometry\n* &lt;fct&gt;      &lt;int&gt;                                              &lt;MULTIPOINT [°]&gt;\n1 presence    9518 ((-65.07 42.68), (-65.067 42.65), (-65.05 42.583), (-65.05 4…\n2 background  2743 ((-65.1023 42.66383), (-65.02004 42.58157), (-65.1023 42.581…\n\n\nWell, that’s imbalanced with three times (3x) more presences than background points. But, on the bright side, the background points are definitely in the region of observations.",
     "crumbs": [
-      "Forecasting"
-    ]
-  },
-  {
-    "objectID": "F00_forecasting.html#running-code",
-    "href": "F00_forecasting.html#running-code",
-    "title": "Forecasting",
-    "section": "2 Running Code",
-    "text": "2 Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).",
-    "crumbs": [
-      "Forecasting"
-    ]
-  },
-  {
-    "objectID": "C01_observations.html",
-    "href": "C01_observations.html",
-    "title": "Observations",
-    "section": "",
-    "text": "Follow this wiki page on obtaining data from OBIS. Keep in mind that you will probably want a species with sufficient number of records in the northwest Atlantic. Just what constitutes “sufficient” is probably subject to some debate, but a couple of hundred as a minumum will be helpful for learning. One thing that might help is to be on alert species that are only congregate in one area such as right along the shoreline or only appear in a few months of the year. It isn’t that those species are not worthy of study, but they may make the learning process harder.\nYou should feel free to get the data for a couple of different species, if one becomes a headache with our given resources, then you can switch easily to another.",
-    "crumbs": [
-      "Observations"
-    ]
-  },
-  {
-    "objectID": "C01_observations.html#basisofrecord",
-    "href": "C01_observations.html#basisofrecord",
-    "title": "Observations",
-    "section": "3.1 basisOfRecord",
-    "text": "3.1 basisOfRecord\nNext we should examine the basisOfRecord variable to get an understanding of how these observations were made.\n\nobs |&gt; count(basisOfRecord)\n\nSimple feature collection with 4 features and 2 fields\nGeometry type: GEOMETRY\nDimension:     XY\nBounding box:  xmin: -74.65 ymin: 38.8 xmax: -65.00391 ymax: 45.1333\nGeodetic CRS:  WGS 84\n# A tibble: 4 × 3\n  basisOfRecord              n                                              geom\n* &lt;chr&gt;                  &lt;int&gt;                                    &lt;GEOMETRY [°]&gt;\n1 HumanObservation        9354 MULTIPOINT ((-65.07 42.68), (-65.067 42.65), (-6…\n2 NomenclaturalChecklist     1                        POINT (-65.80602 44.97985)\n3 Occurrence                 1                          POINT (-65.2852 42.6243)\n4 PreservedSpecimen        170 MULTIPOINT ((-67.05534 45.09908), (-66.35 45.133…\n\n\nIf you are using a different species you may have different values for basisOfRecord. Let’s take a closer look at the complete records for one from each group.\n\nhuman = obs |&gt;\n  filter(basisOfRecord == \"HumanObservation\") |&gt;\n  slice(1) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/00040fa1-7acd-4731-bf1e-6dc16e30c7d4\n\npreserved = obs |&gt;\n  filter(basisOfRecord == \"PreservedSpecimen\") |&gt;\n  slice(1) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/003abd48-a98a-4c2f-adc2-8f1d6f71dfa1\n\nchecklist = obs |&gt;\n  filter(basisOfRecord == \"NomenclaturalChecklist\") |&gt;\n  slice(1) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/1b967631-4d90-44d0-b57e-cf71c554ee5c\n\noccurrence = obs |&gt;\n  filter(basisOfRecord == \"Occurrence\") |&gt;\n  slice(1) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/d6e7882e-a850-435d-a546-73adaf625031\n\n\nNext let’s think about what our minimum requirements might be in oirder to build a model. To answer that we need to think about our environmental covariates in the Brickman data](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman). That data has dimensions of x (longitude), y (latitude) and month. In order to match obseravtions with that data, our observations must be complete in those three variables. Let’s take a look at a summary of the observations which will indicate the number of elements missing in each variable.\n\nsummary(obs)\n\n      id            basisOfRecord        eventDate               year     \n Length:9526        Length:9526        Min.   :1932-09-15   Min.   :1932  \n Class :character   Class :character   1st Qu.:2003-10-02   1st Qu.:2003  \n Mode  :character   Mode  :character   Median :2009-07-11   Median :2009  \n                                       Mean   :2006-10-02   Mean   :2006  \n                                       3rd Qu.:2016-11-05   3rd Qu.:2016  \n                                       Max.   :2021-10-14   Max.   :2021  \n                                       NA's   :7            NA's   :7     \n    month            eventTime         individualCount             geom     \n Length:9526        Length:9526        Min.   : 1.000   POINT        :9526  \n Class :character   Class :character   1st Qu.: 1.000   epsg:4326    :   0  \n Mode  :character   Mode  :character   Median : 1.000   +proj=long...:   0  \n                                       Mean   : 1.112                       \n                                       3rd Qu.: 1.000                       \n                                       Max.   :25.000                       \n                                       NA's   :318",
-    "crumbs": [
-      "Observations"
-    ]
-  },
-  {
-    "objectID": "C01_observations.html#eventdate",
-    "href": "C01_observations.html#eventdate",
-    "title": "Observations",
-    "section": "3.2 eventDate",
-    "text": "3.2 eventDate\nFor Mola mola there are some rows where eventDate is NA. We need to filter those. The filter function looks for a vector of TRUE/FALSE values - one for each row. In our case, we test the eventDate column to see if it is NA, but then we reverse the TRUE/FALSE logical with the preceding ! (pronounded “bang!”). This we retain only the rows where eventDate is notNA`, and then we print the summary again.\n\nobs = obs |&gt;\n  filter(!is.na(eventDate))\nsummary(obs)\n\n      id            basisOfRecord        eventDate               year     \n Length:9519        Length:9519        Min.   :1932-09-15   Min.   :1932  \n Class :character   Class :character   1st Qu.:2003-10-02   1st Qu.:2003  \n Mode  :character   Mode  :character   Median :2009-07-11   Median :2009  \n                                       Mean   :2006-10-02   Mean   :2006  \n                                       3rd Qu.:2016-11-05   3rd Qu.:2016  \n                                       Max.   :2021-10-14   Max.   :2021  \n                                                                          \n    month            eventTime         individualCount             geom     \n Length:9519        Length:9519        Min.   : 1.000   POINT        :9519  \n Class :character   Class :character   1st Qu.: 1.000   epsg:4326    :   0  \n Mode  :character   Mode  :character   Median : 1.000   +proj=long...:   0  \n                                       Mean   : 1.112                       \n                                       3rd Qu.: 1.000                       \n                                       Max.   :25.000                       \n                                       NA's   :315",
-    "crumbs": [
-      "Observations"
-    ]
-  },
-  {
-    "objectID": "C01_observations.html#individualcount",
-    "href": "C01_observations.html#individualcount",
-    "title": "Observations",
-    "section": "3.3 individualCount",
-    "text": "3.3 individualCount\nThat’s better, but we still have 315 NA values for individualCount. Let’s look at at least one record of those in detail; filter out one, and browse it.\n\nobs |&gt;\n  filter(is.na(individualCount)) |&gt;\n  slice(1) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/003abd48-a98a-4c2f-adc2-8f1d6f71dfa1\n\n\nEeek! It’s a carcas that washed up on shore! We checked a number of others, and they are all carcases. Is that a presence? Is that what we model are modeling? If not then we should filer those out.\n\nobs = obs |&gt;\n  filter(!is.na(individualCount))\nsummary(obs)\n\n      id            basisOfRecord        eventDate               year     \n Length:9204        Length:9204        Min.   :1932-09-15   Min.   :1932  \n Class :character   Class :character   1st Qu.:2003-07-26   1st Qu.:2003  \n Mode  :character   Mode  :character   Median :2009-07-11   Median :2009  \n                                       Mean   :2006-08-17   Mean   :2006  \n                                       3rd Qu.:2016-11-05   3rd Qu.:2016  \n                                       Max.   :2021-10-14   Max.   :2021  \n    month            eventTime         individualCount             geom     \n Length:9204        Length:9204        Min.   : 1.000   POINT        :9204  \n Class :character   Class :character   1st Qu.: 1.000   epsg:4326    :   0  \n Mode  :character   Mode  :character   Median : 1.000   +proj=long...:   0  \n                                       Mean   : 1.112                       \n                                       3rd Qu.: 1.000                       \n                                       Max.   :25.000                       \n\n\nWell now one has to wonder about a single observation of 25 animals. Let’s check that out.\n\nobs |&gt;\n  filter(individualCount == 25) |&gt;\n  browse_obis()\n\nPlease point your browser to the following url: \n\n\nhttps://api.obis.org/v3/occurrence/c907349a-2c52-4a51-a69a-5a338c5d492a\n\n\nOK, that seems legitmate. And it is possible, Mola mola can congregate for feeding, mating and possibly for karaoke parties.",
-    "crumbs": [
-      "Observations"
-    ]
-  },
-  {
-    "objectID": "C01_observations.html#year",
-    "href": "C01_observations.html#year",
-    "title": "Observations",
-    "section": "3.4 Year",
-    "text": "3.4 Year\nWe know that the “current” climate scenario for the Brickman model data define “current” as the 1982-2013 window. It’s just an average, and if you have values from 1970 to the current year, you probably are safe in including them. But do your observations fall into those years? Let’s make a plot of the counts per year, with dashed lines shown the Brickman “current” cliamtology period.\n\nggplot(data = obs,\n       mapping = aes(x = year)) + \n  geom_bar() + \n  geom_vline(xintercept = c(1982, 2013), linetype = \"dashed\") + \n  labs(title = \"Counts per year\")\n\n\n\n\n\n\n\n\nFor this species, it seem like it is only the record from 1932 that might be a stretch, so let’s filter that out by rejecting records before 1970. This time, instead of asking for a sumamry, we’ll print the dimensions (rows, columns) of the table.\n\nobs = obs |&gt;\n  filter(year &gt;= 1970)\ndim(obs)\n\n[1] 9203    8\n\n\nThat’s still a lot of records. Now let’s check out the distribution across the months of the year.",
-    "crumbs": [
-      "Observations"
-    ]
-  },
-  {
-    "objectID": "C01_observations.html#month",
-    "href": "C01_observations.html#month",
-    "title": "Observations",
-    "section": "3.5 month",
-    "text": "3.5 month\nWe will be making models and predictions for each month of the for the 4 future projection climates. Species and observers do show some seasonality, but it that seasonality so extreme that it might be impossible to model some months because of sparse data? Let’s make a plot of the counts per month.\n\nggplot(data = obs,\n       mapping = aes(x = month)) + \n  geom_bar() + \n  labs(title = \"Counts per month\")\n\n\n\n\n\n\n\n\nOh, rats! By default ggplot plots in alpha-numeric order, which scrambles our month order. To fix that we have to convert the month in a factor type while specifying the order of the factors, and we’ll use the mutate() function to help us.\n\nobs = obs |&gt;\n  mutate(month = factor(month, levels = month.abb))\n\nggplot(data = obs,\n       mapping = aes(x = month)) + \n  geom_bar() + \n  labs(title = \"Counts per month\")\n\n\n\n\n\n\n\n\nThat’s better! So, it may be the for Mola mola we might not be able to successfully model in the cold winter months. That’s good to keep in mind.",
-    "crumbs": [
-      "Observations"
-    ]
-  },
-  {
-    "objectID": "C01_observations.html#geometry",
-    "href": "C01_observations.html#geometry",
-    "title": "Observations",
-    "section": "3.6 geometry",
-    "text": "3.6 geometry\nLast, but certainly not least, we should consider the possibility that some observations might be on shore. It happens! We already know that some records included fish that were washed up on shore. It’s possible someone mis-keyed the longitude or latitude when entering the vaklues into the database. It’s alos possible that some observations fall just outside the areas where the Brickman data has values. To look for these points, we’ll load the Brickman mask (defines land vs water. Well, really it defines data vs no-data), and use that for further filtering.\nWe need to load the Brickman database, and then filter it for the static variable called “mask”.\n\ndb = brickman_database() |&gt;\n  filter(scenario == \"STATIC\", var == \"mask\")\nmask = read_brickman(db)\nmask\n\nstars object with 2 dimensions and 1 attribute\nattribute(s):\n      Min. 1st Qu. Median Mean 3rd Qu. Max. NA's\nmask     1       1      1    1       1    1 4983\ndimension(s):\n  from  to offset    delta refsys point x/y\nx    1 121 -74.93  0.08226 WGS 84 FALSE [x]\ny    1  89  46.08 -0.08226 WGS 84 FALSE [y]\n\n\nLet’s see what our mask looks like with the observations drizzled on top. Because the mask only has values of 1 (data) or NA (no-data). You’ll note that we only want to plot the locations of the observations, so we strip obs of everyhting except its geometery.\n\nplot(mask, breaks = \"equal\", axes = TRUE, reset = FALSE)\nplot(st_geometry(obs), pch = \".\", add = TRUE)\n\n\n\n\n\n\n\n\nMaybe with proper with squinting we can see some that faal into no-data areas. The sure-fire way to tell is to extract the mask values at the point locations.\n\nhitOrMiss = extract_brickman(mask, obs)\nhitOrMiss\n\n# A tibble: 9,203 × 3\n   point name  value\n   &lt;chr&gt; &lt;chr&gt; &lt;dbl&gt;\n 1 p0001 mask      1\n 2 p0002 mask      1\n 3 p0003 mask      1\n 4 p0004 mask      1\n 5 p0005 mask      1\n 6 p0006 mask      1\n 7 p0007 mask      1\n 8 p0008 mask      1\n 9 p0009 mask      1\n10 p0010 mask      1\n# ℹ 9,193 more rows\n\n\nOK, let’s tally the “value” variable.\n\ncount(hitOrMiss, value)\n\n# A tibble: 2 × 2\n  value     n\n  &lt;dbl&gt; &lt;int&gt;\n1     1  9170\n2    NA    33\n\n\nOoooo, 33 records in obs don’t line up with values in the mask (or in any Brickman data). We should filter those out; we’ll do so with a filter(). Note that we a “reaching” into the hitOrMiss table to access the value column when we use this hitOrMiss$value. Let’s figure out how many records we have dropped with all of this filtering.\n\nobs = obs |&gt;\n  filter(!is.na(hitOrMiss$value))\ndim_end = dim(obs)\n\ndropped_records = dim_start[1] - dim_end[1]\ndropped_records\n\n[1] 356\n\n\nSo, we dropped 356 records which is about 3.7% of the raw OBIS data. Is it worth all that to drop just 4% of the data. Yes. Models are like all things computer… if you put garbage in you should expcet garbage out.",
-    "crumbs": [
-      "Observations"
+      "Background"
     ]
   }
 ]

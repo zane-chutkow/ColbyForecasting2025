@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Colby Forecasting 2025 - About</title>
+<title>Colby Forecasting 2025 - Background</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,7 +64,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./C02_background.html" rel="prev">
+<link href="./about.html" rel="next">
+<link href="./C01_observations.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +116,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./about.html">About</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./C02_background.html">Background</a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -154,13 +189,13 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./C02_background.html" class="sidebar-item-text sidebar-link">
+  <a href="./C02_background.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Background</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link active">
+  <a href="./about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About</span></a>
   </div>
 </li>
@@ -170,14 +205,25 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">1</span> Setup</a></li>
+  <li><a href="#the-naive-approach---lots-and-lots-of-data" id="toc-the-naive-approach---lots-and-lots-of-data" class="nav-link" data-scroll-target="#the-naive-approach---lots-and-lots-of-data"><span class="header-section-number">2</span> The naive approach - lots and lots of data</a>
+  <ul class="collapse">
+  <li><a href="#observation-density-map" id="toc-observation-density-map" class="nav-link" data-scroll-target="#observation-density-map"><span class="header-section-number">2.1</span> Observation density map</a></li>
+  <li><a href="#sample-background" id="toc-sample-background" class="nav-link" data-scroll-target="#sample-background"><span class="header-section-number">2.2</span> Sample background</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Background</h1>
 </div>
 
 
@@ -194,12 +240,129 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Brought to you by the <a href="https://www.bigelow.org/services/ocean-forecasting/">Tandy Center for Ocean Forecasting</a> at <a href="https://www.bigelow.org">Bigelow Laboratory for Ocean Science</a> and <a href="https://www.colby.edu/">Colby College</a>.</p>
-<p>Contacts:</p>
-<p><a href="mailto:nrecord@bigelow.org">Dr.&nbsp;Nick Record</a> <a href="mailto:btupper@bigelow.org">Ben Tupper</a></p>
-<p>Raising questions or issues: If you have a question, start a new “issue” on <a href="https://github.com/BigelowLab/ColbyForecasting2025/issues">the github issues tab</a>. If a question has been posed by another, and you think you can help with the answer then please feel free to respond.</p>
+<p>Traditional ecological surveys are systematic, for a given species survey data sets tell us where the species is found and where it is absent. Using an observational data (like <a href="https://obis.org">OBIS</a>) set we only know where the species is found, which leaves us guessing about where they might not be found. This difference is what distinguishes a <em>presence-abscence</em> data set from a <em>presence-only</em> data set, and this difference guides the modeling process.</p>
+<p>When we model, we are trying to define the environs where we should expect to find a species as well as the environs we would not expect to find a species. We have in hand the locations of observations, and we can extract the environmental data at those locations. But to characterize the less suitable environments we are going to have to sample what is called “background”. We want these background samples to roughly match the regional preferences of the observations; that is we want to avoid having observations that are mostly over Georges Bank while our background samples are primarily around the Bay of Fundy.</p>
+<section id="setup" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
+<p>As always, we start by running our setup function. Start RStudio/R, and relaod your project with the menu <code>File &gt; Recent Projects</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"setup.R"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We also will need the Brickman mask and the observation data.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>coast <span class="ot">=</span> <span class="fu">read_coastline</span>()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">=</span> <span class="fu">read_observations</span>(<span class="at">scientificname =</span> <span class="st">"Mola mola"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>db <span class="ot">=</span> <span class="fu">brickman_database</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="st">"STATIC"</span>, var <span class="sc">==</span> <span class="st">"mask"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>mask <span class="ot">=</span> <span class="fu">read_brickman</span>(db)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We have two approaches to what happens next. The first is the naive approach that say, gather together lots of observations and background points. Lot and lots! The second approach is much more conseravtive as it considers the value (or not!) of having replicate measurements at locations that share the same array cell.</p>
+</section>
+<section id="the-naive-approach---lots-and-lots-of-data" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> The naive approach - lots and lots of data</h1>
+<section id="observation-density-map" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="observation-density-map"><span class="header-section-number">2.1</span> Observation density map</h2>
+<p>The first thing we need is a map that matches our environmental data arrays in cell size and extent, but we want the values to be the counts of observations in each cell. This process is called “rasterizing” - turning points into rasters (arrays).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>density <span class="ot">=</span> <span class="fu">rasterize_point_density</span>(obs, mask, <span class="at">mask =</span> mask)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>density</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 2 dimensions and 1 attribute
+attribute(s):
+       Min. 1st Qu. Median     Mean 3rd Qu. Max. NA's
+count     1       1      2 3.408677       4   64 8115
+dimension(s):
+  from  to offset    delta refsys point x/y
+x    1 122 -74.93  0.08226 WGS 84 FALSE [x]
+y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>nbreaks <span class="ot">=</span> <span class="dv">11</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(density[<span class="st">'count'</span>], </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">breaks =</span> <span class="st">"equal"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">nbreaks =</span> nbreaks,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">col =</span> <span class="fu">rev</span>(<span class="fu">grey</span>(<span class="dv">1</span><span class="sc">:</span>(nbreaks <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>nbreaks)),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">"orange"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C02_background_files/figure-html/plot_obs_density_map-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sample-background" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sample-background"><span class="header-section-number">2.2</span> Sample background</h2>
+<p>Next we sample the background as guided by the density map.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>naive_input <span class="ot">=</span> <span class="fu">sample_background</span>(obs, density, </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">n =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">nrow</span>(obs),</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">method =</span> <span class="st">"bias"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">class_label =</span> <span class="st">"background"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">return_pres =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(obs, density, n = 2 * nrow(obs), method = "bias", : There are fewer available cells for raster 'NA' (9518 presences) than the requested 19036 background points. Only 2743 will be returned.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>naive_input</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 12261 features and 1 field
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -74.65 ymin: 38.8 xmax: -65.00391 ymax: 45.1333
+Geodetic CRS:  WGS 84
+# A tibble: 12,261 × 2
+   class                geometry
+ * &lt;fct&gt;             &lt;POINT [°]&gt;
+ 1 presence    (-72.8074 39.056)
+ 2 presence (-66.46659 42.28054)
+ 3 presence     (-72.283 39.733)
+ 4 presence      (-70.75 41.467)
+ 5 presence  (-68.82699 40.3212)
+ 6 presence (-70.02453 41.93132)
+ 7 presence (-67.80027 42.43374)
+ 8 presence (-67.54333 42.54742)
+ 9 presence   (-68.80433 42.501)
+10 presence (-69.99383 43.18084)
+# ℹ 12,251 more rows</code></pre>
+</div>
+</div>
+<p>You may encounter a warning message that says, “There are fewer available cells for raster…”. This is useful information, there simply weren’t a lot of non-NA cells to sample from. Let’s plot this.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(naive_input[<span class="st">'class'</span>], <span class="at">axes =</span> <span class="cn">TRUE</span>,  <span class="at">pch =</span> <span class="st">"."</span>, <span class="at">extent =</span> density, <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C02_background_files/figure-html/plot_naive_input-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hmmm, let’s tally the class labels.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(naive_input, class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Simple feature collection with 2 features and 2 fields
+Geometry type: MULTIPOINT
+Dimension:     XY
+Bounding box:  xmin: -74.65 ymin: 38.8 xmax: -65.00391 ymax: 45.1333
+Geodetic CRS:  WGS 84
+# A tibble: 2 × 3
+  class          n                                                      geometry
+* &lt;fct&gt;      &lt;int&gt;                                              &lt;MULTIPOINT [°]&gt;
+1 presence    9518 ((-65.07 42.68), (-65.067 42.65), (-65.05 42.583), (-65.05 4…
+2 background  2743 ((-65.1023 42.66383), (-65.02004 42.58157), (-65.1023 42.581…</code></pre>
+</div>
+</div>
+<p>Well, that’s imbalanced with three times (3x) more presences than background points. But, on the bright side, the background points are definitely in the region of observations.</p>
 
 
+</section>
+</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -591,11 +754,14 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./C02_background.html" class="pagination-link  aria-label=" background"="">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Background</span>
+      <a href="./C01_observations.html" class="pagination-link  aria-label=" observations"="">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Observations</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="./about.html" class="pagination-link" aria-label="About">
+        <span class="nav-page-text">About</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

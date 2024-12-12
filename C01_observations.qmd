@@ -18,12 +18,17 @@ We need a dataset that covers the same area and time period that the [Brickman d
 
 It is **SO IMPORTANT** to have a really good handle on your data. To get that handle you have to explore it.  There is a branch of data science devoted to data exploration called [Exploratory Data Analysis](https://r4ds.had.co.nz/exploratory-data-analysis.html).  We'll explore your data here, but we assume that you have reviewed and tried your hand with the examples in the wiki for [tabular data](https://github.com/BigelowLab/ColbyForecasting2025/wiki/tables), [observations](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Obis), the [coastlines](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Coastlines) and the [Brickman data](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman).  Even if you have walked through these tutorials you may find yourself stumped and stymied.  That's all part of the learning process - just keep moving, inquiring and trying.
 
-As always we start by running our setup script.  We'll also assign a new variable with our species name - we do that so it's easy to substitute in another species if needed.  We make it ALL CAPS so that it reminds us that it is more like a constant than a variable.
+
+# Setup
+
+As always, we start by running our setup function. Start RStudio/R, and relaod your project with the menu `File > Recent Projects`. Then source `setup.R`.  We'll also assign a new variable with our species name - we do that so it's easy to substitute in another species if needed.  We make it ALL CAPS so that it reminds us that it is more like a constant than a variable.
 
 ```{r source_setup, warning = FALSE}
 source("setup.R")
 SPECIES = "Mola mola"
 ```
+
+# Observations
 
 Next is to read in the observations you have already downloaded for that species.
 
@@ -77,7 +82,7 @@ Next let's think about what our minimum requirements might be in oirder to build
 summary(obs)
 ```
 
-## eventDate
+## `eventDate`
 
 For *Mola mola* there are some rows where `eventDate` is `NA`.  We need to filter those. The filter function looks for a vector of TRUE/FALSE values - one for each row.  In our case, we test the `eventDate` column to see if it is `NA`, but then we reverse the TRUE/FALSE logical with the preceding `!` (pronounded "bang!"). This we retain only the rows where `eventDate is not `NA`, and then we print the summary again.
 
@@ -116,7 +121,7 @@ obs |>
 
 OK, that seems legitmate. And it is possible, *Mola mola* can congregate for feeding, mating and possibly for karaoke parties.
 
-## Year
+## `year`
 
 We know that the "current" climate scenario for the Brickman model data define "current" as the 1982-2013 window.  It's just an average, and if you have values from 1970 to the current year, you probably are safe in including them.  But do your observations fall into those years?  Let's make a plot of the counts per year, with dashed lines shown the Brickman "current" cliamtology period.
 
@@ -204,7 +209,7 @@ dropped_records = dim_start[1] - dim_end[1]
 dropped_records
 ```
 
-So, we dropped `{r} dropped_records` records which is about `{r} sprintf("%0.1f%%", dropped_records/dim_start[1] * 100)` of the raw OBIS data.  Is it worth all that to drop just 4% of the data.  Yes. Models are like all things computer... if you put garbage in you should expcet garbage out.
+So, we dropped `{r} dropped_records` records which is about `{r} sprintf("%0.1f%%", dropped_records/dim_start[1] * 100)` of the raw OBIS data.  Is it worth all that to drop just 4% of the data?  **Yes!**  Models are like all things computer... if you put garbage in you should expect to get garbage back out.
 
 # Recap
 

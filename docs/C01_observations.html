@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about.html" rel="next">
+<link href="./C02_background.html" rel="next">
 <link href="./C00_coding.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -189,6 +189,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./C02_background.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Background</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About</span></a>
   </div>
@@ -205,16 +211,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#obtaining-observational-data" id="toc-obtaining-observational-data" class="nav-link active" data-scroll-target="#obtaining-observational-data"><span class="header-section-number">1</span> Obtaining observational data</a></li>
   <li><a href="#what-we-need" id="toc-what-we-need" class="nav-link" data-scroll-target="#what-we-need"><span class="header-section-number">2</span> What we need</a></li>
-  <li><a href="#tour-of-your-data" id="toc-tour-of-your-data" class="nav-link" data-scroll-target="#tour-of-your-data"><span class="header-section-number">3</span> Tour of your data</a>
+  <li><a href="#tour-of-your-data" id="toc-tour-of-your-data" class="nav-link" data-scroll-target="#tour-of-your-data"><span class="header-section-number">3</span> Tour of your data</a></li>
+  <li><a href="#setup" id="toc-setup" class="nav-link" data-scroll-target="#setup"><span class="header-section-number">4</span> Setup</a></li>
+  <li><a href="#observations" id="toc-observations" class="nav-link" data-scroll-target="#observations"><span class="header-section-number">5</span> Observations</a>
   <ul class="collapse">
-  <li><a href="#basisofrecord" id="toc-basisofrecord" class="nav-link" data-scroll-target="#basisofrecord"><span class="header-section-number">3.1</span> basisOfRecord</a></li>
-  <li><a href="#eventdate" id="toc-eventdate" class="nav-link" data-scroll-target="#eventdate"><span class="header-section-number">3.2</span> eventDate</a></li>
-  <li><a href="#individualcount" id="toc-individualcount" class="nav-link" data-scroll-target="#individualcount"><span class="header-section-number">3.3</span> <code>individualCount</code></a></li>
-  <li><a href="#year" id="toc-year" class="nav-link" data-scroll-target="#year"><span class="header-section-number">3.4</span> Year</a></li>
-  <li><a href="#month" id="toc-month" class="nav-link" data-scroll-target="#month"><span class="header-section-number">3.5</span> <code>month</code></a></li>
-  <li><a href="#geometry" id="toc-geometry" class="nav-link" data-scroll-target="#geometry"><span class="header-section-number">3.6</span> <code>geometry</code></a></li>
+  <li><a href="#basisofrecord" id="toc-basisofrecord" class="nav-link" data-scroll-target="#basisofrecord"><span class="header-section-number">5.1</span> basisOfRecord</a></li>
+  <li><a href="#eventdate" id="toc-eventdate" class="nav-link" data-scroll-target="#eventdate"><span class="header-section-number">5.2</span> <code>eventDate</code></a></li>
+  <li><a href="#individualcount" id="toc-individualcount" class="nav-link" data-scroll-target="#individualcount"><span class="header-section-number">5.3</span> <code>individualCount</code></a></li>
+  <li><a href="#year" id="toc-year" class="nav-link" data-scroll-target="#year"><span class="header-section-number">5.4</span> <code>year</code></a></li>
+  <li><a href="#month" id="toc-month" class="nav-link" data-scroll-target="#month"><span class="header-section-number">5.5</span> <code>month</code></a></li>
+  <li><a href="#geometry" id="toc-geometry" class="nav-link" data-scroll-target="#geometry"><span class="header-section-number">5.6</span> <code>geometry</code></a></li>
   </ul></li>
-  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">4</span> Recap</a></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">6</span> Recap</a></li>
   </ul>
 </nav>
     </div>
@@ -252,11 +260,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="tour-of-your-data" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Tour of your data</h1>
 <p>It is <strong>SO IMPORTANT</strong> to have a really good handle on your data. To get that handle you have to explore it. There is a branch of data science devoted to data exploration called <a href="https://r4ds.had.co.nz/exploratory-data-analysis.html">Exploratory Data Analysis</a>. We’ll explore your data here, but we assume that you have reviewed and tried your hand with the examples in the wiki for <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/tables">tabular data</a>, <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Obis">observations</a>, the <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Coastlines">coastlines</a> and the <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman">Brickman data</a>. Even if you have walked through these tutorials you may find yourself stumped and stymied. That’s all part of the learning process - just keep moving, inquiring and trying.</p>
-<p>As always we start by running our setup script. We’ll also assign a new variable with our species name - we do that so it’s easy to substitute in another species if needed. We make it ALL CAPS so that it reminds us that it is more like a constant than a variable.</p>
+</section>
+<section id="setup" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Setup</h1>
+<p>As always, we start by running our setup function. Start RStudio/R, and relaod your project with the menu <code>File &gt; Recent Projects</code>. Then source <code>setup.R</code>. We’ll also assign a new variable with our species name - we do that so it’s easy to substitute in another species if needed. We make it ALL CAPS so that it reminds us that it is more like a constant than a variable.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"setup.R"</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>SPECIES <span class="ot">=</span> <span class="st">"Mola mola"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+<section id="observations" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Observations</h1>
 <p>Next is to read in the observations you have already downloaded for that species.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">=</span> <span class="fu">read_obis</span>(SPECIES)</span>
@@ -292,8 +306,8 @@ Geodetic CRS:  WGS 84
 <pre><code>[1] 9526    8</code></pre>
 </div>
 </div>
-<section id="basisofrecord" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="basisofrecord"><span class="header-section-number">3.1</span> basisOfRecord</h2>
+<section id="basisofrecord" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="basisofrecord"><span class="header-section-number">5.1</span> basisOfRecord</h2>
 <p>Next we should examine the <code>basisOfRecord</code> variable to get an understanding of how these observations were made.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>obs <span class="sc">|&gt;</span> <span class="fu">count</span>(basisOfRecord)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -378,8 +392,8 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 </section>
-<section id="eventdate" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="eventdate"><span class="header-section-number">3.2</span> eventDate</h2>
+<section id="eventdate" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="eventdate"><span class="header-section-number">5.2</span> <code>eventDate</code></h2>
 <p>For <em>Mola mola</em> there are some rows where <code>eventDate</code> is <code>NA</code>. We need to filter those. The filter function looks for a vector of TRUE/FALSE values - one for each row. In our case, we test the <code>eventDate</code> column to see if it is <code>NA</code>, but then we reverse the TRUE/FALSE logical with the preceding <code>!</code> (pronounded “bang!”). This we retain only the rows where <code>eventDate is not</code>NA`, and then we print the summary again.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">=</span> obs <span class="sc">|&gt;</span></span>
@@ -405,8 +419,8 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 </section>
-<section id="individualcount" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="individualcount"><span class="header-section-number">3.3</span> <code>individualCount</code></h2>
+<section id="individualcount" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="individualcount"><span class="header-section-number">5.3</span> <code>individualCount</code></h2>
 <p>That’s better, but we still have 315 <code>NA</code> values for <code>individualCount</code>. Let’s look at at least one record of those in detail; filter out one, and browse it.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>obs <span class="sc">|&gt;</span></span>
@@ -456,8 +470,8 @@ Geodetic CRS:  WGS 84
 </div>
 <p>OK, that seems legitmate. And it is possible, <em>Mola mola</em> can congregate for feeding, mating and possibly for karaoke parties.</p>
 </section>
-<section id="year" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="year"><span class="header-section-number">3.4</span> Year</h2>
+<section id="year" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="year"><span class="header-section-number">5.4</span> <code>year</code></h2>
 <p>We know that the “current” climate scenario for the Brickman model data define “current” as the 1982-2013 window. It’s just an average, and if you have values from 1970 to the current year, you probably are safe in including them. But do your observations fall into those years? Let’s make a plot of the counts per year, with dashed lines shown the Brickman “current” cliamtology period.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> obs,</span>
@@ -484,8 +498,8 @@ Geodetic CRS:  WGS 84
 </div>
 <p>That’s still a lot of records. Now let’s check out the distribution across the months of the year.</p>
 </section>
-<section id="month" class="level2" data-number="3.5">
-<h2 data-number="3.5" class="anchored" data-anchor-id="month"><span class="header-section-number">3.5</span> <code>month</code></h2>
+<section id="month" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="month"><span class="header-section-number">5.5</span> <code>month</code></h2>
 <p>We will be making models and predictions for each month of the for the 4 future projection climates. Species and observers do show some seasonality, but it that seasonality so extreme that it might be impossible to model some months because of sparse data? Let’s make a plot of the counts per month.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> obs,</span>
@@ -519,8 +533,8 @@ Geodetic CRS:  WGS 84
 </div>
 <p>That’s better! So, it may be the for <em>Mola mola</em> we might not be able to successfully model in the cold winter months. That’s good to keep in mind.</p>
 </section>
-<section id="geometry" class="level2" data-number="3.6">
-<h2 data-number="3.6" class="anchored" data-anchor-id="geometry"><span class="header-section-number">3.6</span> <code>geometry</code></h2>
+<section id="geometry" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="geometry"><span class="header-section-number">5.6</span> <code>geometry</code></h2>
 <p>Last, but certainly not least, we should consider the possibility that some observations might be on shore. It happens! We already know that some records included fish that were washed up on shore. It’s possible someone mis-keyed the longitude or latitude when entering the vaklues into the database. It’s alos possible that some observations fall just outside the areas where the Brickman data has values. To look for these points, we’ll load the Brickman mask (defines land vs water. Well, really it defines data vs no-data), and use that for further filtering.</p>
 <p>We need to load the Brickman database, and then filter it for the static variable called “mask”.</p>
 <div class="cell">
@@ -595,11 +609,11 @@ y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
 <pre><code>[1] 356</code></pre>
 </div>
 </div>
-<p>So, we dropped 356 records which is about 3.7% of the raw OBIS data. Is it worth all that to drop just 4% of the data. Yes. Models are like all things computer… if you put garbage in you should expcet garbage out.</p>
+<p>So, we dropped 356 records which is about 3.7% of the raw OBIS data. Is it worth all that to drop just 4% of the data? <strong>Yes!</strong> Models are like all things computer… if you put garbage in you should expect to get garbage back out.</p>
 </section>
 </section>
-<section id="recap" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Recap</h1>
+<section id="recap" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Recap</h1>
 <p>We have explored a data set, in particular for <em>Mola mola</em>; your species may present you with unique challenges. Our goal is to winnow the original data set down to just the most reliable observations for modeling.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -1020,8 +1034,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link" aria-label="About">
-        <span class="nav-page-text">About</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./C02_background.html" class="pagination-link" aria-label="Background">
+        <span class="nav-page-text">Background</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
