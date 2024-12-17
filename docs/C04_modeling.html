@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Colby Forecasting – Colby Forecasting 2025</title>
+<title>Modeling – Colby Forecasting 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./F00_forecasting.html" rel="next">
+<link href="./about.html" rel="next">
+<link href="./C03_covariates.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -81,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Home</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./C04_modeling.html">Modeling</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -130,7 +131,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Home</span></a>
   </div>
 </li>
@@ -166,7 +167,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./C04_modeling.html" class="sidebar-item-text sidebar-link">
+  <a href="./C04_modeling.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Modeling</span></a>
   </div>
 </li>
@@ -181,23 +182,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#contacts" id="toc-contacts" class="nav-link active" data-scroll-target="#contacts"><span class="header-section-number">1</span> Contacts:</a></li>
-  <li><a href="#questions-and-issues" id="toc-questions-and-issues" class="nav-link" data-scroll-target="#questions-and-issues"><span class="header-section-number">2</span> Questions and issues</a></li>
-  <li><a href="#the-wiki" id="toc-the-wiki" class="nav-link" data-scroll-target="#the-wiki"><span class="header-section-number">3</span> The wiki</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Colby Forecasting</h1>
+<h1 class="title">Modeling</h1>
 </div>
 
 
@@ -214,23 +207,17 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Welcome to the Colby Forecasting 2025 workbook!</p>
-<p>This document is comprised of sections: forecasting and coding with R programming language.</p>
-<section id="contacts" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Contacts:</h1>
-<p><a href="mailto:nrecord@bigelow.org">Dr.&nbsp;Nick Record</a> and <a href="mailto:btupper@bigelow.org">Ben Tupper</a></p>
-</section>
-<section id="questions-and-issues" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Questions and issues</h1>
-<p>We have a saying at Bigelow Lab, “there’s no such thing as a dumb question, but the quality of the answers you get may vary widely.” This is so true!</p>
-<p>If you have a class, coding or forecasting question, start a new “issue” on <a href="https://github.com/BigelowLab/ColbyForecasting2025/issues">the github issues tab</a>. If a question has been posed by another, and you think you can help with the answer, then please feel free to respond. If you have a personal question or issue, then contact the instructors directly.</p>
-</section>
-<section id="the-wiki" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> The <a href="https://en.wikipedia.org/wiki/Wiki">wiki</a></h1>
-<p>Some ancillary content for the course has been placed in what is called a <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki">wiki</a>. In theory anyone can contribute to a wiki, but in practice only a few do. We are open to suggestions for improvements and additions.</p>
+<blockquote class="blockquote">
+<dl>
+<dt>There are no passengers on spaceship earth. We are all crew.</dt>
+<dd>
+<a href="https://en.wikipedia.org/wiki/Marshall_McLuhan">Marshall McLuhan</a>
+</dd>
+</dl>
+</blockquote>
+<p>Modeling stars with a collection of observations (presence and background for us!) and ends up with a collection of coeefficients that can be used with one or more formulas to make a predicition for the past, the present or the future. We are using modeling specifically to make habitat suitability maps for select species under two climate scenarios (RCP45 and RCP85) at two different times (2055 and 2075) in the future.</p>
 
 
-</section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -652,10 +639,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./C03_covariates.html" class="pagination-link" aria-label="Covariates">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Covariates</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./F00_forecasting.html" class="pagination-link" aria-label="Forecasting">
-        <span class="nav-page-text">Forecasting</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./about.html" class="pagination-link" aria-label="About">
+        <span class="nav-page-text">About</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
