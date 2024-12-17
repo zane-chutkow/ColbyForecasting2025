@@ -9,6 +9,8 @@ project:
     - C00_coding.qmd
     - C01_observations.qmd
     - C02_background.qmd
+    - C03_covariates.qmd
+    - C04_model.qmd
     - about.qmd
 execute: 
   cache: false
@@ -32,6 +34,10 @@ website:
         href: C01_observations.qmd
       - text: Background
         href: C02_background.qmd
+      - text: Covariates
+        href: C04_covariates.qmd
+      - text: Modeling
+        href: C04_model.qmd
       - text: About
         href: about.qmd
     tools:

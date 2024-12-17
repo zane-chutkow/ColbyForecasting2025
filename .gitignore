@@ -55,3 +55,8 @@ data/*
 # quarto stuff
 /.quarto/
 /_site/
+
+# for a while - or at least until after C02_background
+functions/model_input.R
+# until after C03_covariates
+functions/select_covariates.R

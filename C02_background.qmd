@@ -30,27 +30,7 @@ We have two approaches to what happens next.  The first is the greedy approach t
 
 # The greedy approach - lots and lots of data
 
-## Observation density map
-
-The first thing we need is a map that matches our environmental data arrays in cell size and extent, but we want the values to be the counts of observations in each cell.  This process is called "rasterizing" - turning points into rasters (arrays).
-
-```{r obs_density_map}
-density = rasterize_point_density(obs, mask, 
-                                  mask = mask)
-density
-```
-
-```{r plot_obs_density_map}
-nbreaks = 11
-plot(density['count'], 
-     breaks = "equal",
-     nbreaks = nbreaks,
-     col = rev(grey(1:(nbreaks - 1)/nbreaks)),
-     axes = TRUE, 
-     reset = FALSE,
-     main = "August counts")
-plot(coast, add = TRUE, col = "orange")
-```
+The greedy approach attempts to collect as many background and presence points as possible - with no vetting.  The more the better!  
 
 ## Sample background 
 
@@ -272,12 +252,13 @@ Use the [iterations tutorial](https://bigelowlab.github.io/handytandy/iterations
 You'll know you have done it correctly if your result is a list filled with lists of greedy-conservative tables.
 :::
 
-And here we add one challenge
+
+And here we add one challenge...
 ::: {.callout-note appearance="simple"}
 
 # Challenge
 
-Create a function to read the correct model inoput when given the species, month and approach.
+Create a function to read the correct model input when given the species, month and approach.
 
 Use the menu option `File > New File > R Script` to create a blank file. Save the file (even though it is empty) in the "functions" directory as "model_input.R".  Use this file to build a function (or set of functions) that uses this set of arguments.
 :::
@@ -296,3 +277,4 @@ read_model_input = function(scientificname = "Mola mola",
     # your part goes in here
 }
 ```
+:::

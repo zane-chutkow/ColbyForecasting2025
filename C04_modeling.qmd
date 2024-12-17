@@ -1,0 +1,10 @@
+---
+title: "Modeling"
+format: html
+---
+
+> There are no passengers on spaceship earth. We are all crew.
+>   ~ [Marshall McLuhan](https://en.wikipedia.org/wiki/Marshall_McLuhan)
+
+Modeling stars with a collection of observations (presence and background for us!) and ends up with a collection of coeefficients that can be used with one or more formulas to make a predicition for the past, the present or the future.  We are using modeling specifically to make habitat suitability maps for select species under two climate scenarios (RCP45 and RCP85) at two different times (2055 and 2075) in the future.
+
