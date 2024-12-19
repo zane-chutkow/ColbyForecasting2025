@@ -287,7 +287,7 @@ Cassandra Clare
 <p>We should pick one month, and join that month’s model data with depth. We have used August before as our example, let’s continue with August.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>aug <span class="ot">=</span> present <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="st">"month"</span>, <span class="st">"Aug"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="st">"month"</span>, <span class="st">"Aug"</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>aug <span class="ot">=</span> <span class="fu">bind_attrs</span>(aug, depth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
@@ -308,17 +308,17 @@ Cassandra Clare
 </section>
 <section id="identify-the-most-independent-variables-and-the-most-collinear" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="identify-the-most-independent-variables-and-the-most-collinear"><span class="header-section-number">2.3</span> Identify the most independent variables (and the most collinear)</h2>
-<p>We have a function that can help use select which variables to remove. <code>filter_collinear()</code> returns a listing of variables it suggests we keep. It attaches to the return value an attribute (like a post-it note stuck on a box) that lists the complementary variables that it suggests we drop.</p>
+<p>We have a function that can help use select which variables to remove. <code>filter_collinear()</code> returns a listing of variables it suggests we keep. It attaches to the return value an attribute (like a post-it note stuck on a box) that lists the complementary variables that it suggests we drop. We are choosing a particular method you can learn more about using R’s help <code>?filter_collinear</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">=</span> <span class="fu">filter_collinear</span>(aug, <span class="at">cutoff =</span> <span class="fl">0.7</span>)</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">=</span> <span class="fu">filter_collinear</span>(aug, <span class="at">method =</span> <span class="st">"vif_step"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>keep</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Sbtm" "Tbtm" "MLD"  "Xbtm"
+<pre><code>[1] "MLD"  "Sbtm" "SSS"  "SST"  "Tbtm" "U"    "V"   
 attr(,"to_remove")
-[1] "SSS"   "SST"   "U"     "V"     "depth"</code></pre>
+[1] "Xbtm"  "depth"</code></pre>
 </div>
 </div>
-<p>Oh, that seems to suggest taking away some key variables leaving us just 4 variables 3 of which are related to the seafloor. Of course, we can decide to ignore this advice, and pick which ever ones we want including keeping them all.</p>
+<p>Of course, we can decide to ignore this advice, and pick which ever ones we want including keeping them all.</p>
 <p>Whatever selection of variable we decide to model with, we will save this listing to a file. That way we can refer to it progammatically. But that comes later.</p>
 </section>
 <section id="a-closer-look-at-the-model-input-data" class="level2" data-number="2.4">
@@ -415,7 +415,7 @@ Geodetic CRS:  WGS 84
 <p>Let’s make a confuguration list that holds 4 items: version identifier, species name, sampling approach and the names of the variables to model with.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cfg <span class="ot">=</span> <span class="fu">list</span>(</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">version =</span> <span class="st">"g008"</span>,               <span class="co"># g for greedy! 008 for August!</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">version =</span> <span class="st">"g_Aug"</span>,               <span class="co"># g for greedy!</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">scientificname =</span> <span class="st">"Mola mola"</span>,</span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">approach =</span> <span class="st">"greedy"</span>,</span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mon =</span> <span class="st">"Aug"</span>,</span>
@@ -447,9 +447,9 @@ Geodetic CRS:  WGS 84
 <p>Now we’ll write this list to a file. First let’s set up a pathwy where we might store these configurations, and for that matter, to store our modeling files. We’ll make a new directory, <code>models/g008</code> and write the configuration there. We’ll use the famous “YAML” format to store the file. See the file <code>functions/configuration.R</code> for documentation on reading and writing.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>ok <span class="ot">=</span> <span class="fu">make_path</span>(<span class="fu">data_path</span>(<span class="st">"models"</span>)) <span class="co"># make a directory for models</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_configuration</span>(cfg)            <span class="co"># there's also a function `read_configutation()`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">write_configuration</span>(cfg)            </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Use the <code>Files</code> pane to navigate to your personal data directory. Open the <code>g008.yaml</code> file - this is what you configuration looks like in YAML. Fortunately we don’t mess with these much.</p>
+<p>Use the <code>Files</code> pane to navigate to your personal data directory. Open the <code>g_Aug.yaml</code> file - this is what you configuration looks like in YAML. Fortunately we don’t mess manually with these much.</p>
 </section>
 </section>
 <section id="recap" class="level1" data-number="3">

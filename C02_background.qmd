@@ -179,7 +179,7 @@ make_model_input_by_month  = function(mon = "Jan",
   obs = thin_by_cell(obs, raster)
   
   # make the conservative model
-   greedy_input = sample_background(obs, raster,
+  conservative_input = sample_background(obs, raster,
                                    n = 2 * nrow(obs),
                                    class_label = "background",
                                    method = c("dist_max", 30000),
@@ -189,7 +189,7 @@ make_model_input_by_month  = function(mon = "Jan",
   filename = sprintf("%s-%s-conservative_input.gpkg", 
                      gsub(" ", "_", species),
                      mon)
-  write_sf(greedy_input, file.path(path,filename))
+  write_sf(conservative_input, file.path(path,filename))
   
   # make a list
   r = list(greedy = greedy_input, conservative = conservative_input)

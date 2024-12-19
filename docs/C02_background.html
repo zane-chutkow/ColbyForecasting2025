@@ -384,13 +384,13 @@ Geodetic CRS:  WGS 84
 <pre><code>Simple feature collection with 2 features and 2 fields
 Geometry type: MULTIPOINT
 Dimension:     XY
-Bounding box:  xmin: -74.89169 ymin: 38.8678 xmax: -65.02004 ymax: 45.1333
+Bounding box:  xmin: -74.89169 ymin: 38.868 xmax: -65.02004 ymax: 45.1333
 Geodetic CRS:  WGS 84
 # A tibble: 2 × 3
   class          n                                                      geometry
 * &lt;fct&gt;      &lt;int&gt;                                              &lt;MULTIPOINT [°]&gt;
-1 presence    1204 ((-65.07 42.68), (-65.05 42.583), (-65.067 42.617), (-65.19 …
-2 background  2408 ((-65.02004 42.74609), (-65.1023 42.66383), (-65.02004 42.66…</code></pre>
+1 presence    1204 ((-65.05 42.6), (-65.067 42.633), (-65.067 42.617), (-65.19 …
+2 background  2408 ((-65.02004 42.25251), (-65.02004 42.74609), (-65.02004 42.6…</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -493,7 +493,7 @@ Note
 <span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>  obs <span class="ot">=</span> <span class="fu">thin_by_cell</span>(obs, raster)</span>
 <span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make the conservative model</span></span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>   greedy_input <span class="ot">=</span> <span class="fu">sample_background</span>(obs, raster,</span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>  conservative_input <span class="ot">=</span> <span class="fu">sample_background</span>(obs, raster,</span>
 <span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">nrow</span>(obs),</span>
 <span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">class_label =</span> <span class="st">"background"</span>,</span>
 <span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"dist_max"</span>, <span class="dv">30000</span>),</span>
@@ -503,7 +503,7 @@ Note
 <span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>  filename <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%s-%s-conservative_input.gpkg"</span>, </span>
 <span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, species),</span>
 <span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>                     mon)</span>
-<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_sf</span>(greedy_input, <span class="fu">file.path</span>(path,filename))</span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_sf</span>(conservative_input, <span class="fu">file.path</span>(path,filename))</span>
 <span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make a list</span></span>
 <span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">list</span>(<span class="at">greedy =</span> greedy_input, <span class="at">conservative =</span> conservative_input)</span>

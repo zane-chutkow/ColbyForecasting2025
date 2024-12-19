@@ -36,7 +36,7 @@ We should pick one month, and join that month's model data with depth.  We have 
 
 ```{r August_present}
 aug = present |>
-  slice("month", "Aug")
+  dplyr::slice("month", "Aug")
 aug = bind_attrs(aug, depth)
 ```
 
@@ -52,14 +52,14 @@ In the lower left portion of the plot we see paired scatter plots, at upper righ
 
 ## Identify the most independent variables (and the most collinear)
 
-We have a function that can help use select which variables to remove.  `filter_collinear()` returns a listing of variables it suggests we keep. It attaches to the return value an attribute (like a post-it note stuck on a box) that lists the complementary variables that it suggests we drop.
+We have a function that can help use select which variables to remove.  `filter_collinear()` returns a listing of variables it suggests we keep. It attaches to the return value an attribute (like a post-it note stuck on a box) that lists the complementary variables that it suggests we drop. We are choosing a particular method you can learn more about using R's help `?filter_collinear`.
 
 ```{r filter_collinear}
-keep = filter_collinear(aug, cutoff = 0.7)
+keep = filter_collinear(aug, method = "vif_step")
 keep
 ```
 
-Oh, that seems to suggest taking away some key variables leaving us just 4 variables 3 of which are related to the seafloor. Of course, we can decide to ignore this advice, and pick which ever ones we want including keeping them all.
+Of course, we can decide to ignore this advice, and pick which ever ones we want including keeping them all.
 
 Whatever selection of variable we decide to model with, we will save this listing to a file.  That way we can refer to it progammatically.  But that comes later.
 
@@ -108,7 +108,7 @@ Let's make a confuguration list that holds 4 items: version identifier, species 
 
 ```{r make_config}
 cfg = list(
-  version = "g008",               # g for greedy! 008 for August!
+  version = "g_Aug",               # g for greedy!
   scientificname = "Mola mola",
   approach = "greedy",
   mon = "Aug",
@@ -128,10 +128,10 @@ Now we'll write this list to a file.  First let's set up a pathwy where we might
 
 ```{r save config}
 ok = make_path(data_path("models")) # make a directory for models
-write_configuration(cfg)            # there's also a function `read_configutation()`
+write_configuration(cfg)            
 ```
 
-Use the `Files` pane to navigate to your personal data directory.  Open the `g008.yaml` file - this is what you configuration looks like in YAML.  Fortunately we don't mess with these much.
+Use the `Files` pane to navigate to your personal data directory.  Open the `g_Aug.yaml` file - this is what you configuration looks like in YAML.  Fortunately we don't mess manually with these much.
 
 # Recap
 
