@@ -1,5 +1,5 @@
 ---
-title: "Modeling"
+title: "Ensembles"
 format: html
 ---
 
@@ -59,7 +59,7 @@ Now we have all we need to build a model.  We first make what is called a recipe
 
 ## Make a recipe
 
-A recipe at a bare minimum needs to know two things: what is that data it has to work with and what is the relationship among the variables.  The latter is expressed as a formula, very similar to how we specify the formula of a line with `y = mx + b` or a parabola `y ~ ax^2 + bx + c`.
+A recipe at a bare minimum needs to know two things: what is that data it has to work with and what is the relationship among the variables.  The latter is expressed as a formula, very similar to how we specify the formula of a line with `y = mx + b` or a parabola `y = ax^2 + bx + c`.
 
 :::{.callout-note}
 
@@ -71,7 +71,7 @@ In our case we have the outcome is an prediction of `class` it is a function of 
 In the case where table where the outcome (`class`) is a function of all other variables in the table, we have a nice short hand.  `class ~ .` where the dot means "every other variable".
 :::
 
-Below we make a recipe which is like template.  We provide the table of variables (with spatial info) - techinally we need only need to provide one row as it is building a template, it doesn't store the data (yet).  We also provide the formula which we read as "class as a funtion of everything else".  The `recipe()` knows detects the geometry column and handles that specially.
+Below we make a recipe which is like template.  We provide the table of variables (with spatial info) - tehnically we need only need to provide one row as it is building a template, it doesn't store the data (yet).  We also provide the formula which we read as "class as a funtion of everything else".  The `recipe()` knows detects the geometry column and handles that specially.
 ```{r recipe}
 aug_recipe = recipe(variables, formula = class ~ .)
 aug_recipe

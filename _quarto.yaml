@@ -1,4 +1,3 @@
-
 project:
   type: website
   output-dir: docs
@@ -10,7 +9,7 @@ project:
     - C01_observations.qmd
     - C02_background.qmd
     - C03_covariates.qmd
-    - C04_modeling.qmd
+    - C04_models.qmd
     - about.qmd
 execute: 
   cache: false
@@ -36,8 +35,8 @@ website:
         href: C02_background.qmd
       - text: Covariates
         href: C03_covariates.qmd
-      - text: Modeling
-        href: C04_modeling.qmd
+      - text: Models
+        href: C04_models.qmd
       - text: About
         href: about.qmd
     tools:
