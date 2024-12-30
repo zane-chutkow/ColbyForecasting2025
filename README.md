@@ -5,6 +5,7 @@ Instructors: Nick Record, Ben Tupper - Bigelow Laboratory for Ocean Sciences
 e-mail: 	
  - nrrecord@colby.edu, nrecord@bigelow.org [both arrive at the Bigelow email]
  - btupper@bigelow.org
+
 phone: 207-315-2567 x316
 
 Meeting times: MWF 1:00-4:00 pm
