@@ -60,14 +60,13 @@ ____________________________________________________________________________
 
 ____________________________________________________________________________
 **Monday Jan 27**
- - Lecture: Careers in Oceanography
- - Lecture: Reproducible Research
- - Time for project work
+ - Project presentations
 
 **Wednesday Jan 29**
- - Move to Tuesday?
+ - **R Tutorial: Additional time for project help**
 
-
+**Thursday Jan 30**
+ - Final project due
 ____________________________________________________________________________
 
 ## **LEARNING OUTCOMES**
