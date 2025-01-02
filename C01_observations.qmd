@@ -215,9 +215,8 @@ So, we dropped `{r} dropped_records` records which is about `{r} sprintf("%0.1f%
 
 We have explored a data set, in particular for *Mola mola*; your species may present you with unique challenges. Our goal is to winnow the original data set down to just the most reliable observations for modeling.  
 
-::: {.callout-note appearance="simple"}
 # Coding Assignment
-
+::: {.callout-note appearance="simple"}
 We went through many steps to filter out records that won't help use model.  We'll need that filtered data many-many-many times in the days ahead.  Wouldn't it be nice if we could sweep all of those filtering steps into a single function, call it `read_observations()`, that simple took care of it all for us?  Yes - that would be really nice!
 
 Open the "read_observations.R" file you'll find in the "functions" directory. We have started it for you. Edit the function so that it appropriately filters your species data set by adding optional arguments (like `minimum_year` has been added).  And then adding the code steps needed to implement that filter.

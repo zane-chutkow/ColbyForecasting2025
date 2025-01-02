@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Ensembles – Colby Forecasting 2025</title>
+<title>Models – Colby Forecasting 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about.html" rel="next">
+<link href="./C05_prediction.html" rel="next">
 <link href="./C03_covariates.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -207,6 +207,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./C05_prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prediction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About</span></a>
   </div>
@@ -224,21 +230,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">1</span> Setup</a></li>
   <li><a href="#load-data---choose-a-month-and-sampling-approach" id="toc-load-data---choose-a-month-and-sampling-approach" class="nav-link" data-scroll-target="#load-data---choose-a-month-and-sampling-approach"><span class="header-section-number">2</span> Load data - choose a month and sampling approach</a></li>
   <li><a href="#split-the-data-set-into-testing-and-training-data-sets" id="toc-split-the-data-set-into-testing-and-training-data-sets" class="nav-link" data-scroll-target="#split-the-data-set-into-testing-and-training-data-sets"><span class="header-section-number">3</span> Split the data set into testing and training data sets</a></li>
-  <li><a href="#build-a-recipe" id="toc-build-a-recipe" class="nav-link" data-scroll-target="#build-a-recipe"><span class="header-section-number">4</span> Build a recipe</a>
+  <li><a href="#create-a-workflow" id="toc-create-a-workflow" class="nav-link" data-scroll-target="#create-a-workflow"><span class="header-section-number">4</span> Create a workflow</a></li>
+  <li><a href="#build-a-recipe" id="toc-build-a-recipe" class="nav-link" data-scroll-target="#build-a-recipe"><span class="header-section-number">5</span> Build a recipe</a>
   <ul class="collapse">
-  <li><a href="#modifying-the-recipe-with-steps" id="toc-modifying-the-recipe-with-steps" class="nav-link" data-scroll-target="#modifying-the-recipe-with-steps"><span class="header-section-number">4.1</span> Modifying the recipe with steps</a></li>
+  <li><a href="#modifying-the-recipe-with-steps" id="toc-modifying-the-recipe-with-steps" class="nav-link" data-scroll-target="#modifying-the-recipe-with-steps"><span class="header-section-number">5.1</span> Modifying the recipe with steps</a></li>
+  <li><a href="#add-the-recipe-to-the-workflow" id="toc-add-the-recipe-to-the-workflow" class="nav-link" data-scroll-target="#add-the-recipe-to-the-workflow"><span class="header-section-number">5.2</span> Add the recipe to the workflow</a></li>
   </ul></li>
-  <li><a href="#preparation-for-baking" id="toc-preparation-for-baking" class="nav-link" data-scroll-target="#preparation-for-baking"><span class="header-section-number">5</span> Preparation for baking</a></li>
-  <li><a href="#bake-the-data" id="toc-bake-the-data" class="nav-link" data-scroll-target="#bake-the-data"><span class="header-section-number">6</span> Bake the data</a></li>
-  <li><a href="#build-a-model" id="toc-build-a-model" class="nav-link" data-scroll-target="#build-a-model"><span class="header-section-number">7</span> Build a model</a>
+  <li><a href="#build-a-model" id="toc-build-a-model" class="nav-link" data-scroll-target="#build-a-model"><span class="header-section-number">6</span> Build a model</a>
   <ul class="collapse">
-  <li><a href="#create-the-model" id="toc-create-the-model" class="nav-link" data-scroll-target="#create-the-model"><span class="header-section-number">7.1</span> Create the model</a></li>
-  <li><a href="#fit-our-specific-model" id="toc-fit-our-specific-model" class="nav-link" data-scroll-target="#fit-our-specific-model"><span class="header-section-number">7.2</span> Fit our specific model</a></li>
+  <li><a href="#create-the-model" id="toc-create-the-model" class="nav-link" data-scroll-target="#create-the-model"><span class="header-section-number">6.1</span> Create the model</a></li>
+  <li><a href="#add-the-model-to-the-workflow" id="toc-add-the-model-to-the-workflow" class="nav-link" data-scroll-target="#add-the-model-to-the-workflow"><span class="header-section-number">6.2</span> Add the model to the workflow</a></li>
   </ul></li>
-  <li><a href="#making-predictions-with-the-model" id="toc-making-predictions-with-the-model" class="nav-link" data-scroll-target="#making-predictions-with-the-model"><span class="header-section-number">8</span> Making predictions with the model</a>
+  <li><a href="#fit-the-model" id="toc-fit-the-model" class="nav-link" data-scroll-target="#fit-the-model"><span class="header-section-number">7</span> Fit the model</a></li>
+  <li><a href="#making-predictions" id="toc-making-predictions" class="nav-link" data-scroll-target="#making-predictions"><span class="header-section-number">8</span> Making predictions</a>
   <ul class="collapse">
   <li><a href="#predict-with-the-training-data" id="toc-predict-with-the-training-data" class="nav-link" data-scroll-target="#predict-with-the-training-data"><span class="header-section-number">8.1</span> Predict with the training data</a></li>
-  <li><a href="#model-metrics" id="toc-model-metrics" class="nav-link" data-scroll-target="#model-metrics"><span class="header-section-number">8.2</span> Model metrics</a>
+  <li><a href="#assess-the-model" id="toc-assess-the-model" class="nav-link" data-scroll-target="#assess-the-model"><span class="header-section-number">8.2</span> Assess the model</a>
   <ul class="collapse">
   <li><a href="#confusion-matrix" id="toc-confusion-matrix" class="nav-link" data-scroll-target="#confusion-matrix"><span class="header-section-number">8.2.1</span> Confusion matrix</a></li>
   <li><a href="#roc-and-auc" id="toc-roc-and-auc" class="nav-link" data-scroll-target="#roc-and-auc"><span class="header-section-number">8.2.2</span> ROC and AUC</a></li>
@@ -254,7 +261,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#partial-dependence" id="toc-partial-dependence" class="nav-link" data-scroll-target="#partial-dependence"><span class="header-section-number">8.3.5</span> Partial Dependence</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#saving-a-model-to-a-file" id="toc-saving-a-model-to-a-file" class="nav-link" data-scroll-target="#saving-a-model-to-a-file"><span class="header-section-number">9</span> Saving a model to a file</a></li>
+  <li><a href="#saving-recipes-and-models-to-disk-as-a-workflow" id="toc-saving-recipes-and-models-to-disk-as-a-workflow" class="nav-link" data-scroll-target="#saving-recipes-and-models-to-disk-as-a-workflow"><span class="header-section-number">9</span> Saving recipes and models to disk as a workflow</a></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">10</span> Recap</a></li>
   <li><a href="#coding-assignment" id="toc-coding-assignment" class="nav-link" data-scroll-target="#coding-assignment"><span class="header-section-number">11</span> Coding Assignment</a></li>
   </ul>
@@ -265,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Ensembles</h1>
+<h1 class="title">Models</h1>
 </div>
 
 
@@ -291,7 +298,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </dl>
 </blockquote>
 <p>Modeling starts with a collection of observations (presence and background for us!) and ends up with a collection of coeefficients that can be used with one or more formulas to make a predicition for the past, the present or the future. We are using modeling specifically to make habitat suitability maps for select species under two climate scenarios (RCP45 and RCP85) at two different times (2055 and 2075) in the future.</p>
-<p>We can choose from a number of different models: <a href="https://en.wikipedia.org/wiki/Random_forest">random forest</a> (rf), <a href="https://en.wikipedia.org/wiki/Principle_of_maximum_entropy">maximum entropy</a> (maxent or maxnet), <a href="boosted regression trees">boosted regression trees</a> (brt), <a href="https://en.wikipedia.org/wiki/General_linear_model">general linear models</a> (glm), etc. The point of each is to make a mathematical representation of natural occurrences. It is important to consider what those occurences might be - categorical like labels? likelihoods like probabilities? continuous like measurements? Here are examples of each…</p>
+<p>We can choose from a number of different models: <a href="https://en.wikipedia.org/wiki/Random_forest">random forest “rf”</a>, <a href="https://en.wikipedia.org/wiki/Principle_of_maximum_entropy">maximum entropy “maxent” or “maxnet”</a>, <a href="boosted regression trees">boosted regression trees “brt”</a>, <a href="https://en.wikipedia.org/wiki/General_linear_model">general linear models “glm”</a>, etc. The point of each is to make a mathematical representation of natural occurrences. It is important to consider what those occurences might be - <em>categorical</em> like labels? <em>likelihoods</em> like probabilities? <em>continuous</em> like measurements? Here are examples of each…</p>
 <ul>
 <li><strong>Categorical</strong>
 <ul>
@@ -310,8 +317,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>measure: “3.2 cm of rain”, “12.1 grams of carbon”</li>
 </ul></li>
 </ul>
-<p>We are modeling with known observations (presences) and a sampling of the background, so we are trying to model a likelihood that a species will be encountered (and reported) relative to the environmental conditions. So we are looking for a model that can produce relative likelihood of an encounter that results in a report.</p>
-<p>We’ll be using a random forest model (rf), and we’ll be following this <a href="https://oj713.github.io/tidymodels/index.html">tidy models tutorial</a> prepared by our colleague <a href="https://omi-johnson.netlify.app/">Omi Johnson</a>.</p>
+<p>We are modeling with known observations (presences) and a sampling of the background, so we are trying to model a likelihood that a species will be encountered (and reported) relative to the environmental conditions. We are looking for a model that can produce relative likelihood of an encounter that results in a report.</p>
+<p>We’ll be using a random forest model (rf). We were inspired to follow this route by using this <a href="https://oj713.github.io/tidymodels/index.html">tidy models tutorial</a> prepared by our colleague <a href="https://omi-johnson.netlify.app/">Omi Johnson</a>.</p>
 <section id="setup" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Setup</h1>
 <p>As always, we start by running our setup function. Start RStudio/R, and reload your project with the menu <code>File &gt; Recent Projects</code>.</p>
@@ -321,7 +328,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="load-data---choose-a-month-and-sampling-approach" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Load data - choose a month and sampling approach</h1>
-<p>Let’s load what we need to build a model for August using the greedy sampling technique. We’ll also need the model configuration (which is “g008”). And we’ll need the covariate data.</p>
+<p>Let’s load what we need to build a model for August using the greedy sampling technique. We’ll also need the model configuration (which is “g_Aug”). And we’ll need the covariate data.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model_input <span class="ot">=</span> <span class="fu">read_model_input</span>(<span class="at">scientificname =</span> <span class="st">"Mola mola"</span>, </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                               <span class="at">approach =</span> <span class="st">"greedy"</span>, </span>
@@ -405,10 +412,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Note! Did you notice that the function is called <code>initial_split()</code>, which implies a subsequent split - what do you suppose that is about?</p>
 </blockquote>
 </section>
-<section id="build-a-recipe" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Build a recipe</h1>
-<p>A recipe is a blueprint that guides the modeling process.</p>
-<p>A recipe at a bare minimum needs to know two things: what is that data it has to work with and what is the relationship among the variables. The latter is expressed as a formula, very similar to how we specify the formula of a line with <code>y = mx + b</code> or a parabola <code>y = ax^2 + bx + c</code>.</p>
+<section id="create-a-workflow" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Create a workflow</h1>
+<p><a href="https://workflows.tidymodels.org/">workflows</a> are containers for storing the data pre-processing steps and model specifications. Not too long ago it was quite a challenge to to keep track of all the bits and pieces required to make good forecasts. The advent of <code>workflows</code> greatly simplifies the process. A <code>workflow</code> will house two important items for us: a recipe and a model. For now, we’ll create an empty workflow, then add to it as needed. At the very end, we’ll save the workflow.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>wflow <span class="ot">=</span> <span class="fu">workflow</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>That’s it!</p>
+</section>
+<section id="build-a-recipe" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Build a recipe</h1>
+<p>The first thing we’ll add tot he workflow is a <code>recipe.</code> A <code>recipe</code> is a blueprint that guides the data handling and modeling process.</p>
+<p>A recipe at a bare minimum needs to know two things: what data it has to work with and what is the relationship among the variables within the data. The latter is expressed as a formula, very similar to how we specify the formula of a line with <code>y = mx + b</code> or a parabola <code>y = ax^2 + bx + c</code>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -419,36 +434,49 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>We often think of formulas as left-hand side (LHS) and right-hand side (RHS) equalities. And usually, the LHS is the outcome while the RHS is about the inputs. For our modeling, the outcome is to predict the across the entire domain. We can generalize the idea with the “is a function of” operator <code>~</code> (the tilde). For the classic formula for a line it like this… <code>y ~ x</code> and a parabola might be <code>y ~ x + x^2</code></p>
-<p>Consider a situation where we have reduced all of the suitabke variables to <code>Sbtm</code>, <code>Tbtm</code>, <code>MLD</code> and<code>Xbtm</code>, which we have in a table along with a <code>class</code> variable. In our case we have the outcome is an prediction of <code>class</code> it is a function of variables like <code>Sbtm</code>, <code>Tbtm</code>, <code>MLD</code>, <code>Xbtm</code>, <em>etc.</em> This formula would look like <code>y ~ Sbtm + Tbtm + MLD + Xbtm</code>. Unlike the specific equation for a line or parabola, we don’t pretend to know what coefficients, powers and that sort of stuff looks like. We are just saying that <code>class</code> is a function of all of those variables (somehow).</p>
+<p>We often think of formulas as left-hand side (LHS) and right-hand side (RHS) equalities. And usually, the LHS is the outcome while the RHS is about the inputs. For our modeling, the outcome is to predict the across the entire domain. We can generalize the idea with the “is a function of” operator <code>~</code> (the tilde). For the classic formula for a line it like this… <code>y ~ x</code> and a parabola is also <code>y ~ x</code>.</p>
+<p>Consider a situation where we have reduced all of the suitable variables to <code>Sbtm</code>, <code>Tbtm</code>, <code>MLD</code> and<code>Xbtm</code>, which we have in a table along with a <code>class</code> variable. In our case we have the outcome is an prediction of <code>class</code> it is a function of variables like <code>Sbtm</code>, <code>Tbtm</code>, <code>MLD</code>, <code>Xbtm</code>, <em>etc.</em> This formula would look like <code>y ~ Sbtm + Tbtm + MLD + Xbtm</code>. Unlike the specific equation for a line or parabola, we don’t pretend to know what coefficients, powers and that sort of stuff looks like. We are just saying that <code>class</code> is a function of all of those variables (somehow).</p>
 <p>In the case here where the outcome (<code>class</code>) is a function of all other variables in the table, we have a nice short hand. <code>class ~ .</code> where the dot means “every other variable”.</p>
 </div>
 </div>
 <p>First we fish out of our split data the training data, and then drop the spatial information.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tr_data <span class="ot">=</span> <span class="fu">training</span>(split_data)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>tr_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tr_data <span class="ot">=</span> <span class="fu">training</span>(split_data)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>tr_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5,453 × 10
-   class        MLD  Sbtm   SSS   SST  Tbtm          U           V    Xbtm depth
-   &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt;   &lt;dbl&gt; &lt;dbl&gt;
- 1 background  3.92  31.1  28.9  17.9  7.64 -0.0000966  0.00158    5.63e-4 33.6 
- 2 background  4.51  28.6  28.6  19.8 19.9   0.00193    0.00234    1.08e-3  5   
- 3 background  4.95  28.0  28.0  20.8 20.8  -0.000153  -0.00000933 5.44e-5  5.03
- 4 background  3.63  30.1  29.3  17.6 13.6  -0.000100   0.00167    5.93e-4 17.8 
- 5 background  3.32  31.2  29.3  17.3  6.93  0.0000920  0.000934   3.33e-4 35.2 
- 6 background  2.84  31.6  29.3  17.6  5.80 -0.00135    0.00327    1.25e-3 45.1 
- 7 background  4.02  31.9  29.3  17.8  5.38 -0.000583   0.00207    7.62e-4 53.1 
- 8 background  4.46  32.1  29.3  18.0  5.33 -0.000284   0.00229    8.17e-4 59.4 
- 9 background  4.34  32.4  29.2  18.1  5.50 -0.000321   0.00283    1.01e-3 64.9 
-10 background  4.48  32.4  28.8  18.4  5.64  0.00486    0.00551    2.61e-3 66.5 
+   class        MLD  Sbtm   SSS   SST  Tbtm          U        V     Xbtm depth
+   &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;
+ 1 background  3.53  29.5  29.0  17.7 15.6  -0.00355   0.000511 0.00127   13.5
+ 2 background  3.92  31.1  28.9  17.9  7.64 -0.0000966 0.00158  0.000563  33.6
+ 3 background  3.60  29.9  29.4  17.4 15.0  -0.00332   0.00153  0.00130   13.8
+ 4 background  3.63  30.1  29.3  17.6 13.6  -0.000100  0.00167  0.000593  17.8
+ 5 background  3.32  31.2  29.3  17.3  6.93  0.0000920 0.000934 0.000333  35.2
+ 6 background  2.84  31.6  29.3  17.6  5.80 -0.00135   0.00327  0.00125   45.1
+ 7 background  4.02  31.9  29.3  17.8  5.38 -0.000583  0.00207  0.000762  53.1
+ 8 background  4.46  32.1  29.3  18.0  5.33 -0.000284  0.00229  0.000817  59.4
+ 9 background  4.01  32.4  29.1  18.1  5.53  0.000172  0.00369  0.00131   68.1
+10 background  4.48  32.4  28.8  18.4  5.64  0.00486   0.00551  0.00261   66.5
 # ℹ 5,443 more rows</code></pre>
 </div>
 </div>
-<p>Now we make the recipe. Note that no computation takes place until we later <code>prep()</code>.</p>
+<p>Now we make the recipe. Note that no computation takes place.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Technically, <code>recipe()</code> only needs a small subset of the data set to establish the names and data types of the predictor and outcome variables. Just one row would suffice. That underscores that a recipe is simply building a template.</p>
+</div>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">=</span> <span class="fu">recipe</span>(class <span class="sc">~</span> ., <span class="at">data =</span> tr_data)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>rec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">=</span> <span class="fu">recipe</span>(class <span class="sc">~</span> ., <span class="at">data =</span> <span class="fu">slice</span>(tr_data,<span class="dv">1</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>rec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code></code></pre>
 </div>
@@ -471,7 +499,7 @@ predictor: 9</code></pre>
 </div>
 <p>This print out provides a very high level summary - all of the details are glossed over. To get a more detailed summary use the <code>summary()</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(rec)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 10 × 4
    variable type      role      source  
@@ -489,13 +517,13 @@ predictor: 9</code></pre>
 </div>
 </div>
 <p>Each variable in the input is assigned a role: “outcome” or “predictor”. The latter are the variables used in the creation of the model. There are other types of roles, (see <code>?recipe</code>) including “case_weight” and “ID”, and others can be defined as needed. Some are used in building the model, others are simply ride along and don’t change the model outcome.</p>
-<section id="modifying-the-recipe-with-steps" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="modifying-the-recipe-with-steps"><span class="header-section-number">4.1</span> Modifying the recipe with steps</h2>
-<p>Sometimes the recipes requires subsequent steps <em>before</em> the modeling begins in earnest. Steps are cumulative, and that means the order in which tye are added matters. For example we know from experience that it is often useful to log scale (base 10) depth when working with biological models. Currently, <code>depth</code> ranges from 5.0m to 4081.5m. So, we’ll add a step for that.</p>
+<section id="modifying-the-recipe-with-steps" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="modifying-the-recipe-with-steps"><span class="header-section-number">5.1</span> Modifying the recipe with steps</h2>
+<p>Sometimes the recipes requires subsequent steps <em>before</em> the modeling begins in earnest. Steps are cumulative, and that means the order in which tye are added matters. For example we know from experience that it is often useful to log scale (base 10) depth when working with biological models. Currently, <code>depth</code> ranges from 5.0m to 4081.5m. We also know from experience that <code>Xbtm</code>, like <code>depth</code>, also ranges over a number of orders of magnitude. So, we’ll add a step for that.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">=</span> rec <span class="sc">|&gt;</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_log</span>(depth, Xbtm,  <span class="at">base =</span> <span class="dv">10</span>)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>rec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">=</span> rec <span class="sc">|&gt;</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_log</span>(depth, Xbtm, <span class="at">base =</span> <span class="dv">10</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>rec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code></code></pre>
 </div>
@@ -525,11 +553,11 @@ predictor: 9</code></pre>
 <pre><code>• Log transformation on: depth and Xbtm</code></pre>
 </div>
 </div>
-<p>Next we state that we want to <strong>remove</strong> variables that might be haighly correlated with other variables.</p>
+<p>Next we state that we want to <strong>remove</strong> variables that might be highly correlated with other variables. If two variables are highly correlated, they will not provide the modeling system with more information, just redundant information which doesn’t neccessarily help. <code>step_corr()</code> accepts a variety of arguments specifying which variables to test to correlation including some convenience selectors like <code>all_numeric()</code>, <code>all_string()</code> and friends. We want all predictors which happen to all be numeric, so we can use <code>all_predictors()</code> or <code>all_numeric_predictors()</code>. Specificity is better then generality so let’s choose numeric predictors.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">=</span> rec <span class="sc">|&gt;</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_corr</span>(<span class="fu">all_numeric_predictors</span>())</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>rec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">=</span> rec <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">step_corr</span>(<span class="fu">all_numeric_predictors</span>())</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>rec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code></code></pre>
 </div>
@@ -563,91 +591,37 @@ predictor: 9</code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="preparation-for-baking" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Preparation for baking</h1>
-<p>Here we <code>prep()</code> the recipe - think of it as checking that you have all of the ingredients you need. It is here that the step operations are semi-implemented - a check is made on the <code>depth</code> variable (to make sure that log-scaling is possible), the means and standard deviations of variables are computed (if needed), checks for missing data, that kind of thing. If you added no preprocessing steps there is not much for the function to do, but it must be run.</p>
+<section id="add-the-recipe-to-the-workflow" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="add-the-recipe-to-the-workflow"><span class="header-section-number">5.2</span> Add the recipe to the workflow</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>rec <span class="ot">=</span> <span class="fu">prep</span>(rec)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>rec</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Recipe ──────────────────────────────────────────────────────────────────────</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Inputs </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Number of variables by role</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>outcome:   1
-predictor: 9</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Training information </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Training data contained 5453 data points and no incomplete rows.</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code></code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Operations </code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>• Log transformation on: depth and Xbtm | Trained</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>• Correlation filter on: &lt;none&gt; | Trained</code></pre>
-</div>
-</div>
-<p>Now the steps have been semi-implemented, and the recipe is marked as trained. It is possible to continue adding steps and run <code>prep()</code> again using the <code>refresh = TRUE</code> agument. But we are going onward to “bake” which actually applies the computations.</p>
-</section>
-<section id="bake-the-data" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Bake the data</h1>
-<p>Here we use the information in the recipe and the original training data to apply any data transformations.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>baked_data <span class="ot">=</span> <span class="fu">bake</span>(rec, <span class="at">new_data =</span> <span class="cn">NULL</span>)</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>baked_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>wflow <span class="ot">=</span> wflow <span class="sc">|&gt;</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_recipe</span>(rec)</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>wflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 5,453 × 10
-     MLD  Sbtm   SSS   SST  Tbtm          U           V  Xbtm depth class     
-   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     
- 1  3.92  31.1  28.9  17.9  7.64 -0.0000966  0.00158    -3.25 1.53  background
- 2  4.51  28.6  28.6  19.8 19.9   0.00193    0.00234    -2.97 0.699 background
- 3  4.95  28.0  28.0  20.8 20.8  -0.000153  -0.00000933 -4.26 0.701 background
- 4  3.63  30.1  29.3  17.6 13.6  -0.000100   0.00167    -3.23 1.25  background
- 5  3.32  31.2  29.3  17.3  6.93  0.0000920  0.000934   -3.48 1.55  background
- 6  2.84  31.6  29.3  17.6  5.80 -0.00135    0.00327    -2.90 1.65  background
- 7  4.02  31.9  29.3  17.8  5.38 -0.000583   0.00207    -3.12 1.73  background
- 8  4.46  32.1  29.3  18.0  5.33 -0.000284   0.00229    -3.09 1.77  background
- 9  4.34  32.4  29.2  18.1  5.50 -0.000321   0.00283    -3.00 1.81  background
-10  4.48  32.4  28.8  18.4  5.64  0.00486    0.00551    -2.58 1.82  background
-# ℹ 5,443 more rows</code></pre>
+<pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
+Preprocessor: Recipe
+Model: None
+
+── Preprocessor ────────────────────────────────────────────────────────────────
+2 Recipe Steps
+
+• step_log()
+• step_corr()</code></pre>
 </div>
 </div>
-<p>This is the data prepared with our specified transformations. As luck has it, none of the variables were highly correlated so none were removed. And <code>depth</code> is now log scaled.</p>
 </section>
-<section id="build-a-model" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Build a model</h1>
-<p>We are going to build a <a href="https://www.geeksforgeeks.org/random-forest-algorithm-in-machine-learning/">random forest</a> model in classification mode which means for us that we have predictions of “presence” or “background”. That’s just two classes, random forests can predict multiple classes, too. Also, random forests can make regression models which are used for continuous data. Below we start the model, declare its mode and assign an engine (the package we prefer to use.) We’ll be using the <a href="http://imbs-hl.github.io/ranger/">ranger R pakage</a>.</p>
-<section id="create-the-model" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="create-the-model"><span class="header-section-number">7.1</span> Create the model</h2>
+</section>
+<section id="build-a-model" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Build a model</h1>
+<p>We are going to build a <a href="https://www.geeksforgeeks.org/random-forest-algorithm-in-machine-learning/">random forest “rf”</a> model in classification mode which means for us that we have predictions of “presence” or “background”. That’s just two classes, random forests can predict multiple classes, too. Also, random forests can make regression models which are used for continuous data. Below we start the model, declare its mode and assign an engine (the package we prefer to use.) We’ll be using the <a href="http://imbs-hl.github.io/ranger/">ranger R pakage</a>.</p>
+<section id="create-the-model" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="create-the-model"><span class="header-section-number">6.1</span> Create the model</h2>
+<p>We create a random forest model, declare that it should be run in classification mode (not regression mode), and then specify that we want to use the <code>ranger</code> modeling engine (as opposed to, say, the <code>randForest</code> engine). We additionally specify that it should be able to produce probablilites of a class not just the class label. We also request that it saves bits of info so that we can compare the relative importance of the covariates.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">=</span> <span class="fu">rand_forest</span>() <span class="sc">|&gt;</span></span>
-<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>, <span class="at">probability =</span> <span class="cn">TRUE</span>, <span class="at">importance =</span> <span class="st">"permutation"</span>) </span>
-<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">=</span> <span class="fu">rand_forest</span>() <span class="sc">|&gt;</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_mode</span>(<span class="st">"classification"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_engine</span>(<span class="st">"ranger"</span>, <span class="at">probability =</span> <span class="cn">TRUE</span>, <span class="at">importance =</span> <span class="st">"permutation"</span>) </span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Random Forest Model Specification (classification)
 
@@ -660,15 +634,53 @@ Computational engine: ranger </code></pre>
 </div>
 <p>Well, that feels underwhelming. We can pass arguments unique to the engine using the <code>set_args()</code> function, but, for now we’ll accept the defaults.</p>
 </section>
-<section id="fit-our-specific-model" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="fit-our-specific-model"><span class="header-section-number">7.2</span> Fit our specific model</h2>
+<section id="add-the-model-to-the-workflow" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="add-the-model-to-the-workflow"><span class="header-section-number">6.2</span> Add the model to the workflow</h2>
+<p>Now we simply add the model to the workflow.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">=</span> model <span class="sc">|&gt;</span></span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fit</span>(<span class="fu">formula</span>(rec), <span class="at">data =</span> tr_data)</span>
-<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>wflow <span class="ot">=</span> wflow <span class="sc">|&gt;</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_model</span>(model)</span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>wflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>parsnip model object
+<pre><code>══ Workflow ════════════════════════════════════════════════════════════════════
+Preprocessor: Recipe
+Model: rand_forest()
 
+── Preprocessor ────────────────────────────────────────────────────────────────
+2 Recipe Steps
+
+• step_log()
+• step_corr()
+
+── Model ───────────────────────────────────────────────────────────────────────
+Random Forest Model Specification (classification)
+
+Engine-Specific Arguments:
+  probability = TRUE
+  importance = permutation
+
+Computational engine: ranger </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="fit-the-model" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Fit the model</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>fitted_wflow <span class="ot">=</span> <span class="fu">fit</span>(wflow, <span class="at">data =</span> tr_data)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>fitted_wflow</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>══ Workflow [trained] ══════════════════════════════════════════════════════════
+Preprocessor: Recipe
+Model: rand_forest()
+
+── Preprocessor ────────────────────────────────────────────────────────────────
+2 Recipe Steps
+
+• step_log()
+• step_corr()
+
+── Model ───────────────────────────────────────────────────────────────────────
 Ranger result
 
 Call:
@@ -682,70 +694,70 @@ Mtry:                             3
 Target node size:                 10 
 Variable importance mode:         permutation 
 Splitrule:                        gini 
-OOB prediction error (Brier s.):  0.2124971 </code></pre>
+OOB prediction error (Brier s.):  0.2169978 </code></pre>
 </div>
 </div>
 </section>
-</section>
-<section id="making-predictions-with-the-model" class="level1" data-number="8">
-<h1 data-number="8"><span class="header-section-number">8</span> Making predictions with the model</h1>
+<section id="making-predictions" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Making predictions</h1>
 <p>Predicting is easy with this pattern: <code>predictions = predict(model, newdata, ...)</code> We want to specify that we want probabilites of a particular class being predicted. In each case we bind to the prediction our original classification, <code>class</code>.</p>
 <section id="predict-with-the-training-data" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="predict-with-the-training-data"><span class="header-section-number">8.1</span> Predict with the training data</h2>
 <p>First we shall predict with the same data we trained with. The results of this will not really tell us much about our model as it is very circular to predict using the very data used to build the model. So this next section is more about a first pass at using the tools at your disposal.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>train_pred <span class="ot">=</span> <span class="fu">predict_model</span>(model, tr_data, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>train_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>train_pred <span class="ot">=</span> <span class="fu">predict_model</span>(fitted_wflow, tr_data, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>train_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5,453 × 4
    .pred_presence .pred_background .pred      class     
             &lt;dbl&gt;            &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;     
- 1        0.0686             0.931 background background
- 2        0.0450             0.955 background background
- 3        0.107              0.893 background background
- 4        0.00585            0.994 background background
- 5        0.389              0.611 background background
- 6        0.0420             0.958 background background
- 7        0.0171             0.983 background background
- 8        0.0178             0.982 background background
- 9        0.0214             0.979 background background
-10        0.0530             0.947 background background
+ 1        0.00271            0.997 background background
+ 2        0.0598             0.940 background background
+ 3        0.00634            0.994 background background
+ 4        0.00638            0.994 background background
+ 5        0.386              0.614 background background
+ 6        0.0319             0.968 background background
+ 7        0.0237             0.976 background background
+ 8        0.0219             0.978 background background
+ 9        0.0412             0.959 background background
+10        0.0401             0.960 background background
 # ℹ 5,443 more rows</code></pre>
 </div>
 </div>
 <p>Here the variables prepended with a dot <code>.</code> are computed, while the <code>class</code> variable is our original. There are many metrics we can use to determine how well this model predicts. Let’s start with the simplest thing… we can make a simply tally of <code>.pred</code> and <code>class</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(train_pred, .pred, class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(train_pred, .pred, class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 4 × 3
   .pred      class          n
   &lt;fct&gt;      &lt;fct&gt;      &lt;int&gt;
-1 presence   presence    1393
-2 presence   background   345
-3 background presence     447
-4 background background  3268</code></pre>
+1 presence   presence    1390
+2 presence   background   358
+3 background presence     450
+4 background background  3255</code></pre>
 </div>
 </div>
 <p>There false positives and false negatives, but many are correct. Of course, this is predicting with the very data we used to train the model; knowing that this is predicicting on training data with some many misses might not inspire confidence. But let’s explore more.</p>
 </section>
-<section id="model-metrics" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="model-metrics"><span class="header-section-number">8.2</span> Model metrics</h2>
+<section id="assess-the-model" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="assess-the-model"><span class="header-section-number">8.2</span> Assess the model</h2>
+<p>Hewre we walk through a number of common assessment tools. We want to assess a model to ascertain how closely it models reality (or not!) Using the tools is always easy, interpreting the metrics is not always easy.</p>
 <section id="confusion-matrix" class="level3" data-number="8.2.1">
 <h3 data-number="8.2.1" class="anchored" data-anchor-id="confusion-matrix"><span class="header-section-number">8.2.1</span> Confusion matrix</h3>
 <p>The confusion matrix is the next step beyond a simple tally that we made above.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>train_confmat <span class="ot">=</span> <span class="fu">conf_mat</span>(train_pred, class, .pred)</span>
-<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>train_confmat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>train_confmat <span class="ot">=</span> <span class="fu">conf_mat</span>(train_pred, class, .pred)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>train_confmat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Truth
 Prediction   presence background
-  presence       1393        345
-  background      447       3268</code></pre>
+  presence       1390        358
+  background      450       3255</code></pre>
 </div>
 </div>
-<p>It comes with handy plotting functionality.</p>
+<p>You’ll see this is the same as the simple tally we made, but it comes with handy plotting functionality (shown below). Note that a perfect model would have the upper left and lower right quadrants fully accounting for all points. The lower left quadrant shows us the number of false-negatives while the upper right quadrant shows the number of false-positives.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(train_confmat, <span class="at">type =</span> <span class="st">"heatmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(train_confmat, <span class="at">type =</span> <span class="st">"heatmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -757,10 +769,10 @@ Prediction   presence background
 </section>
 <section id="roc-and-auc" class="level3" data-number="8.2.2">
 <h3 data-number="8.2.2" class="anchored" data-anchor-id="roc-and-auc"><span class="header-section-number">8.2.2</span> ROC and AUC</h3>
-<p>The area under the curve (<a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve">AUC</a>) of the receiver-operator curve (<a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">ROC</a>) is a common metric. AUC values range form 0-1 with 1 reflecting a model that faithfully predicts correctly. Technically, and AUC value of 0.5 represents a random model (yup, the result of a coin flip!).</p>
+<p>The area under the curve (<a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic#Area_under_the_curve">AUC</a>) of the receiver-operator curve (<a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic">ROC</a>) is a common metric. AUC values range form 0-1 with 1 reflecting a model that faithfully predicts correctly. Technically an AUC value of 0.5 represents a random model (yup, the result of a coin flip!), so values greater than 0.5 and less than 1.0 are expected.</p>
 <p>First we can plot the ROC.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_roc</span>(train_pred, class, .pred_presence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_roc</span>(train_pred, class, .pred_presence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -769,14 +781,14 @@ Prediction   presence background
 </div>
 </div>
 </div>
-<p>If you really only need the AUC, you can use the <code>roc_auc()</code> function directly.</p>
+<p>We can assure you from practical experience that this is an atypical ROC. Typically they are not smooth, but this smoothness is an artifact of our use of training data. If you really only need the AUC, you can use the <code>roc_auc()</code> function directly.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(train_pred, class,  .pred_presence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(train_pred, class,  .pred_presence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   .metric .estimator .estimate
   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
-1 roc_auc binary         0.942</code></pre>
+1 roc_auc binary         0.938</code></pre>
 </div>
 </div>
 </section>
@@ -784,20 +796,20 @@ Prediction   presence background
 <h3 data-number="8.2.3" class="anchored" data-anchor-id="accuracy"><span class="header-section-number">8.2.3</span> Accuracy</h3>
 <p>Accuracy, much like our simple tally above, tells us what fraction of the predictions are correct. Not that here we explicitly provide the predicted class label (not the probability.)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb75"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(train_pred, class, .pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(train_pred, class, .pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   .metric  .estimator .estimate
   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-1 accuracy binary         0.855</code></pre>
+1 accuracy binary         0.852</code></pre>
 </div>
 </div>
 </section>
 <section id="partial-dependence-plot" class="level3" data-number="8.2.4">
 <h3 data-number="8.2.4" class="anchored" data-anchor-id="partial-dependence-plot"><span class="header-section-number">8.2.4</span> Partial dependence plot</h3>
-<p>Partial dependence reflects the relative contrubution of each variable influence over it’s full range of values. The output is a grid grid of plots showing the relative distribution of the variable (bars) as well as the relative inlfluence (line).</p>
+<p>Partial dependence reflects the relative contrubution of each variable influence over it’s full range of values. The output is a grid grid of plots showing the relative distribution of the variable (bars) as well as the relative influenceof the variable (line).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb77"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">partial_dependence_plot</span>(model, <span class="at">data =</span> tr_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="fu">partial_dependence_plot</span>(fitted_wflow, <span class="at">data =</span> baked_tr_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -810,27 +822,27 @@ Prediction   presence background
 </section>
 <section id="predict-with-the-testing-data" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="predict-with-the-testing-data"><span class="header-section-number">8.3</span> Predict with the testing data</h2>
-<p>Finally, we can repeat these steps with the testing data. This should give use better information than using the training data.</p>
+<p>Finally, we can repeat these steps with the testing data. This should give use better information than using the training data</p>
 <section id="predict" class="level3" data-number="8.3.1">
 <h3 data-number="8.3.1" class="anchored" data-anchor-id="predict"><span class="header-section-number">8.3.1</span> Predict</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">=</span> <span class="fu">testing</span>(split_data)</span>
-<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>test_pred <span class="ot">=</span> <span class="fu">predict_model</span>(model, test_data, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
-<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>test_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">=</span> <span class="fu">testing</span>(split_data)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>test_pred <span class="ot">=</span> <span class="fu">predict_model</span>(fitted_wflow, test_data, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>test_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,819 × 4
    .pred_presence .pred_background .pred      class   
             &lt;dbl&gt;            &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;   
- 1          0.459           0.541  background presence
- 2          0.680           0.320  presence   presence
- 3          0.397           0.603  background presence
- 4          0.627           0.373  presence   presence
- 5          0.168           0.832  background presence
- 6          1               0      presence   presence
- 7          0.658           0.342  presence   presence
- 8          0.976           0.0244 presence   presence
- 9          1               0      presence   presence
-10          0.461           0.539  background presence
+ 1          0.809           0.191  presence   presence
+ 2          0.185           0.815  background presence
+ 3          0.890           0.110  presence   presence
+ 4          0.732           0.268  presence   presence
+ 5          0.423           0.577  background presence
+ 6          0.131           0.869  background presence
+ 7          0.843           0.157  presence   presence
+ 8          0.545           0.455  presence   presence
+ 9          0.916           0.0840 presence   presence
+10          0.456           0.544  background presence
 # ℹ 1,809 more rows</code></pre>
 </div>
 </div>
@@ -838,8 +850,8 @@ Prediction   presence background
 <section id="confusion-matrix-1" class="level3" data-number="8.3.2">
 <h3 data-number="8.3.2" class="anchored" data-anchor-id="confusion-matrix-1"><span class="header-section-number">8.3.2</span> Confusion matrix</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb80"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true" tabindex="-1"></a>test_confmat <span class="ot">=</span> <span class="fu">conf_mat</span>(test_pred, class, .pred)</span>
-<span id="cb80-2"><a href="#cb80-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(test_confmat, <span class="at">type =</span> <span class="st">"heatmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>test_confmat <span class="ot">=</span> <span class="fu">conf_mat</span>(test_pred, class, .pred)</span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(test_confmat, <span class="at">type =</span> <span class="st">"heatmap"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -852,7 +864,7 @@ Prediction   presence background
 <section id="rocauc" class="level3" data-number="8.3.3">
 <h3 data-number="8.3.3" class="anchored" data-anchor-id="rocauc"><span class="header-section-number">8.3.3</span> ROC/AUC</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_roc</span>(test_pred, class, .pred_presence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_roc</span>(test_pred, class, .pred_presence)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -861,23 +873,24 @@ Prediction   presence background
 </div>
 </div>
 </div>
+<p>This ROC is more typical of what we see in regular practice.</p>
 </section>
 <section id="accuracy-1" class="level3" data-number="8.3.4">
 <h3 data-number="8.3.4" class="anchored" data-anchor-id="accuracy-1"><span class="header-section-number">8.3.4</span> Accuracy</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(test_pred, class, .pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">accuracy</span>(test_pred, class, .pred)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 3
   .metric  .estimator .estimate
   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-1 accuracy binary         0.697</code></pre>
+1 accuracy binary         0.703</code></pre>
 </div>
 </div>
 </section>
 <section id="partial-dependence" class="level3" data-number="8.3.5">
 <h3 data-number="8.3.5" class="anchored" data-anchor-id="partial-dependence"><span class="header-section-number">8.3.5</span> Partial Dependence</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">partial_dependence_plot</span>(model, <span class="at">data =</span> test_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="fu">partial_dependence_plot</span>(fitted_wflow, <span class="at">data =</span> test_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -889,17 +902,18 @@ Prediction   presence background
 </section>
 </section>
 </section>
-<section id="saving-a-model-to-a-file" class="level1" data-number="9">
-<h1 data-number="9"><span class="header-section-number">9</span> Saving a model to a file</h1>
-<p>We can (and possibly should!) save models to disk for later recall.</p>
+<section id="saving-recipes-and-models-to-disk-as-a-workflow" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Saving recipes and models to disk as a workflow</h1>
+<p>We can (and should!) save recipes and models to disk for later recall. We need the recipe because it habdle the pre-processing of our covariates, while the model specifies both the form of the model as well as the necessary coefficients. When bundled together for later use we can be assured the the data pre-processing steps and model specifications will be available. A <a href="https://workflows.tidymodels.org/">workflow</a> is a container for recipes, models and other parts of the model process.</p>
+<p>Now we can save the workflow container.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_model</span>(model, <span class="at">version =</span> cfg<span class="sc">$</span>version)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_workflow</span>(fitted_wflow, <span class="at">version =</span> cfg<span class="sc">$</span>version)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You can read it back later with <code>read_model()</code>.</p>
+<p>You can read it back later with <code>read_workflow()</code>.</p>
 </section>
 <section id="recap" class="level1" data-number="10">
 <h1 data-number="10"><span class="header-section-number">10</span> Recap</h1>
-<p>We have built a random forest model using some tools from the <a href="https://www.tidymodels.org/">tidymodels universe</a>. After reading in a suite of data, we split our data into training and testing sets, witholding the testing set until the very end. We looked a variety of metrics including a simple tally, a confusion matrix, ROC and AUC, accuracy and partial dependencies. We saved the model to a file.</p>
+<p>We have built a random forest model using tools from the <a href="https://www.tidymodels.org/">tidymodels universe</a>. After reading in a suite of data, we split our data into training and testing sets, witholding the testing set until the very end. We looked a variety of metrics including a simple tally, a confusion matrix, ROC and AUC, accuracy and partial dependencies. We saved the recipe and model together in a special container, called a workflow, to a file.</p>
 </section>
 <section id="coding-assignment" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Coding Assignment</h1>
@@ -1342,8 +1356,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link" aria-label="About">
-        <span class="nav-page-text">About</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./C05_prediction.html" class="pagination-link" aria-label="Prediction">
+        <span class="nav-page-text">Prediction</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

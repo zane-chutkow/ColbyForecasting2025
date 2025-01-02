@@ -207,6 +207,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./C05_prediction.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prediction</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./about.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">About</span></a>
   </div>
@@ -231,6 +237,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#saving-a-file-to-keep-track-of-modeling-choices" id="toc-saving-a-file-to-keep-track-of-modeling-choices" class="nav-link" data-scroll-target="#saving-a-file-to-keep-track-of-modeling-choices"><span class="header-section-number">2.5</span> Saving a file to keep track of modeling choices</a></li>
   </ul></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">3</span> Recap</a></li>
+  <li><a href="#coding-assignment" id="toc-coding-assignment" class="nav-link" data-scroll-target="#coding-assignment"><span class="header-section-number">4</span> Coding Assignment</a></li>
   </ul>
 </nav>
     </div>
@@ -455,16 +462,15 @@ Geodetic CRS:  WGS 84
 <section id="recap" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Recap</h1>
 <p>We loaded the covariates for the “PRESENT” climate scenario and looked at collinearity across the entore study domain. We invoked a function that suggests which variables to keep and which to drop based upon collinearity. We examined the covariates at just the <code>presence</code> and <code>background</code> locations. We then saved a configuration for later reuse.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+</section>
+<section id="coding-assignment" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Coding Assignment</h1>
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-Coding Assignment
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-body-container">
 <p>Open nd edit the file called <code>functions/select_covariates.R</code>. Within the file write the function(s) you need to select the “keeper” variables for a given approach (greedy or conservative) and a given month (Jan - Dec). Have the function return an appropriate configuration list. The function shoulkd start out approximately like this…</p>
 <pre><code>#' Given a species, month and sampling approach select variabkes for each month
 #'
@@ -487,6 +493,7 @@ select_covariates = function(approach = "greedy",
     keep_vars = &lt;something you make goes here&gt;)
 }</code></pre>
 <p>Use the <a href="https://bigelowlab.github.io/handytandy/iterations.html">iterations tutorial</a> to apply your <code>select_covariates()</code> for each month using each approach. At each iteration write the configuration. When you are done, you should have 12 YAML files for each approach - so 24 YAML files written all together for each species.</p>
+</div>
 </div>
 </div>
 

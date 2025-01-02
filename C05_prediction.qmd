@@ -1,0 +1,41 @@
+---
+title: "Prediction"
+---
+
+> It's tough to make predictions, especially about the future.
+> ~ Yogi Berra
+
+Finally we come to the end product of forecasting: the prediction. This last step is actually fairly simple, given a recipe and model (now bundled in a `workflow` container), run the same data-prep and predicting steps as we did earlier.  One modification is that we now want to predict across the entire domain of our Brickman data set.  You may recall that we are able to read these arrays, display them and extract point data from them.  But we haven't used them *en mass* as a variable yet.
+
+# Setup
+
+As always, we start by running our setup function. Start RStudio/R, and reload your project with the menu `File > Recent Projects`. 
+
+```{r setup}
+source("setup.R")
+```
+
+# Load the Brickman data
+
+Once again, we'll use the August data where we started with a greedy sampling approach. We are going to make a prediction about the present, which means it something akin to a [nowcast](https://en.wikipedia.org/wiki/Nowcasting_(economics)). 
+
+```{r load_covar}
+cfg = read_configuration(version = "g_Aug")
+db = brickman_database()
+depth = read_brickman(db |> filter(scenario == "STATIC", var == "depth"))
+covars = read_brickman(db |> filter(scenario == "PRESENT", interval == "mon")) |>
+  slice("month", "Aug") |>
+  c(depth)
+```
+
+# Load the workflow
+
+We read the recipe and model workflow bundle.
+
+```{r load_workflow}
+wflow = read_workflow(version = cfg$version)
+```
+
+# Recap
+
+# Coding Assignment

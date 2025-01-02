@@ -10,6 +10,7 @@ project:
     - C02_background.qmd
     - C03_covariates.qmd
     - C04_models.qmd
+    - C05_prediction.qmd
     - about.qmd
 execute: 
   cache: false
@@ -37,6 +38,8 @@ website:
         href: C03_covariates.qmd
       - text: Models
         href: C04_models.qmd
+      - text: Prediction
+        href: C05_prediction.qmd
       - text: About
         href: about.qmd
     tools:
