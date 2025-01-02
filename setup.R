@@ -31,7 +31,7 @@ ix = names(packages$GITHUB) %in% installed
 }
 
 if ("RUNIV" %in% names(packages)){
-  ix = packages$CRAN %in% installed
+  ix = names(packages$RUNIV) %in% installed
   for (package in names(packages$RUNIV[!ix])){
     install.packages(package, repos = packages$RUNIV[[package]])
   }
