@@ -26,7 +26,7 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
  - Lecture: Forecasting Introduction
  - **R Tutorial: Coding**
  - Reading assignment:
-    - The Gulf of Maine articles in this folder
+    - The Gulf of Maine articles in this folder - https://github.com/BigelowLab/ColbyForecasting2025/tree/main/reading/Woodard
 
 
 **Friday Jan 10**
