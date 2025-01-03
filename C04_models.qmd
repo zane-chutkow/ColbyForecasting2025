@@ -153,17 +153,22 @@ Each variable in the input is assigned a role: "outcome" or "predictor".  The la
 
 ## Modifying the recipe with steps
 
-Sometimes the recipes requires subsequent steps *before* the modeling begins in earnest. Steps are cumulative, and that means the order in which tye are added matters. For example we know from experience that it is often useful to log scale (base 10) depth when working with biological models. Currently, `depth` ranges from `{r} sprintf("%0.1fm", min(all_data$depth))` to `{r} sprintf("%0.1fm",max(all_data$depth))`.  We also know from experience that `Xbtm`, like `depth`, also ranges over a number of orders of magnitude.  So, we'll add a step for that.
+Steps are cumulative modifications, and that means the order in which they are added matters.  These steps comprise the bulk of pre-processing steps.
+
+Some modifications are applied row-by-row.  For example, rows of the input modeling data that have one or more missing values (NAs) can be problematic and they should be removed.
+
+Other modifications are to manipulate entire columns. Sometimes the recipes requires subsequent steps *before* the modeling begins in earnest. For example we know from experience that it is often useful to log scale (base 10) depth when working with biological models. Currently, `depth` ranges from `{r} sprintf("%0.1fm", min(all_data$depth))` to `{r} sprintf("%0.1fm",max(all_data$depth))`.  We also know from experience that `Xbtm`, like `depth`, also ranges over a number of orders of magnitude.  So, we'll add a step for that.
 
 ```{r step_log}
-rec = rec |>
+rec = rec |> 
+  step_naomit() |>
   step_log(depth, Xbtm, base = 10)
 rec
 ```
 
 Next we state that we want to **remove** variables that might be highly correlated with other variables. If two variables are highly correlated, they will not provide the modeling system with more information, just redundant information which doesn't neccessarily help. `step_corr()` accepts a variety of arguments specifying which variables to test to correlation including some convenience selectors like `all_numeric()`, `all_string()` and friends.  We want all predictors which happen to all be numeric, so we can use `all_predictors()` or `all_numeric_predictors()`. Specificity is better then generality so let's choose numeric predictors.
 
-```{r}
+```{r step_corr}
 rec = rec |> 
   step_corr(all_numeric_predictors())
 rec
@@ -317,7 +322,7 @@ partial_dependence_plot(fitted_wflow, data = test_data)
 
 # Saving recipes and models to disk as a workflow
 
-We can (and should!) save recipes and models to disk for later recall.  We need the recipe because it habdle the pre-processing of our covariates, while the model specifies both the form of the model as well as the necessary coefficients. When bundled together for later use we can be assured the the data pre-processing steps and model specifications will be available.  A [workflow](https://workflows.tidymodels.org/) is a container for recipes, models and other parts of the model process.  
+We can (and should!) save recipes and models to disk for later recall.  We need the recipe because it handle the pre-processing of our covariates, while the model specifies both the form of the model as well as the necessary coefficients. When bundled together for later use we can be assured the the data pre-processing steps and model specifications will be available.  A [workflow](https://workflows.tidymodels.org/) is a container for recipes, models and other parts of the model process.  
 
 Now we can save the workflow container.
 

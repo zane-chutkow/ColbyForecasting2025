@@ -1,11 +1,11 @@
 
-
-
-#' Retrieve a listing of all Brickman variables
-#' 
-#' @param interval chr, one of "mon" (monthly), "ann" (annual) or "all"
-#' @return table
 brickman_variables = function(interval = c("mon", "ann", "all")[1]){
+  
+  #' Retrieve a listing of all Brickman variables
+  #' 
+  #' @param interval chr, one of "mon" (monthly), "ann" (annual) or "all"
+  #' @return table
+  
   x = dplyr::tribble(
     ~name, ~group, ~longname, ~description, ~units,
     'depth', "static", "Bathy_depth", "bathymetric depth", "m",
@@ -36,19 +36,25 @@ brickman_variables = function(interval = c("mon", "ann", "all")[1]){
 
 
 
-#' Read the Brickman database
-#' 
-#' @param path chr, the path to the data
-#' @return tabular database
+
 brickman_database = function(path = file.path(ROOT_DATA_PATH, "brickman")){
+  
+  #' Read the Brickman database
+  #' 
+  #' @param path chr, the path to the data
+  #' @return tabular database
+  
   readr::read_csv(file.path(path, "database.csv"), col_types = "cccc")
 }
 
-#' Build the Brickman database
-#' 
-#' @param path chr, the path to the data
-#' @return tabular database
+
 brickman_build_database = function(path = brickman_path()){
+  
+  #' Build the Brickman database
+  #' 
+  #' @param path chr, the path to the data
+  #' @return tabular database
+  
   ff = list.files(path, pattern = glob2rx("*.tif"))
   ff = gsub(".tif", "", ff, fixed = TRUE) |>
     strsplit( "_", fixed = TRUE) 
@@ -62,26 +68,28 @@ brickman_build_database = function(path = brickman_path()){
 
 
 
-#' Read Brickman data given a database
-#' 
-#' Intervals are exclusive - you can't read "mon" and "ann" into the same variable.
-#' If you need two or more groups then read into two or more variables.
-#' 
-#' Years are exclusive - you can't read 2055 and 2075 into the same variable.
-#' If you need two or more years then read into two or more variables.
-#' 
-#' Scenarios are exclusive - you can't read RCP85 and RCP45 into the same variable.
-#' If you need two or more scenarios then read into two or more variables.
-#' 
-#' @param db table of database of one group type
-#' @param path chr, the brickman data path
-#' @return stars array
+
 read_brickman = function(db = brickman_database() |>
                            dplyr::filter(scenario == "PRESENT",
                                          year == "PRESENT",
                                          interval == "mon"), 
                          path = brickman_path()){
 
+  #' Read Brickman data given a database
+  #' 
+  #' Intervals are exclusive - you can't read "mon" and "ann" into the same variable.
+  #' If you need two or more groups then read into two or more variables.
+  #' 
+  #' Years are exclusive - you can't read 2055 and 2075 into the same variable.
+  #' If you need two or more years then read into two or more variables.
+  #' 
+  #' Scenarios are exclusive - you can't read RCP85 and RCP45 into the same variable.
+  #' If you need two or more scenarios then read into two or more variables.
+  #' 
+  #' @param db table of database of one group type
+  #' @param path chr, the brickman data path
+  #' @return stars array
+  
   if(length(unique(db$interval)) > 1) {
     stop("please just read from one interval at a time: mon, ann or static")
   }
@@ -124,17 +132,21 @@ read_brickman = function(db = brickman_database() |>
   do.call(c, append(x, list(along = NA_integer_)))
 }
 
-#' Extract point data from a Brickman stars object
-#' 
-#' @param x stars object (with or without month dimension)
-#' @param y sf point data
-#' @param form chr one of either "long" (the default) or "wide" to control 
-#'   output column layout. 
-#' @param ... other arguments passed to `stars::st_extract()`
-#' @return table of variable data for each input point
+
 extract_brickman = function(x = read_brickman(), 
                             y = gom_buoys(), 
                             form = "long"){
+  
+  #' Extract point data from a Brickman stars object
+  #' 
+  #' @param x stars object (with or without month dimension)
+  #' @param y sf point data
+  #' @param form chr one of either "long" (the default) or "wide" to control 
+  #'   output column layout. 
+  #' @param ... other arguments passed to `stars::st_extract()`
+  #' @return table of variable data for each input point
+  
+  
   n = nrow(y)
   N = floor(log10(n)+ 1)
   fmt = paste0("p%0.", N, "i")
@@ -174,17 +186,7 @@ extract_brickman = function(x = read_brickman(),
   p
 }
 
-#' Read, warp, subset and archive all combinations of the raw Brickman data
-#' 
-#' 
-#' @param scenario chr, one o rmore of "RCP85", "RCP45", or "PRESENT"
-#' @param year chr, year "2055" or "2075"
-#' @param vars chr, variable names (such as "SST" or "all")
-#' @param interval chr, either "ann" or "mon" (default)
-#' @param bb sf, something which provides a bounding box for subsetting
-#' @param band_as_time logical, convert band to appropriate time/date stamp
-#' @param path filepath, path to where you want data saved
-#' @return tibble database
+
 assemble_brickman= function(scenario = c("RCP85", "RCP45", "PRESENT"),
                            year = c("2055", "2075", "PRESENT"),
                            vars = "all", 
@@ -192,6 +194,20 @@ assemble_brickman= function(scenario = c("RCP85", "RCP45", "PRESENT"),
                            bb = colby_bbox(),
                            band_as_time = FALSE,
                            path = brickman_path()){
+  
+  #' Read, warp, subset and archive all combinations of the raw Brickman data
+  #' 
+  #' 
+  #' @param scenario chr, one o rmore of "RCP85", "RCP45", or "PRESENT"
+  #' @param year chr, year "2055" or "2075"
+  #' @param vars chr, variable names (such as "SST" or "all")
+  #' @param interval chr, either "ann" or "mon" (default)
+  #' @param bb sf, something which provides a bounding box for subsetting
+  #' @param band_as_time logical, convert band to appropriate time/date stamp
+  #' @param path filepath, path to where you want data saved
+  #' @return tibble database
+  
+  
   if(FALSE){
     scenario = c("RCP85", "RCP45", "PRESENT")
     year = c("2055", "2075", "PRESENT")

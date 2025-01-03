@@ -1,8 +1,11 @@
-#' Read in a table of buoy names and locations
-#' 
-#' @param form chr, one of 'table' or 'sf'
-#' @return either a table of sf table
+
 gom_buoys = function(form = c("table", "sf")[2]){
+  
+  #' Read in a table of buoy names and locations
+  #' 
+  #' @param form chr, one of 'table' or 'sf'
+  #' @return either a table or sf table
+  
   x = structure(list(name = c("wms", "cms", "pb", "ems", "jb", "nec"), 
   longname = c("Western Maine Shelf", "Central Maine Shelf", 
                "Penobscot Bay", "Eastern Maine Shelf", "Jordan Basin", "Northeast Channel"), 

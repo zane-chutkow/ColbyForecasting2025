@@ -7,8 +7,10 @@
 packages = list(
   CRAN = c("remotes", "ggplot2", "readr", "tidyr", "tidymodels", "sf", 
            "imager", "stars", "rnaturalearth", "robis", "httr", "yaml",
-           "effectplots",  "dplyr"),
-  GITHUB = NULL, #list(tidysdm = c(repo = "EvolEcolGroup/tidysdm", ref = "dev"))
+           "docstring", "effectplots", "dplyr"),
+  GITHUB = list(
+    #tidysdm = c(repo = "EvolEcolGroup/tidysdm", ref = "dev"))
+    ColbyForecastingDocs = c(repos = "BigelowLab/ColbyForecastingDocs", ref = "main")),
   RUNIV = list(tidysdm = c("https://evolecolgroup.r-universe.dev", 
                              "https://cloud.r-project.org"))
 )
@@ -50,7 +52,7 @@ for (f in list.files("functions", pattern = glob2rx("*.R"), full.names = TRUE)) 
   source(f, echo = FALSE)
 }
 
-# Finally set path to the data m- hopefully as a sibling to the project directory
+# Finally set path to the data hopefully as a sibling to the project directory
 # The data directory has top level subdirectories ("buoys", "coast", "brickman")
 # that contain data used by all.  It also may have one or more yearly directories
 # for "personal data directories" ala "2024", "2025"

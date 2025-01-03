@@ -1,11 +1,14 @@
-#' Plot an annotated ROC with AUC
-#' 
-#' @param x table of predictive outcomes - see `predict_model`
-#' @param truth the truth column, usually `class`
-#' @param pred the prediction column, usually .pred_presense
-#' @param title chr the optional title
-#' @return ggplot2 object suitable for printing
+
 plot_roc = function(x, truth, pred, title = "ROC"){
+  
+  #' Plot an annotated ROC with AUC
+  #' 
+  #' @param x table of predictive outcomes - see `predict_model`
+  #' @param truth the truth column, usually `class`
+  #' @param pred the prediction column, usually .pred_presense
+  #' @param title chr the optional title
+  #' @return ggplot2 object suitable for printing
+  
   auc = yardstick::roc_auc(x, {{truth}}, {{pred}}) |>
     dplyr::pull(.estimate)
   roc_curve(x, {{truth}}, {{pred}}) |>

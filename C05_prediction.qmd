@@ -36,6 +36,12 @@ We read the recipe and model workflow bundle.
 wflow = read_workflow(version = cfg$version)
 ```
 
+# Make a prediction
+
+
+
+
+
 # Recap
 
 # Coding Assignment

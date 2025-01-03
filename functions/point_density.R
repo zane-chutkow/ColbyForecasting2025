@@ -1,21 +1,23 @@
-#' Given a set of points and a target raster geometry, compute the density (count)
-#' of points in each cell.
-#' 
-#' @param x sf POINT object
-#' @param y stars object that defines the geometry of the output
-#' @param name chr, the name of the output variable
-#' @param dilate num, the size of the square structuring element used for dilating the
-#'   output counts (padding with zeroes).  Set to 0 to skip. 
-#' @param dilate_value num, if dilation occurs, this is the value assigned to the padded cells
-#' @param mask `stars` object that defines masked areas where
-#'   dilation does not occur with the value NA.  It must have the same spatial 
-#'   geometry as the input \code{y}.
-#' @return 
+
 rasterize_point_density <- function(x, y, 
                                     name = "count",
                                     dilate = 0,
                                     dilate_value = 1,
                                     mask = y){
+  
+  #' Given a set of points and a target raster geometry, compute the density (count)
+  #' of points in each cell.
+  #' 
+  #' @param x sf POINT object
+  #' @param y stars object that defines the geometry of the output
+  #' @param name chr, the name of the output variable
+  #' @param dilate num, the size of the square structuring element used for dilating the
+  #'   output counts (padding with zeroes).  Set to 0 to skip. 
+  #' @param dilate_value num, if dilation occurs, this is the value assigned to the padded cells
+  #' @param mask `stars` object that defines masked areas where
+  #'   dilation does not occur with the value NA.  It must have the same spatial 
+  #'   geometry as the input \code{y}.
+  #' @return stars array with point densities
   
   if (inherits(y, "stars")){
     # if y has scrambled coords reorganize as x,y,z

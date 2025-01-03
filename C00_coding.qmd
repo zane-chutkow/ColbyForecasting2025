@@ -56,6 +56,18 @@ Many spatial data sets come as point data - locations (longitude, latitude and m
 buoys = gom_buoys()
 buoys
 ```
+:::{.callout-note}
+You can get the online documention for functions a couple of ways. You can type `?name_of_function`, or `docstring(name_of_function)` or `help(name_of_function)`.
+
+We are sorry to say that `?name_of_function` and `docstring(name_of_function)` don't always work the way we want - it's a bit maddening. the failure occurs when we are looking for help in homemade functions, like those you'll find in the `functions` directory.
+
+Try `?gom_buoys` and `docstring(gom_buoys)` - these are homemade functions so your luck in getting help is often good but may be spotty. `help(gom_buoys)` will never work for homegrown functions, but you can't know a function is homegrown just from its name. If all else fails, you could always open the `functions/buoys.R` file and look at the documention directly.
+
+Non-homegrown functions are stored in packages which areneat, tidy and well tested collections of functions.  For example, `read_stars` is a function in the stars package.  So using `?read_stars` and `help(read_stars)` should always work.  Unfortunately, using `docstring(read_stars)` will fail since it is in a package.  
+
+It's a bit of a mess.  Sorry about that!
+:::
+
 So there are 6 buoys, each with an attached attribute "name", "longname" and "id", as well as the spatial location datain the "geometry" column (just longitude and latitude in this case). We can easily plot these using the "name" column as a color key.  For more on plotting spatial data, see this [wiki page](Spatial).
 
 ```{r plot_buoys}

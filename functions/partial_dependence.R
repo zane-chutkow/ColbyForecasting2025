@@ -1,14 +1,6 @@
 
 
-#' Given a workflow or fitted model generate a partial dependence plot
-#' 
-#' @param x workflow with a fitted model
-#' @param share_y chr, by default "all" but see `?plot.EffectsData`
-#' @param v chr, variable names `?plot.EffectsData`. Not needed for workflow.
-#' @param data table with outcomes and predictors. Not needed for workflow.
-#' @param outcome chr, the name of the column (variable) that defines the outcome
-#' @param ... other arguments for `?plot.EffectsData`
-#' @return plot object as ggplot or plotly see `?plot.EffectsData`
+
 partial_dependence_plot = function(x, 
                                    share_y = "all", 
                                    filename = NULL, 
@@ -16,6 +8,17 @@ partial_dependence_plot = function(x,
                                    data = NULL,
                                    outcome = "class",
                                    ...){
+  
+  #' Given a workflow or fitted model generate a partial dependence plot
+  #' 
+  #' @param x workflow with a fitted model
+  #' @param share_y chr, by default "all" but see `?plot.EffectsData`
+  #' @param v chr, variable names `?plot.EffectsData`. Not needed for workflow.
+  #' @param data table with outcomes and predictors. Not needed for workflow.
+  #' @param outcome chr, the name of the column (variable) that defines the outcome
+  #' @param ... other arguments for `?plot.EffectsData`
+  #' @return plot object as ggplot or plotly see `?plot.EffectsData`
+  
   if (inherits(x, "workflow")){
     stopifnot(is_trained_workflow(x))
     # extract the mold

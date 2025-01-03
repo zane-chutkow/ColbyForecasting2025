@@ -4,7 +4,6 @@ project:
   execute-dir: project
   render:
     - index.qmd
-    - F00_forecasting.qmd
     - C00_coding.qmd
     - C01_observations.qmd
     - C02_background.qmd
@@ -26,8 +25,6 @@ website:
     contents:
       - text: Home
         href: index.qmd
-      - text: Forecasting
-        href: F00_forecasting.qmd
       - text: Coding
         href: C00_coding.qmd
       - text: Observations
