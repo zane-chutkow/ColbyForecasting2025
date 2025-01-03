@@ -30,7 +30,7 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
 
 
 **Friday Jan 10**
- - Discussion:
+ - Discussion: Forecast cards
  - Lecture: Ocean Science Primer
  - **R Tutorial: Observations**
 ____________________________________________________________________________
