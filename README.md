@@ -30,8 +30,9 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
 
 
 **Friday Jan 10**
+ - Lecture: Ocean Science / Gulf of Maine Primer
  - Discussion: Forecast cards
- - Lecture: Ocean Science Primer
+    - See Table 1 in this paper - https://github.com/BigelowLab/ColbyForecasting2025/blob/main/reading/RecordEtal2025inreview.pdf
  - **R Tutorial: Observations**
 ____________________________________________________________________________
 **Monday Jan 13**
