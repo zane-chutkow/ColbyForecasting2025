@@ -40,11 +40,12 @@ ____________________________________________________________________________
  - **R Tutorial: Background Points**
 
 **Wednesday Jan 15**
+ - Lecture: Forecasting Methodologies
  - Paper: Brickman
  - **R Tutorial: Covariates**
 
 **Friday Jan 17**
- - Lecture: Forecasting Algorithms and Data Justice
+ - Lecture: Algorithms and Accoutability
  - **R Tutorial: Modeling**
  - Assignments: 
 ____________________________________________________________________________
