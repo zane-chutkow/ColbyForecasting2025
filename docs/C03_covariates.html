@@ -279,17 +279,15 @@ Cassandra Clare
 <p>We can look at the entire domain, the complete spatial extent of our arrays of data, to look for correlated variables. For example, we might wonder if sea surface temperature(SST) and sea floor temperature (Tbtm) vary together, when one goes up the other goes up. That sort of thing. We have ways of getting at those correlations.</p>
 <section id="reading-in-the-covariates" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="reading-in-the-covariates"><span class="header-section-number">2.1</span> Reading in the covariates</h2>
-<p>We’ll read in the Brickman database, then filter two different subsets to read: “STATIC” covariate bathymetry that apply across all scenarios and times and monthly covariates for the “PRESENT” period.</p>
+<p>We’ll read in the Brickman database, then filter two different subsets to read: “STATIC” covariate bathymetry that apply across all scenarios and times and monthly covariates for the “PRESENT” period. Note that depth is automatically included - that’s an option - see <code>?read_brickman</code> for more information.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>db <span class="ot">=</span> <span class="fu">brickman_database</span>()</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>depth <span class="ot">=</span> <span class="fu">read_brickman</span>(<span class="fu">filter</span>(db, var <span class="sc">==</span> <span class="st">'depth'</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>present <span class="ot">=</span> <span class="fu">read_brickman</span>(<span class="fu">filter</span>(db, scenario <span class="sc">==</span> <span class="st">"PRESENT"</span>, interval <span class="sc">==</span> <span class="st">"mon"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>present <span class="ot">=</span> <span class="fu">read_brickman</span>(<span class="fu">filter</span>(db, scenario <span class="sc">==</span> <span class="st">"PRESENT"</span>, interval <span class="sc">==</span> <span class="st">"mon"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We should pick one month, and join that month’s model data with depth. We have used August before as our example, let’s continue with August.</p>
+<p>We have used August before as our example, let’s continue with August.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>aug <span class="ot">=</span> present <span class="sc">|&gt;</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="st">"month"</span>, <span class="st">"Aug"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>aug <span class="ot">=</span> <span class="fu">bind_attrs</span>(aug, depth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">slice</span>(<span class="st">"month"</span>, <span class="st">"Aug"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="make-a-pairs-plot" class="level2" data-number="2.2">
@@ -305,11 +303,11 @@ Cassandra Clare
 </div>
 </div>
 </div>
-<p>In the lower left portion of the plot we see paired scatter plots, at upper right we see the correlation values of the pairs, and long the diagonal we see a histogram of each variable. Some pairs are highly correlated, say over <code>0.7</code>, and to include both in the modeling might not provide us with greater predictive power. It may feel counterintuitive to remove any variables - more data means more information, right? And more information means more informed models. Consider two measurements, human height and inseam. We might use these to predict if a person can dunk a basketball, but since they are probably strongly correlated do you really need both?</p>
+<p>In the lower left portion of the plot we see paired scatter plots, at upper right we see the correlation values of the pairs, and long the diagonal we see a histogram of each variable. Some pairs are highly correlated, say over <code>0.7</code>, and to include both in the modeling might not provide us with greater predictive power. It may feel counterintuitive to remove any variables - more data means more information, right? And more information means more informed models. Consider two measurements, human arm length and inseam. We might use these to predict if a person is tall, but since they are probably strongly collinear/correlated do we really need both?</p>
 </section>
 <section id="identify-the-most-independent-variables-and-the-most-collinear" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="identify-the-most-independent-variables-and-the-most-collinear"><span class="header-section-number">2.3</span> Identify the most independent variables (and the most collinear)</h2>
-<p>We have a function that can help use select which variables to remove. <code>filter_collinear()</code> returns a listing of variables it suggests we keep. It attaches to the return value an attribute (like a post-it note stuck on a box) that lists the complementary variables that it suggests we drop. We are choosing a particular method you can learn more about using R’s help <code>?filter_collinear</code>.</p>
+<p>We have a function that can help use select which variables to remove. <code>filter_collinear()</code> returns a listing of variables it suggests we keep. It attaches to the return value an attribute (like a post-it note stuck on a box) that lists the complementary variables that it suggests we drop. We are choosing a particular method, but you can learn more about using R’s help for <code>?filter_collinear</code>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>keep <span class="ot">=</span> <span class="fu">filter_collinear</span>(aug, <span class="at">method =</span> <span class="st">"vif_step"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>keep</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -320,7 +318,7 @@ attr(,"to_remove")
 </div>
 </div>
 <p>Of course, we can decide to ignore this advice, and pick which ever ones we want including keeping them all.</p>
-<p>Whatever selection of variable we decide to model with, we will save this listing to a file. That way we can refer to it progammatically. But that comes later.</p>
+<p>Whatever selection of variables we decide to model with, we will save this listing to a file. That way we can refer to it progammatically. But that comes later.</p>
 </section>
 <section id="a-closer-look-at-the-model-input-data" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="a-closer-look-at-the-model-input-data"><span class="header-section-number">2.4</span> A closer look at the model input data</h2>

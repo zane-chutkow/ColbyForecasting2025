@@ -73,6 +73,7 @@ read_brickman = function(db = brickman_database() |>
                            dplyr::filter(scenario == "PRESENT",
                                          year == "PRESENT",
                                          interval == "mon"), 
+                         add_depth = TRUE, 
                          path = brickman_path()){
 
   #' Read Brickman data given a database
@@ -87,6 +88,7 @@ read_brickman = function(db = brickman_database() |>
   #' If you need two or more scenarios then read into two or more variables.
   #' 
   #' @param db table of database of one group type
+  #' @param add_depth logical, if TRUE include depth as a variable
   #' @param path chr, the brickman data path
   #' @return stars array
   
@@ -129,7 +131,19 @@ read_brickman = function(db = brickman_database() |>
                  } 
              rlang::set_names(x, tbl$var)
              }) 
-  do.call(c, append(x, list(along = NA_integer_)))
+  x = do.call(c, append(x, list(along = NA_integer_)))
+  
+  if (add_depth && !("depth" %in% names(x))){
+    db = brickman_database()
+    depth = read_brickman(db |> filter(scenario == "STATIC", var == "depth"))
+    if (length(dim(x) == 3)) {
+      dd = sapply(month.abb, function(mon) {depth}, simplify = FALSE)
+      depth = do.call(c, append(dd, list(along = list(month = month.abb))))
+    }
+    x = c(x, depth)
+  } # add depth?
+  
+  return(x)
 }
 
 

@@ -24,6 +24,7 @@ cfg = read_configuration(version = "g_Aug")
 db = brickman_database()
 depth = read_brickman(db |> filter(scenario == "STATIC", var == "depth"))
 covars = read_brickman(db |> filter(scenario == "PRESENT", interval == "mon")) |>
+  select(all_of(cfg$keep_vars)) |>
   slice("month", "Aug") |>
   c(depth)
 ```

@@ -24,20 +24,18 @@ We can look at the entire domain, the complete spatial extent of our arrays of d
 
 ## Reading in the covariates
 
-We'll read in the Brickman database, then filter two different subsets to read: "STATIC" covariate bathymetry that apply across all scenarios and times and monthly covariates for the "PRESENT" period.
+We'll read in the Brickman database, then filter two different subsets to read: "STATIC" covariate bathymetry that apply across all scenarios and times and monthly covariates for the "PRESENT" period. Note that depth is automatically included - that's an option - see `?read_brickman` for more information.
 
 ```{r read_brickman}
 db = brickman_database()
-depth = read_brickman(filter(db, var == 'depth'))
 present = read_brickman(filter(db, scenario == "PRESENT", interval == "mon"))
 ```
 
-We should pick one month, and join that month's model data with depth.  We have used August before as our example, let's continue with August.
+We have used August before as our example, let's continue with August.
 
 ```{r August_present}
 aug = present |>
   dplyr::slice("month", "Aug")
-aug = bind_attrs(aug, depth)
 ```
 
 ## Make a `pairs` plot
@@ -48,11 +46,11 @@ A `pairs` plot is a plot often used in exploratory data analysis.  It makes a gr
 pairs(aug)
 ```
 
-In the lower left portion of the plot we see paired scatter plots, at upper right we see the correlation values of the pairs, and long the diagonal we see a histogram of each variable. Some pairs are highly correlated, say over `0.7`, and to include both in the modeling might not provide us with greater predictive power. It may feel counterintuitive to remove any variables - more data means more information, right?  And more information means more informed models. Consider two measurements, human height and inseam. We might use these to predict if a person can dunk a basketball, but since they are probably strongly correlated do you really need both?
+In the lower left portion of the plot we see paired scatter plots, at upper right we see the correlation values of the pairs, and long the diagonal we see a histogram of each variable. Some pairs are highly correlated, say over `0.7`, and to include both in the modeling might not provide us with greater predictive power. It may feel counterintuitive to remove any variables - more data means more information, right?  And more information means more informed models. Consider two measurements, human arm length and inseam. We might use these to predict if a person is tall, but since they are probably strongly collinear/correlated do we really need both?
 
 ## Identify the most independent variables (and the most collinear)
 
-We have a function that can help use select which variables to remove.  `filter_collinear()` returns a listing of variables it suggests we keep. It attaches to the return value an attribute (like a post-it note stuck on a box) that lists the complementary variables that it suggests we drop. We are choosing a particular method you can learn more about using R's help `?filter_collinear`.
+We have a function that can help use select which variables to remove.  `filter_collinear()` returns a listing of variables it suggests we keep. It attaches to the return value an attribute (like a post-it note stuck on a box) that lists the complementary variables that it suggests we drop. We are choosing a particular method, but you can learn more about using R's help for `?filter_collinear`.
 
 ```{r filter_collinear}
 keep = filter_collinear(aug, method = "vif_step")
@@ -61,7 +59,7 @@ keep
 
 Of course, we can decide to ignore this advice, and pick which ever ones we want including keeping them all.
 
-Whatever selection of variable we decide to model with, we will save this listing to a file.  That way we can refer to it progammatically.  But that comes later.
+Whatever selection of variables we decide to model with, we will save this listing to a file.  That way we can refer to it progammatically.  But that comes later.
 
 ## A closer look at the model input data
 

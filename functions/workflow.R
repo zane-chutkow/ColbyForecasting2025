@@ -10,7 +10,8 @@ read_workflow = function(version = "g_Aug",
   filename = file.path(path,
                        sprintf("%s_workflow.rds", version))
   if (!file.exists(filename)) stop("file not found:", filename)
-  readr::read_rds(filename )
+  readr::read_rds(filename) |>
+    bundle::unbundle()
 }
 
 
@@ -27,5 +28,7 @@ write_workflow = function(x,
 
   filename = file.path(path,
                        sprintf("%s_workflow.rds", version))
-  readr::write_rds(x, filename)
+  x |>
+    bundle::bundle() |>
+    readr::write_rds(filename)
 }
