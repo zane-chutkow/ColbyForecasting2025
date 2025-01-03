@@ -25,17 +25,16 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
  - Discussion: What are we forecasting?
  - Lecture: Forecasting Introduction
  - **R Tutorial: Coding**
+ - Reading assignment:
+    - The Gulf of Maine articles in this folder
 
 
 **Friday Jan 10**
  - Discussion:
  - Lecture: Ocean Science Primer
  - **R Tutorial: Observations**
- - Discussion Assignment 1 (due Monday) https://docs.google.com/document/d/1x04hWU_0Snfgdy5HDtngk9wZCJ8lPuVB2P77194Dp7E/edit
- - Reading: the papers in the references of Discussion Assignment 1
 ____________________________________________________________________________
 **Monday Jan 13**
- - Roundtable Discussion 1: The forecasting cycle (from Discussion Assignment 1) https://docs.google.com/spreadsheets/d/1-02naNk_8PyN68PgQaAcyRpLdU6iTVx3a6ugKF0171M/edit?usp=sharing
  - Lecture: Predicting the distributions of right whales and white sharks in the Gulf of Maine (Camille and Kyle guest lectures)
  - **R Tutorial: Background Points**
 
