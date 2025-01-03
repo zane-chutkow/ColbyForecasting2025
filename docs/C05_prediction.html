@@ -224,9 +224,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#setup" id="toc-setup" class="nav-link active" data-scroll-target="#setup"><span class="header-section-number">1</span> Setup</a></li>
   <li><a href="#load-the-brickman-data" id="toc-load-the-brickman-data" class="nav-link" data-scroll-target="#load-the-brickman-data"><span class="header-section-number">2</span> Load the Brickman data</a></li>
   <li><a href="#load-the-workflow" id="toc-load-the-workflow" class="nav-link" data-scroll-target="#load-the-workflow"><span class="header-section-number">3</span> Load the workflow</a></li>
-  <li><a href="#make-a-prediction" id="toc-make-a-prediction" class="nav-link" data-scroll-target="#make-a-prediction"><span class="header-section-number">4</span> Make a prediction</a></li>
-  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">5</span> Recap</a></li>
-  <li><a href="#coding-assignment" id="toc-coding-assignment" class="nav-link" data-scroll-target="#coding-assignment"><span class="header-section-number">6</span> Coding Assignment</a></li>
+  <li><a href="#make-a-prediction" id="toc-make-a-prediction" class="nav-link" data-scroll-target="#make-a-prediction"><span class="header-section-number">4</span> Make a prediction</a>
+  <ul class="collapse">
+  <li><a href="#nowcast" id="toc-nowcast" class="nav-link" data-scroll-target="#nowcast"><span class="header-section-number">4.1</span> Nowcast</a></li>
+  <li><a href="#forecast" id="toc-forecast" class="nav-link" data-scroll-target="#forecast"><span class="header-section-number">4.2</span> Forecast</a></li>
+  </ul></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series"><span class="header-section-number">5</span> Time series</a>
+  <ul class="collapse">
+  <li><a href="#forecast-2055" id="toc-forecast-2055" class="nav-link" data-scroll-target="#forecast-2055"><span class="header-section-number">5.1</span> Forecast 2055</a></li>
+  <li><a href="#bind-time-series" id="toc-bind-time-series" class="nav-link" data-scroll-target="#bind-time-series"><span class="header-section-number">5.2</span> Bind time series</a></li>
+  </ul></li>
+  <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">6</span> Recap</a></li>
+  <li><a href="#coding-assignment" id="toc-coding-assignment" class="nav-link" data-scroll-target="#coding-assignment"><span class="header-section-number">7</span> Coding Assignment</a></li>
   </ul>
 </nav>
     </div>
@@ -274,10 +283,9 @@ Yogi Berra
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cfg <span class="ot">=</span> <span class="fu">read_configuration</span>(<span class="at">version =</span> <span class="st">"g_Aug"</span>)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>db <span class="ot">=</span> <span class="fu">brickman_database</span>()</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>depth <span class="ot">=</span> <span class="fu">read_brickman</span>(db <span class="sc">|&gt;</span> <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="st">"STATIC"</span>, var <span class="sc">==</span> <span class="st">"depth"</span>))</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>covars <span class="ot">=</span> <span class="fu">read_brickman</span>(db <span class="sc">|&gt;</span> <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="st">"PRESENT"</span>, interval <span class="sc">==</span> <span class="st">"mon"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="st">"month"</span>, <span class="st">"Aug"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(depth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>covars <span class="ot">=</span> <span class="fu">read_brickman</span>(db <span class="sc">|&gt;</span> <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="st">"PRESENT"</span>, interval <span class="sc">==</span> <span class="st">"mon"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(cfg<span class="sc">$</span>keep_vars)) <span class="sc">|&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="st">"month"</span>, <span class="st">"Aug"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="load-the-workflow" class="level1" data-number="3">
@@ -286,15 +294,193 @@ Yogi Berra
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>wflow <span class="ot">=</span> <span class="fu">read_workflow</span>(<span class="at">version =</span> cfg<span class="sc">$</span>version)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<p>Recall that the workflow has two elements: pre-processing recipe and model. When we make a prediction with the workflow it will accept new data that then gets filtered and/or transformed as specified by the recipe steps. The data that survives the preprocessing will then be used to feed into the model that was trained on a specific domain (time and space).</p>
 </section>
 <section id="make-a-prediction" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Make a prediction</h1>
+<p>First we shall make a “nowcast” which is just a prediction of the current environmental conditions.</p>
+<section id="nowcast" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="nowcast"><span class="header-section-number">4.1</span> Nowcast</h2>
+<p>First make the prediction. The function yields a <code>stars</code> array object that has three attributes: <code>.pred_presence</code>, <code>.pred_background</code> and <code>.pred</code>. The leading dot simply gives us the heads up that these three values are all computed. The first two range from 0-1 which implies a probability. The last, <code>.pred</code>, is the class label we would assign if we accept that any <code>.pred_presence &gt;= 0.5</code> should be considered suitable habitat where a <strong>reported observation</strong> might occur.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>nowcast <span class="ot">=</span> <span class="fu">predict_stars</span>(wflow, covars)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>nowcast</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 2 dimensions and 3 attributes
+attribute(s):
+ .pred_presence  .pred_background         .pred     
+ Min.   :0.000   Min.   :0.000     presence  : 602  
+ 1st Qu.:0.032   1st Qu.:0.750     background:5184  
+ Median :0.094   Median :0.906     NA's      :4983  
+ Mean   :0.183   Mean   :0.817                      
+ 3rd Qu.:0.250   3rd Qu.:0.968                      
+ Max.   :1.000   Max.   :1.000                      
+ NA's   :4983    NA's   :4983                       
+dimension(s):
+  from  to offset    delta refsys point x/y
+x    1 121 -74.93  0.08226 WGS 84 FALSE [x]
+y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
+</div>
+</div>
+<p>Now we can plot what is often called a “habitat suitability index” (hsi) map.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>coast <span class="ot">=</span> <span class="fu">read_coastline</span>()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nowcast[<span class="st">'.pred_presence'</span>], <span class="at">main =</span> <span class="st">"Nowcast August"</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>), <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C05_prediction_files/figure-html/plot_nowcast-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can also plot a presence/background labeled map, but keep in mind it is just a thresholded version of the above where “presence” means <code>.pred_presence &gt;= 0.5</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(nowcast[<span class="st">'.pred'</span>], <span class="at">main =</span> <span class="st">"Nowcast August Labels"</span>, </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"black"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C05_prediction_files/figure-html/plot_class_labels-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="recap" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Recap</h1>
+<section id="forecast" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="forecast"><span class="header-section-number">4.2</span> Forecast</h2>
+<p>Now let’s try our hand at forecasting - let’s try RCP85 in 2075. First we load those parameters, then run the prediction and plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>covars_rcp85_2075 <span class="ot">=</span> <span class="fu">read_brickman</span>(db <span class="sc">|&gt;</span> <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="st">"RCP85"</span>, year <span class="sc">==</span> <span class="dv">2075</span>, interval <span class="sc">==</span> <span class="st">"mon"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(cfg<span class="sc">$</span>keep_vars)) <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="st">"month"</span>, <span class="st">"Aug"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>forecast_2075 <span class="ot">=</span> <span class="fu">predict_stars</span>(wflow, covars_rcp85_2075)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>forecast_2075</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 2 dimensions and 3 attributes
+attribute(s):
+ .pred_presence  .pred_background         .pred     
+ Min.   :0.000   Min.   :0.328     presence  :  41  
+ 1st Qu.:0.147   1st Qu.:0.684     background:5745  
+ Median :0.268   Median :0.732     NA's      :4983  
+ Mean   :0.235   Mean   :0.765                      
+ 3rd Qu.:0.316   3rd Qu.:0.853                      
+ Max.   :0.672   Max.   :1.000                      
+ NA's   :4983    NA's   :4983                       
+dimension(s):
+  from  to offset    delta refsys point x/y
+x    1 121 -74.93  0.08226 WGS 84 FALSE [x]
+y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coast <span class="ot">=</span> <span class="fu">read_coastline</span>()</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(forecast_2075[<span class="st">'.pred_presence'</span>], <span class="at">main =</span> <span class="st">"RCP85 2075 August"</span>, </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>), <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C05_prediction_files/figure-html/plot_forecast-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hmmm, that’s pretty different than what the nowcast predicts.</p>
 </section>
-<section id="coding-assignment" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Coding Assignment</h1>
+</section>
+<section id="time-series" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Time series</h1>
+<p>It would be nice to see a time series: current, 2055 and 2075 on the same graphic. Let’s load RCP85 2055 data, and make yet another prediction.</p>
+<section id="forecast-2055" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="forecast-2055"><span class="header-section-number">5.1</span> Forecast 2055</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>covars_rcp85_2055 <span class="ot">=</span> <span class="fu">read_brickman</span>(db <span class="sc">|&gt;</span> <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="st">"RCP85"</span>, year <span class="sc">==</span> <span class="dv">2055</span>, interval <span class="sc">==</span> <span class="st">"mon"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="fu">all_of</span>(cfg<span class="sc">$</span>keep_vars)) <span class="sc">|&gt;</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="st">"month"</span>, <span class="st">"Aug"</span>) </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>forecast_2055 <span class="ot">=</span> <span class="fu">predict_stars</span>(wflow, covars_rcp85_2055)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>forecast_2055</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>stars object with 2 dimensions and 3 attributes
+attribute(s):
+ .pred_presence  .pred_background         .pred     
+ Min.   :0.000   Min.   :0.435     presence  :  19  
+ 1st Qu.:0.131   1st Qu.:0.682     background:5767  
+ Median :0.270   Median :0.730     NA's      :4983  
+ Mean   :0.233   Mean   :0.767                      
+ 3rd Qu.:0.318   3rd Qu.:0.869                      
+ Max.   :0.565   Max.   :1.000                      
+ NA's   :4983    NA's   :4983                       
+dimension(s):
+  from  to offset    delta refsys point x/y
+x    1 121 -74.93  0.08226 WGS 84 FALSE [x]
+y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
+</div>
+</div>
+</section>
+<section id="bind-time-series" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="bind-time-series"><span class="header-section-number">5.2</span> Bind time series</h2>
+<p>We want to bind the <code>.pred_presence</code> attribute for each of the predictions (nowcast, forecast_2055 and forecast_2075). Let’s assume the “present” mean 2020 so we can assign a year.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>rcp85 <span class="ot">=</span> <span class="fu">c</span>(nowcast, forecast_2055, forecast_2075, <span class="at">along =</span> <span class="fu">list</span>(<span class="at">year =</span> <span class="fu">c</span>(<span class="st">"2020"</span>, <span class="st">"2055"</span>, <span class="st">"2075"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Curious about we provide year as a vector of characters instead of a vector of integers? Try running the command above again and check out the 3rd dimension.</p>
+</div>
+</div>
+<p>Since we are plotting multiple arrays, we need to plot the coastline using a “hook” function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plot_coast <span class="ot">=</span> <span class="cf">function</span>(){</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(rcp85[<span class="st">'.pred_presence'</span>], </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">hook =</span> plot_coast,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>), <span class="at">join_zlim  =</span> <span class="cn">TRUE</span>, <span class="at">reset =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C05_prediction_files/figure-html/plot_hsi_series-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Hmmmm. Why does there seem to be a strong shift between 2020 and 2055, while the 2055 to 2075 shift seems less pronounced?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Don’t forget that <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Spatial">there are other ways</a> to plot array based spatial data.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="recap" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Recap</h1>
+<p>We made both a nowcast and a number predictions using a previously saved workflow. Contrary to Yogi Berra’s claim, it’s actually pretty easy to predict the future. Perhaps more challenging is to interpret the prediction. We bundled these together to make time series plots.</p>
+</section>
+<section id="coding-assignment" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Coding Assignment</h1>
 
 
 </section>

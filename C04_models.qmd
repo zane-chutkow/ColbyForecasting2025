@@ -234,7 +234,7 @@ Predicting is easy with this pattern: `predictions = predict(model, newdata, ...
 First we shall predict with the same data we trained with. The results of this will not really tell us much about our model as it is very circular to predict using the very data used to build the model.  So this next section is more about a first pass at using the tools at your disposal.
 
 ```{r predict_train}
-train_pred = predict_model(fitted_wflow, tr_data, type = "prob")
+train_pred = predict_table(fitted_wflow, tr_data, type = "prob")
 train_pred
 ```
 
@@ -302,7 +302,7 @@ Finally, we can repeat these steps with the testing data.  This should give use 
 
 ```{r predict_test}
 test_data = testing(split_data)
-test_pred = predict_model(fitted_wflow, test_data, type = "prob")
+test_pred = predict_table(fitted_wflow, test_data, type = "prob")
 test_pred
 ```
 
