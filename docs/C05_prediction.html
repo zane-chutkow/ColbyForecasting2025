@@ -233,6 +233,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#forecast-2055" id="toc-forecast-2055" class="nav-link" data-scroll-target="#forecast-2055"><span class="header-section-number">5.1</span> Forecast 2055</a></li>
   <li><a href="#bind-time-series" id="toc-bind-time-series" class="nav-link" data-scroll-target="#bind-time-series"><span class="header-section-number">5.2</span> Bind time series</a></li>
+  <li><a href="#save-the-predictions" id="toc-save-the-predictions" class="nav-link" data-scroll-target="#save-the-predictions"><span class="header-section-number">5.3</span> Save the predictions</a></li>
   </ul></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">6</span> Recap</a></li>
   <li><a href="#coding-assignment" id="toc-coding-assignment" class="nav-link" data-scroll-target="#coding-assignment"><span class="header-section-number">7</span> Coding Assignment</a></li>
@@ -474,10 +475,28 @@ Note
 </div>
 </div>
 </section>
+<section id="save-the-predictions" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="save-the-predictions"><span class="header-section-number">5.3</span> Save the predictions</h2>
+<p>We could save all three attributes, but <code>.pred_background</code> is just <code>1 - .pred_presence</code>, and <code>.pred</code> is just coding “presence” where <code>.pred_presence &gt;= 0.5</code>, so we can always compute those as needed if we have <code>.pred_presence</code>. In that case, let’s just save the first attribute, <code>.pred_presence</code>, in a multilayer <a href="https://en.wikipedia.org/wiki/GeoTIFF">GeoTIFF</a> formatted image array file. The <code>write_prediction()</code> function will do just that.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure the output directory exists</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>path <span class="ot">=</span> <span class="fu">data_path</span>(<span class="st">"predictions"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(path)) ok <span class="ot">=</span> <span class="fu">dir.create</span>(path, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># write individual arrays?</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">write_prediction</span>(nowcast, <span class="at">file =</span> <span class="fu">file.path</span>(path,<span class="st">"g_Aug_RCP85_2020.tif"</span>))</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">write_prediction</span>(forecast_2055, <span class="at">file =</span> <span class="fu">file.path</span>(path, <span class="st">"g_Aug_RCP85_2055.tif"</span>))</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">write_prediction</span>(forecast_2075, <span class="at">file =</span> <span class="fu">file.path</span>(path, <span class="st">"g_Aug_RCP85_2075.tif"</span>))</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># or write them together in a "multi-layer" file?</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">write_prediction</span>(rcp85, <span class="at">file =</span> <span class="fu">file.path</span>(path, <span class="st">"g_Aug_RCP85_all.tif"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To read it back simply provide the filename to <code>read_prediction()</code>. If you are reading back a multi-layer array, be sure to check out the <code>time</code> argument to assign values to the time dimension. Single layer arrays don’t have the concept of time.</p>
+</section>
 </section>
 <section id="recap" class="level1" data-number="6">
 <h1 data-number="6"><span class="header-section-number">6</span> Recap</h1>
-<p>We made both a nowcast and a number predictions using a previously saved workflow. Contrary to Yogi Berra’s claim, it’s actually pretty easy to predict the future. Perhaps more challenging is to interpret the prediction. We bundled these together to make time series plots.</p>
+<p>We made both a nowcast and a number predictions using a previously saved workflow. Contrary to Yogi Berra’s claim, it’s actually pretty easy to predict the future. Perhaps more challenging is to interpret the prediction. We bundled these together to make time series plots, and we saved the <code>.pred_presence</code> values.</p>
 </section>
 <section id="coding-assignment" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Coding Assignment</h1>

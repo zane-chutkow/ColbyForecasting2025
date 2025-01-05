@@ -368,5 +368,15 @@
     "crumbs": [
       "Prediction"
     ]
+  },
+  {
+    "objectID": "C05_prediction.html#save-the-predictions",
+    "href": "C05_prediction.html#save-the-predictions",
+    "title": "Prediction",
+    "section": "5.3 Save the predictions",
+    "text": "5.3 Save the predictions\nWe could save all three attributes, but .pred_background is just 1 - .pred_presence, and .pred is just coding “presence” where .pred_presence &gt;= 0.5, so we can always compute those as needed if we have .pred_presence. In that case, let’s just save the first attribute, .pred_presence, in a multilayer GeoTIFF formatted image array file. The write_prediction() function will do just that.\n\n# make sure the output directory exists\npath = data_path(\"predictions\")\nif (!dir.exists(path)) ok = dir.create(path, recursive = TRUE)\n\n# write individual arrays?\nwrite_prediction(nowcast, file = file.path(path,\"g_Aug_RCP85_2020.tif\"))\nwrite_prediction(forecast_2055, file = file.path(path, \"g_Aug_RCP85_2055.tif\"))\nwrite_prediction(forecast_2075, file = file.path(path, \"g_Aug_RCP85_2075.tif\"))\n\n# or write them together in a \"multi-layer\" file?\nwrite_prediction(rcp85, file = file.path(path, \"g_Aug_RCP85_all.tif\"))\n\nTo read it back simply provide the filename to read_prediction(). If you are reading back a multi-layer array, be sure to check out the time argument to assign values to the time dimension. Single layer arrays don’t have the concept of time.",
+    "crumbs": [
+      "Prediction"
+    ]
   }
 ]
