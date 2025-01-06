@@ -23,7 +23,7 @@ obs = read_observations(scientificname = "Mola mola") |>
   filter(month == "Aug")
 db = brickman_database() |>
   filter(scenario == "STATIC", var == "mask")
-mask = read_brickman(db)
+mask = read_brickman(db, add_depth = FALSE)
 ```
 
 We have two approaches to what happens next.  The first is the greedy approach that say, gather together lots of observations and background points.  Lot and lots!  The second approach is much more conseravtive as it considers the value (or not!) of having replicate measurements at locations that share the same array cell.  
@@ -245,21 +245,17 @@ plot(coast, col = "orange", add = TRUE)
 We have prepared what we call "model inputs", in particular for *Mola mola*, by selecting background points using two different approaches: greedy and conservative.  There are lots of other approaches, too, but for the sake of learning we'll settle on just these two.  We developed a function that will produce our model inputs for a given month, and saved them to disk.  Then we read at least one back and showed that we can restore these from disk.
 
 # Coding Assignment
-:::{.callout-note appearance="simple"}
-Use the [iterations tutorial](https://bigelowlab.github.io/handytandy/iterations.html) to apply your `make_model_input_by_month()` for each month.  
+Use the [iterations tutorial](https://bigelowlab.github.io/handytandy/iterations.html) to apply your `make_model_input_by_month()` for each month.  You'll know you have done it correctly if your result is a list filled with lists of greedy-conservative tables, **and** your `model_inputs` directory holds at least 24 files (12 months x 2 sampling schemes).
 
-You'll know you have done it correctly if your result is a list filled with lists of greedy-conservative tables.
-:::
 
 
 # Challenge
 And here we add one challenge...
 
-:::{.callout-note appearance="simple"}
 Create a function to read the correct model input when given the species, month and approach.
 
 Use the menu option `File > New File > R Script` to create a blank file. Save the file (even though it is empty) in the "functions" directory as "model_input.R".  Use this file to build a function (or set of functions) that uses this set of arguments.  Below is a template to help you get started.
-:::
+
 
 ```{r read_model_input}
 #' Reads a model input file given species, month, approach and path

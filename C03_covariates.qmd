@@ -136,8 +136,7 @@ Use the `Files` pane to navigate to your personal data directory.  Open the `g_A
 We loaded the covariates for the "PRESENT" climate scenario and looked at collinearity across the entore study domain.  We invoked a function that suggests which variables to keep and which to drop based upon collinearity.  We examined the covariates at just the `presence` and `background` locations.  We then saved a configuration for later reuse.
 
 # Coding Assignment
-::: {.callout-note appearance="simple"}
-Open nd edit the file called `functions/select_covariates.R`.  Within the file write the function(s) you need to select the "keeper" variables for a given approach (greedy or conservative) and a given month (Jan - Dec).  Have the function return an appropriate configuration list. The function shoulkd start out approximately like this...
+Open and edit the file called `functions/select_covariates.R`.  Within the file write the function(s) you need to select the "keeper" variables for a given approach (greedy or conservative) and a given month (Jan - Dec).  Have the function return an appropriate configuration list. The function shoulkd start out approximately like this...
 
 ```
 #' Given a species, month and sampling approach select variabkes for each month
@@ -163,7 +162,6 @@ select_covariates = function(approach = "greedy",
 ```
 
 Use the [iterations tutorial](https://bigelowlab.github.io/handytandy/iterations.html) to apply your `select_covariates()` for each month using each approach.  At each iteration write the configuration.  When you are done, you should have 12 YAML files for each approach - so 24 YAML files written all together for each species.
-:::
 
 
 

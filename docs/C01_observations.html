@@ -553,7 +553,7 @@ Geodetic CRS:  WGS 84
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>db <span class="ot">=</span> <span class="fu">brickman_database</span>() <span class="sc">|&gt;</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="st">"STATIC"</span>, var <span class="sc">==</span> <span class="st">"mask"</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>mask <span class="ot">=</span> <span class="fu">read_brickman</span>(db)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>mask <span class="ot">=</span> <span class="fu">read_brickman</span>(db, <span class="at">add_depth =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>mask</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>stars object with 2 dimensions and 1 attribute
@@ -631,23 +631,14 @@ y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
 </section>
 <section id="coding-assignment" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Coding Assignment</h1>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
 <p>We went through many steps to filter out records that won’t help use model. We’ll need that filtered data many-many-many times in the days ahead. Wouldn’t it be nice if we could sweep all of those filtering steps into a single function, call it <code>read_observations()</code>, that simple took care of it all for us? Yes - that would be really nice!</p>
 <p>Open the “read_observations.R” file you’ll find in the “functions” directory. We have started it for you. Edit the function so that it appropriately filters your species data set by adding optional arguments (like <code>minimum_year</code> has been added). And then adding the code steps needed to implement that filter.</p>
 <p>Not every filter needs user input. For instance, <code>eventDate</code> can’t be <code>NA</code>, and all points must fall within the area covered by the Brickman data. So you can automatically add those filters without any user options.</p>
 <p>On the other hand, filtering by <code>basisOfRecord</code> or <code>individualCount</code> might need more flexibility, especially if you might switch to other species.</p>
-<p>SPeaking of which, we provided <code>scientificname</code> with a default value - we chose “Mola mola” because we are a bit lazy. If you are feeling lazy, you can change the default to your own species.</p>
+<p>Speaking of which, we provided <code>scientificname</code> with a default value - we chose “Mola mola” because we are a bit lazy. If you are feeling lazy, you can change the default to your own species.</p>
 <p>As you build your function, pause every so often and run the following to test things out.</p>
 <pre><code>source("setup.R")
 obs = read_observations()</code></pre>
-</div>
-</div>
-</div>
 
 
 </section>

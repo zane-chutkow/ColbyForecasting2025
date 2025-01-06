@@ -223,7 +223,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background"><span class="header-section-number">1</span> Background</a></li>
   <li><a href="#one-of-many-available-guis-rstudio" id="toc-one-of-many-available-guis-rstudio" class="nav-link" data-scroll-target="#one-of-many-available-guis-rstudio"><span class="header-section-number">2</span> One of many available GUIs: RStudio</a></li>
-  <li><a href="#getting-the-software-you-will-need" id="toc-getting-the-software-you-will-need" class="nav-link" data-scroll-target="#getting-the-software-you-will-need"><span class="header-section-number">3</span> Getting the software you will need</a></li>
+  <li><a href="#getting-the-software-and-data-you-will-need" id="toc-getting-the-software-and-data-you-will-need" class="nav-link" data-scroll-target="#getting-the-software-and-data-you-will-need"><span class="header-section-number">3</span> Getting the software and data you will need</a></li>
   <li><a href="#coding-with-r" id="toc-coding-with-r" class="nav-link" data-scroll-target="#coding-with-r"><span class="header-section-number">4</span> Coding with R</a>
   <ul class="collapse">
   <li><a href="#loading-the-necessary-tools" id="toc-loading-the-necessary-tools" class="nav-link" data-scroll-target="#loading-the-necessary-tools"><span class="header-section-number">4.1</span> Loading the necessary tools</a></li>
@@ -270,8 +270,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>RStudio is a free GUI that wraps around two languages (R and Python, and soon to be more). When you invoke RStudio you’ll see that it is laid out as a multi-panel application that runs inside your browser. It will look something like this screenshot.</p>
 <p><img src="images/Rstudio.png" class="img-fluid" alt="Rstudio screenshot"> There are many <a href="https://duckduckgo.com/?q=introduction+to+rstudio&amp;t=ffab&amp;atb=v342-1&amp;iax=videos&amp;ia=videos&amp;iai=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dw8ooTMStQV0&amp;pn=1">RStudio tutorials</a> online. We encourage you to check them out.</p>
 </section>
-<section id="getting-the-software-you-will-need" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Getting the software you will need</h1>
+<section id="getting-the-software-and-data-you-will-need" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Getting the software and data you will need</h1>
 <p>Use this <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Courseware">wiki page</a> to guide you through the process of installing the software you’ll need for this course, “the courseware”.</p>
 </section>
 <section id="coding-with-r" class="level1" data-number="4">
@@ -423,26 +423,28 @@ Geodetic CRS:  WGS 84
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>current <span class="ot">=</span> <span class="fu">read_brickman</span>(db)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>current</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>stars object with 3 dimensions and 8 attributes
+<pre><code>stars object with 3 dimensions and 9 attributes
 attribute(s):
-               Min.      1st Qu.       Median         Mean      3rd Qu.
-MLD    1.011275e+00  5.583339810 15.967359543 18.910421492 2.809953e+01
-Sbtm   2.324167e+01 32.136343956 34.232215881 33.507147254 3.491243e+01
-SSS    1.644333e+01 30.735633373 31.104771614 31.492407921 3.203519e+01
-SST   -7.826599e-01  6.434107542 12.359498501 12.151707840 1.763068e+01
-Tbtm  -2.676387e-01  3.595118523  6.110801697  6.122372065 7.521761e+00
-U     -2.121380e-01 -0.010892980 -0.002634738 -0.010139401 7.229637e-04
-V     -1.883337e-01 -0.010722862 -0.002858645 -0.008474233 9.565173e-04
-Xbtm   3.275602e-06  0.001458065  0.003088348  0.008360344 7.256525e-03
-              Max.  NA's
-MLD   106.69815063 59796
-Sbtm   35.15741730 59796
-SSS    35.59160995 59796
-SST    26.43147278 59796
-Tbtm   24.60999298 59796
-U       0.07469980 59796
-V       0.05264002 59796
-Xbtm    0.18996811 59796
+                Min.      1st Qu.        Median          Mean      3rd Qu.
+MLD     1.011275e+00  5.583339810  15.967359543  18.910421492 2.809953e+01
+Sbtm    2.324167e+01 32.136343956  34.232215881  33.507147254 3.491243e+01
+SSS     1.644333e+01 30.735633373  31.104771614  31.492407921 3.203519e+01
+SST    -7.826599e-01  6.434107542  12.359498501  12.151707840 1.763068e+01
+Tbtm   -2.676387e-01  3.595118523   6.110801697   6.122372065 7.521761e+00
+U      -2.121380e-01 -0.010892980  -0.002634738  -0.010139401 7.229637e-04
+V      -1.883337e-01 -0.010722862  -0.002858645  -0.008474233 9.565173e-04
+Xbtm    3.275602e-06  0.001458065   0.003088348   0.008360344 7.256525e-03
+depth   5.000000e+00 60.258880615 145.012619019 923.313763739 1.704049e+03
+               Max.  NA's
+MLD    1.066982e+02 59796
+Sbtm   3.515742e+01 59796
+SSS    3.559161e+01 59796
+SST    2.643147e+01 59796
+Tbtm   2.460999e+01 59796
+U      7.469980e-02 59796
+V      5.264002e-02 59796
+Xbtm   1.899681e-01 59796
+depth  4.964409e+03 59796
 dimension(s):
       from  to offset    delta refsys point      values x/y
 x        1 121 -74.93  0.08226 WGS 84 FALSE        NULL [x]

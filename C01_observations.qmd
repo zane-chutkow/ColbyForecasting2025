@@ -176,7 +176,7 @@ We need to load the Brickman database, and then filter it for the static variabl
 ```{r mask}
 db = brickman_database() |>
   filter(scenario == "STATIC", var == "mask")
-mask = read_brickman(db)
+mask = read_brickman(db, add_depth = FALSE)
 mask
 ```
 
@@ -216,7 +216,7 @@ So, we dropped `{r} dropped_records` records which is about `{r} sprintf("%0.1f%
 We have explored a data set, in particular for *Mola mola*; your species may present you with unique challenges. Our goal is to winnow the original data set down to just the most reliable observations for modeling.  
 
 # Coding Assignment
-::: {.callout-note appearance="simple"}
+
 We went through many steps to filter out records that won't help use model.  We'll need that filtered data many-many-many times in the days ahead.  Wouldn't it be nice if we could sweep all of those filtering steps into a single function, call it `read_observations()`, that simple took care of it all for us?  Yes - that would be really nice!
 
 Open the "read_observations.R" file you'll find in the "functions" directory. We have started it for you. Edit the function so that it appropriately filters your species data set by adding optional arguments (like `minimum_year` has been added).  And then adding the code steps needed to implement that filter.
@@ -225,7 +225,7 @@ Not every filter needs user input.  For instance, `eventDate` can't be `NA`, and
 
 On the other hand, filtering by `basisOfRecord` or `individualCount` might need more flexibility, especially if you might switch to other species.  
 
-SPeaking of which, we provided `scientificname` with a default value - we chose "Mola mola" because we are a bit lazy.  If you are feeling lazy, you can change the default to your own species.
+Speaking of which, we provided `scientificname` with a default value - we chose "Mola mola" because we are a bit lazy.  If you are feeling lazy, you can change the default to your own species.
 
 As you build your function, pause every so often and run the following to test things out.
 
@@ -233,4 +233,3 @@ As you build your function, pause every so often and run the following to test t
 source("setup.R")
 obs = read_observations()
 ```
-:::

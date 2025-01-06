@@ -16,7 +16,7 @@ RStudio is a free GUI that wraps around two languages (R and Python, and soon to
 ![Rstudio screenshot](images/Rstudio.png)
 There are many [RStudio tutorials](https://duckduckgo.com/?q=introduction+to+rstudio&t=ffab&atb=v342-1&iax=videos&ia=videos&iai=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3Dw8ooTMStQV0&pn=1) online.  We encourage you to check them out.
 
-# Getting the software you will need
+# Getting the software and data you will need
 
 Use this [wiki page](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Courseware) to guide you through the process of installing the software you'll need for this course, "the courseware".
 

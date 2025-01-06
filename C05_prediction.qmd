@@ -153,15 +153,12 @@ write_prediction(forecast_2075, file = file.path(path, "g_Aug_RCP85_2075.tif"))
 write_prediction(rcp85, file = file.path(path, "g_Aug_RCP85_all.tif"))
 ```
 
-To read it back simply provide the filename to `read_prediction()`.  If you are reading back a multi-layer array, be sure to check out the `time` argument to assign values to the time dimension.  Single layer arrays don't have the concept of time.
-
-
-
-
-
+To read it back simply provide the filename to `read_prediction()`.  If you are reading back a multi-layer array, be sure to check out the `time` argument to assign values to the time dimension.  Single layer arrays don't have the concept of time so the `time` argument is ignored.
 
 # Recap
 
 We made both a nowcast and a number predictions using a previously saved workflow. Contrary to Yogi Berra's claim, it's actually pretty easy to predict the future.  Perhaps more challenging is to interpret the prediction.  We bundled these together to make time series plots, and we saved the `.pred_presence` values.
 
 # Coding Assignment
+
+For each each climate scenario create a monthly forecast (so that's three: nowcast, forecast_2055 and forecast_2075) and save each to in your `predictions` directory.  Whether you choose to draw upon the greedy background sampling method, the conservative background sampling method or both is up to you. Keep in mind that some months may not have enough data to model without throwing an error.  We suggest that you wrap your critical steps in a `try()` function which will catch the error without crashing your iterator. There is a tutorial on [error catching](https://bigelowlab.github.io/handytandy/try.html) that specifically uses `try()`.

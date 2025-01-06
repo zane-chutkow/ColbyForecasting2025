@@ -278,7 +278,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(month <span class="sc">==</span> <span class="st">"Aug"</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>db <span class="ot">=</span> <span class="fu">brickman_database</span>() <span class="sc">|&gt;</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(scenario <span class="sc">==</span> <span class="st">"STATIC"</span>, var <span class="sc">==</span> <span class="st">"mask"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>mask <span class="ot">=</span> <span class="fu">read_brickman</span>(db)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>mask <span class="ot">=</span> <span class="fu">read_brickman</span>(db, <span class="at">add_depth =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We have two approaches to what happens next. The first is the greedy approach that say, gather together lots of observations and background points. Lot and lots! The second approach is much more conseravtive as it considers the value (or not!) of having replicate measurements at locations that share the same array cell.</p>
 </section>
@@ -385,13 +385,13 @@ Geodetic CRS:  WGS 84
 <pre><code>Simple feature collection with 2 features and 2 fields
 Geometry type: MULTIPOINT
 Dimension:     XY
-Bounding box:  xmin: -74.89169 ymin: 38.8678 xmax: -65.02004 ymax: 45.21401
+Bounding box:  xmin: -74.89169 ymin: 38.8679 xmax: -65.02004 ymax: 45.21401
 Geodetic CRS:  WGS 84
 # A tibble: 2 × 3
   class          n                                                      geometry
 * &lt;fct&gt;      &lt;int&gt;                                              &lt;MULTIPOINT [°]&gt;
-1 presence    1204 ((-65.05 42.6), (-65.067 42.633), (-65.067 42.617), (-65.19 …
-2 background  2408 ((-65.02004 42.25251), (-65.02004 42.74609), (-65.02004 42.6…</code></pre>
+1 presence    1204 ((-65.07 42.68), (-65.05 42.6), (-65.067 42.617), (-65.16 42…
+2 background  2408 ((-65.02004 42.25251), (-65.02004 42.74609), (-65.1023 42.66…</code></pre>
 </div>
 </div>
 <div class="cell">
@@ -598,32 +598,13 @@ Note
 </section>
 <section id="coding-assignment" class="level1" data-number="10">
 <h1 data-number="10"><span class="header-section-number">10</span> Coding Assignment</h1>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
-<p>Use the <a href="https://bigelowlab.github.io/handytandy/iterations.html">iterations tutorial</a> to apply your <code>make_model_input_by_month()</code> for each month.</p>
-<p>You’ll know you have done it correctly if your result is a list filled with lists of greedy-conservative tables.</p>
-</div>
-</div>
-</div>
+<p>Use the <a href="https://bigelowlab.github.io/handytandy/iterations.html">iterations tutorial</a> to apply your <code>make_model_input_by_month()</code> for each month. You’ll know you have done it correctly if your result is a list filled with lists of greedy-conservative tables, <strong>and</strong> your <code>model_inputs</code> directory holds at least 24 files (12 months x 2 sampling schemes).</p>
 </section>
 <section id="challenge" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Challenge</h1>
 <p>And here we add one challenge…</p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-body-container">
 <p>Create a function to read the correct model input when given the species, month and approach.</p>
 <p>Use the menu option <code>File &gt; New File &gt; R Script</code> to create a blank file. Save the file (even though it is empty) in the “functions” directory as “model_input.R”. Use this file to build a function (or set of functions) that uses this set of arguments. Below is a template to help you get started.</p>
-</div>
-</div>
-</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Reads a model input file given species, month, approach and path</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' </span></span>

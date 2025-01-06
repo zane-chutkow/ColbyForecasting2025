@@ -348,7 +348,6 @@ You can read it back later with `read_workflow()`.
 We have built a random forest model using tools from the [tidymodels universe](https://www.tidymodels.org/).  After reading in a suite of data, we split our data into training and testing sets, witholding the testing set until the very end.  We looked a variety of metrics including a simple tally, a confusion matrix, ROC and AUC, accuracy and partial dependencies.  We saved the recipe and model together in a special container, called a workflow, to a file.
 
 # Coding Assignment
-::: {.callout-note appearance="simple"}
 
+Use the [iterations tutorial](https://bigelowlab.github.io/handytandy/iterations.html) to build a workflow for each month using one or both of your background selection methods.  Save each workflow in the `models` directory.  If you chose to do both background selection methods then you should end up with 24 workflows (12 months x 2 background sampling methods).
 
-:::

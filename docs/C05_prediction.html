@@ -310,12 +310,12 @@ Yogi Berra
 <pre><code>stars object with 2 dimensions and 3 attributes
 attribute(s):
  .pred_presence  .pred_background         .pred     
- Min.   :0.000   Min.   :0.000     presence  : 602  
- 1st Qu.:0.032   1st Qu.:0.750     background:5184  
- Median :0.094   Median :0.906     NA's      :4983  
+ Min.   :0.000   Min.   :0.003     presence  : 618  
+ 1st Qu.:0.031   1st Qu.:0.743     background:5168  
+ Median :0.092   Median :0.908     NA's      :4983  
  Mean   :0.183   Mean   :0.817                      
- 3rd Qu.:0.250   3rd Qu.:0.968                      
- Max.   :1.000   Max.   :1.000                      
+ 3rd Qu.:0.257   3rd Qu.:0.969                      
+ Max.   :0.997   Max.   :1.000                      
  NA's   :4983    NA's   :4983                       
 dimension(s):
   from  to offset    delta refsys point x/y
@@ -366,12 +366,12 @@ y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
 <pre><code>stars object with 2 dimensions and 3 attributes
 attribute(s):
  .pred_presence  .pred_background         .pred     
- Min.   :0.000   Min.   :0.328     presence  :  41  
- 1st Qu.:0.147   1st Qu.:0.684     background:5745  
- Median :0.268   Median :0.732     NA's      :4983  
- Mean   :0.235   Mean   :0.765                      
- 3rd Qu.:0.316   3rd Qu.:0.853                      
- Max.   :0.672   Max.   :1.000                      
+ Min.   :0.000   Min.   :0.302     presence  :  37  
+ 1st Qu.:0.137   1st Qu.:0.689     background:5749  
+ Median :0.257   Median :0.743     NA's      :4983  
+ Mean   :0.228   Mean   :0.772                      
+ 3rd Qu.:0.311   3rd Qu.:0.863                      
+ Max.   :0.698   Max.   :1.000                      
  NA's   :4983    NA's   :4983                       
 dimension(s):
   from  to offset    delta refsys point x/y
@@ -410,12 +410,12 @@ y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
 <pre><code>stars object with 2 dimensions and 3 attributes
 attribute(s):
  .pred_presence  .pred_background         .pred     
- Min.   :0.000   Min.   :0.435     presence  :  19  
- 1st Qu.:0.131   1st Qu.:0.682     background:5767  
- Median :0.270   Median :0.730     NA's      :4983  
- Mean   :0.233   Mean   :0.767                      
- 3rd Qu.:0.318   3rd Qu.:0.869                      
- Max.   :0.565   Max.   :1.000                      
+ Min.   :0.000   Min.   :0.447     presence  :   6  
+ 1st Qu.:0.122   1st Qu.:0.694     background:5780  
+ Median :0.251   Median :0.749     NA's      :4983  
+ Mean   :0.221   Mean   :0.779                      
+ 3rd Qu.:0.306   3rd Qu.:0.878                      
+ Max.   :0.553   Max.   :1.000                      
  NA's   :4983    NA's   :4983                       
 dimension(s):
   from  to offset    delta refsys point x/y
@@ -491,7 +491,7 @@ Note
 <span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co"># or write them together in a "multi-layer" file?</span></span>
 <span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="fu">write_prediction</span>(rcp85, <span class="at">file =</span> <span class="fu">file.path</span>(path, <span class="st">"g_Aug_RCP85_all.tif"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To read it back simply provide the filename to <code>read_prediction()</code>. If you are reading back a multi-layer array, be sure to check out the <code>time</code> argument to assign values to the time dimension. Single layer arrays don’t have the concept of time.</p>
+<p>To read it back simply provide the filename to <code>read_prediction()</code>. If you are reading back a multi-layer array, be sure to check out the <code>time</code> argument to assign values to the time dimension. Single layer arrays don’t have the concept of time so the <code>time</code> argument is ignored.</p>
 </section>
 </section>
 <section id="recap" class="level1" data-number="6">
@@ -500,6 +500,7 @@ Note
 </section>
 <section id="coding-assignment" class="level1" data-number="7">
 <h1 data-number="7"><span class="header-section-number">7</span> Coding Assignment</h1>
+<p>For each each climate scenario create a monthly forecast (so that’s three: nowcast, forecast_2055 and forecast_2075) and save each to in your <code>predictions</code> directory. Whether you choose to draw upon the greedy background sampling method, the conservative background sampling method or both is up to you. Keep in mind that some months may not have enough data to model without throwing an error. We suggest that you wrap your critical steps in a <code>try()</code> function which will catch the error without crashing your iterator. There is a tutorial on <a href="https://bigelowlab.github.io/handytandy/try.html">error catching</a> that specifically uses <code>try()</code>.</p>
 
 
 </section>

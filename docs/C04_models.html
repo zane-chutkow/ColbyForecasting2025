@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Models – Colby Forecasting 2025</title>
+<title>Prediction – Colby Forecasting 2025</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -258,6 +258,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#saving-recipes-and-models-to-disk-as-a-workflow" id="toc-saving-recipes-and-models-to-disk-as-a-workflow" class="nav-link" data-scroll-target="#saving-recipes-and-models-to-disk-as-a-workflow"><span class="header-section-number">9</span> Saving recipes and models to disk as a workflow</a></li>
   <li><a href="#recap" id="toc-recap" class="nav-link" data-scroll-target="#recap"><span class="header-section-number">10</span> Recap</a></li>
   <li><a href="#coding-assignment" id="toc-coding-assignment" class="nav-link" data-scroll-target="#coding-assignment"><span class="header-section-number">11</span> Coding Assignment</a></li>
+  <li><a href="#setup-1" id="toc-setup-1" class="nav-link" data-scroll-target="#setup-1"><span class="header-section-number">12</span> Setup</a></li>
+  <li><a href="#load-the-brickman-data" id="toc-load-the-brickman-data" class="nav-link" data-scroll-target="#load-the-brickman-data"><span class="header-section-number">13</span> Load the Brickman data</a></li>
+  <li><a href="#load-the-workflow" id="toc-load-the-workflow" class="nav-link" data-scroll-target="#load-the-workflow"><span class="header-section-number">14</span> Load the workflow</a></li>
+  <li><a href="#make-a-prediction" id="toc-make-a-prediction" class="nav-link" data-scroll-target="#make-a-prediction"><span class="header-section-number">15</span> Make a prediction</a>
+  <ul class="collapse">
+  <li><a href="#nowcast" id="toc-nowcast" class="nav-link" data-scroll-target="#nowcast"><span class="header-section-number">15.1</span> Nowcast</a></li>
+  <li><a href="#forecast" id="toc-forecast" class="nav-link" data-scroll-target="#forecast"><span class="header-section-number">15.2</span> Forecast</a></li>
+  </ul></li>
+  <li><a href="#time-series" id="toc-time-series" class="nav-link" data-scroll-target="#time-series"><span class="header-section-number">16</span> Time series</a>
+  <ul class="collapse">
+  <li><a href="#forecast-2055" id="toc-forecast-2055" class="nav-link" data-scroll-target="#forecast-2055"><span class="header-section-number">16.1</span> Forecast 2055</a></li>
+  <li><a href="#bind-time-series" id="toc-bind-time-series" class="nav-link" data-scroll-target="#bind-time-series"><span class="header-section-number">16.2</span> Bind time series</a></li>
+  <li><a href="#save-the-predictions" id="toc-save-the-predictions" class="nav-link" data-scroll-target="#save-the-predictions"><span class="header-section-number">16.3</span> Save the predictions</a></li>
+  </ul></li>
+  <li><a href="#recap-1" id="toc-recap-1" class="nav-link" data-scroll-target="#recap-1"><span class="header-section-number">17</span> Recap</a></li>
+  <li><a href="#coding-assignment-1" id="toc-coding-assignment-1" class="nav-link" data-scroll-target="#coding-assignment-1"><span class="header-section-number">18</span> Coding Assignment</a></li>
   </ul>
 </nav>
     </div>
@@ -266,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Models</h1>
+<h1 class="title">Prediction</h1>
 </div>
 
 
@@ -448,9 +464,9 @@ Note
  5 background  4.95  28.0  28.0  20.8 20.8  -0.000153  -0.00000933
  6 background  3.60  29.9  29.4  17.4 15.0  -0.00332    0.00153   
  7 background  3.63  30.1  29.3  17.6 13.6  -0.000100   0.00167   
- 8 background  4.02  31.9  29.3  17.8  5.38 -0.000583   0.00207   
- 9 background  4.34  32.4  29.2  18.1  5.50 -0.000321   0.00283   
-10 background  4.01  32.4  29.1  18.1  5.53  0.000172   0.00369   
+ 8 background  3.32  31.2  29.3  17.3  6.93  0.0000920  0.000934  
+ 9 background  2.84  31.6  29.3  17.6  5.80 -0.00135    0.00327   
+10 background  4.02  31.9  29.3  17.8  5.38 -0.000583   0.00207   
 # ℹ 5,443 more rows</code></pre>
 </div>
 </div>
@@ -709,7 +725,7 @@ Mtry:                             2
 Target node size:                 10 
 Variable importance mode:         permutation 
 Splitrule:                        gini 
-OOB prediction error (Brier s.):  0.2082852 </code></pre>
+OOB prediction error (Brier s.):  0.2084605 </code></pre>
 </div>
 </div>
 </section>
@@ -720,22 +736,22 @@ OOB prediction error (Brier s.):  0.2082852 </code></pre>
 <h2 data-number="8.1" class="anchored" data-anchor-id="predict-with-the-training-data"><span class="header-section-number">8.1</span> Predict with the training data</h2>
 <p>First we shall predict with the same data we trained with. The results of this will not really tell us much about our model as it is very circular to predict using the very data used to build the model. So this next section is more about a first pass at using the tools at your disposal.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>train_pred <span class="ot">=</span> <span class="fu">predict_model</span>(fitted_wflow, tr_data, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>train_pred <span class="ot">=</span> <span class="fu">predict_table</span>(fitted_wflow, tr_data, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
 <span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>train_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 5,453 × 4
    .pred_presence .pred_background .pred      class     
             &lt;dbl&gt;            &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;     
- 1        0.0142             0.986 background background
- 2        0.0598             0.940 background background
- 3        0.0204             0.980 background background
- 4        0.0196             0.980 background background
- 5        0.0256             0.974 background background
- 6        0.00967            0.990 background background
- 7        0.00542            0.995 background background
- 8        0.0190             0.981 background background
- 9        0.0452             0.955 background background
-10        0.0585             0.942 background background
+ 1         0.0123            0.988 background background
+ 2         0.0627            0.937 background background
+ 3         0.328             0.672 background background
+ 4         0.183             0.817 background background
+ 5         0.119             0.881 background background
+ 6         0.0146            0.985 background background
+ 7         0.0182            0.982 background background
+ 8         0.358             0.642 background background
+ 9         0.0539            0.946 background background
+10         0.0264            0.974 background background
 # ℹ 5,443 more rows</code></pre>
 </div>
 </div>
@@ -746,9 +762,9 @@ OOB prediction error (Brier s.):  0.2082852 </code></pre>
 <pre><code># A tibble: 4 × 3
   .pred      class          n
   &lt;fct&gt;      &lt;fct&gt;      &lt;int&gt;
-1 presence   presence    1376
+1 presence   presence    1394
 2 presence   background   340
-3 background presence     464
+3 background presence     446
 4 background background  3273</code></pre>
 </div>
 </div>
@@ -766,8 +782,8 @@ OOB prediction error (Brier s.):  0.2082852 </code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Truth
 Prediction   presence background
-  presence       1376        340
-  background      464       3273</code></pre>
+  presence       1394        340
+  background      446       3273</code></pre>
 </div>
 </div>
 <p>You’ll see this is the same as the simple tally we made, but it comes with handy plotting functionality (shown below). Note that a perfect model would have the upper left and lower right quadrants fully accounting for all points. The lower left quadrant shows us the number of false-negatives while the upper right quadrant shows the number of false-positives.</p>
@@ -816,7 +832,7 @@ Prediction   presence background
 <pre><code># A tibble: 1 × 3
   .metric  .estimator .estimate
   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-1 accuracy binary         0.853</code></pre>
+1 accuracy binary         0.856</code></pre>
 </div>
 </div>
 </section>
@@ -842,22 +858,22 @@ Prediction   presence background
 <h3 data-number="8.3.1" class="anchored" data-anchor-id="predict"><span class="header-section-number">8.3.1</span> Predict</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>test_data <span class="ot">=</span> <span class="fu">testing</span>(split_data)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>test_pred <span class="ot">=</span> <span class="fu">predict_model</span>(fitted_wflow, test_data, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>test_pred <span class="ot">=</span> <span class="fu">predict_table</span>(fitted_wflow, test_data, <span class="at">type =</span> <span class="st">"prob"</span>)</span>
 <span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>test_pred</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1,819 × 4
    .pred_presence .pred_background .pred      class   
             &lt;dbl&gt;            &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;   
- 1          0.641           0.359  presence   presence
- 2          0.611           0.389  presence   presence
- 3          0.857           0.143  presence   presence
- 4          0.128           0.872  background presence
- 5          0.861           0.139  presence   presence
- 6          0.179           0.821  background presence
- 7          0.339           0.661  background presence
- 8          0.984           0.0162 presence   presence
- 9          0.790           0.210  presence   presence
-10          0.979           0.0208 presence   presence
+ 1          0.724           0.276  presence   presence
+ 2          0.335           0.665  background presence
+ 3          0.550           0.450  presence   presence
+ 4          0.480           0.520  background presence
+ 5          0.872           0.128  presence   presence
+ 6          0.974           0.0262 presence   presence
+ 7          0.166           0.834  background presence
+ 8          0.194           0.806  background presence
+ 9          0.787           0.213  presence   presence
+10          0.615           0.385  presence   presence
 # ℹ 1,809 more rows</code></pre>
 </div>
 </div>
@@ -898,7 +914,7 @@ Prediction   presence background
 <pre><code># A tibble: 1 × 3
   .metric  .estimator .estimate
   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-1 accuracy binary         0.693</code></pre>
+1 accuracy binary         0.688</code></pre>
 </div>
 </div>
 </section>
@@ -932,18 +948,147 @@ Prediction   presence background
 </section>
 <section id="coding-assignment" class="level1" data-number="11">
 <h1 data-number="11"><span class="header-section-number">11</span> Coding Assignment</h1>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
+<p>Use the <a href="https://bigelowlab.github.io/handytandy/iterations.html">iterations tutorial</a> to build a workflow for each month using one or both of your background selection methods. Save each workflow in the <code>models</code> directory. If you chose to do both background selection methods then you should end up with 24 workflows (12 months x 2 background sampling methods).</p>
+
+
+<blockquote class="blockquote">
+<dl>
+<dt>It’s tough to make predictions, especially about the future.</dt>
+<dd>
+Yogi Berra
+</dd>
+</dl>
+</blockquote>
+<p>Finally we come to the end product of forecasting: the prediction. This last step is actually fairly simple, given a recipe and model (now bundled in a <code>workflow</code> container), run the same data-prep and predicting steps as we did earlier. One modification is that we now want to predict across the entire domain of our Brickman data set. You may recall that we are able to read these arrays, display them and extract point data from them. But we haven’t used them <em>en mass</em> as a variable yet.</p>
+</section>
+<section id="setup-1" class="level1" data-number="12">
+<h1 data-number="12"><span class="header-section-number">12</span> Setup</h1>
+<p>As always, we start by running our setup function. Start RStudio/R, and reload your project with the menu <code>File &gt; Recent Projects</code>.</p>
+<pre class="{r setup}"><code>source("setup.R")</code></pre>
+</section>
+<section id="load-the-brickman-data" class="level1" data-number="13">
+<h1 data-number="13"><span class="header-section-number">13</span> Load the Brickman data</h1>
+<p>Once again, we’ll use the August data where we started with a greedy sampling approach. We are going to make a prediction about the present, which means it something akin to a <a href="https://en.wikipedia.org/wiki/Nowcasting_(economics)">nowcast</a>.</p>
+<pre class="{r load_covar}"><code>cfg = read_configuration(version = "g_Aug")
+db = brickman_database()
+covars = read_brickman(db |&gt; filter(scenario == "PRESENT", interval == "mon")) |&gt;
+  select(all_of(cfg$keep_vars)) |&gt;
+  slice("month", "Aug") </code></pre>
+</section>
+<section id="load-the-workflow" class="level1" data-number="14">
+<h1 data-number="14"><span class="header-section-number">14</span> Load the workflow</h1>
+<p>We read the recipe and model workflow bundle.</p>
+<pre class="{r load_workflow}"><code>wflow = read_workflow(version = cfg$version)</code></pre>
+<p>Recall that the workflow has two elements: pre-processing recipe and model. When we make a prediction with the workflow it will accept new data that then gets filtered and/or transformed as specified by the recipe steps. The data that survives the preprocessing will then be used to feed into the model that was trained on a specific domain (time and space).</p>
+</section>
+<section id="make-a-prediction" class="level1" data-number="15">
+<h1 data-number="15"><span class="header-section-number">15</span> Make a prediction</h1>
+<p>First we shall make a “nowcast” which is just a prediction of the current environmental conditions.</p>
+<section id="nowcast" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="nowcast"><span class="header-section-number">15.1</span> Nowcast</h2>
+<p>First make the prediction. The function yields a <code>stars</code> array object that has three attributes: <code>.pred_presence</code>, <code>.pred_background</code> and <code>.pred</code>. The leading dot simply gives us the heads up that these three values are all computed. The first two range from 0-1 which implies a probability. The last, <code>.pred</code>, is the class label we would assign if we accept that any <code>.pred_presence &gt;= 0.5</code> should be considered suitable habitat where a <strong>reported observation</strong> might occur.</p>
+<pre class="{r nowcast}"><code>nowcast = predict_stars(wflow, covars)
+nowcast</code></pre>
+<p>Now we can plot what is often called a “habitat suitability index” (hsi) map.</p>
+<pre class="{r plot_nowcast}"><code>coast = read_coastline()
+plot(nowcast['.pred_presence'], main = "Nowcast August", 
+     axes = TRUE, breaks = seq(0, 1, by = 0.1), reset = FALSE)
+plot(coast, col = "orange", lwd = 2, add = TRUE)</code></pre>
+<p>We can also plot a presence/background labeled map, but keep in mind it is just a thresholded version of the above where “presence” means <code>.pred_presence &gt;= 0.5</code>.</p>
+<pre class="{r plot_class_labels}"><code>plot(nowcast['.pred'], main = "Nowcast August Labels", 
+     axes = TRUE, reset = FALSE)
+plot(coast, col = "black", lwd = 2, add = TRUE)</code></pre>
+</section>
+<section id="forecast" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="forecast"><span class="header-section-number">15.2</span> Forecast</h2>
+<p>Now let’s try our hand at forecasting - let’s try RCP85 in 2075. First we load those parameters, then run the prediction and plot.</p>
+<pre class="{r load_2075_RCP85}"><code>covars_rcp85_2075 = read_brickman(db |&gt; filter(scenario == "RCP85", year == 2075, interval == "mon")) |&gt;
+  select(all_of(cfg$keep_vars)) |&gt;
+  slice("month", "Aug") </code></pre>
+<pre class="{r forecast}"><code>forecast_2075 = predict_stars(wflow, covars_rcp85_2075)
+forecast_2075</code></pre>
+<pre class="{r plot_forecast}"><code>coast = read_coastline()
+plot(forecast_2075['.pred_presence'], main = "RCP85 2075 August", 
+     axes = TRUE, breaks = seq(0, 1, by = 0.1), reset = FALSE)
+plot(coast, col = "orange", lwd = 2, add = TRUE)</code></pre>
+<p>Hmmm, that’s pretty different than what the nowcast predicts.</p>
+</section>
+</section>
+<section id="time-series" class="level1" data-number="16">
+<h1 data-number="16"><span class="header-section-number">16</span> Time series</h1>
+<p>It would be nice to see a time series: current, 2055 and 2075 on the same graphic. Let’s load RCP85 2055 data, and make yet another prediction.</p>
+<section id="forecast-2055" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="forecast-2055"><span class="header-section-number">16.1</span> Forecast 2055</h2>
+<pre class="{r load_2055_RCP85}"><code>covars_rcp85_2055 = read_brickman(db |&gt; filter(scenario == "RCP85", year == 2055, interval == "mon")) |&gt;
+  select(all_of(cfg$keep_vars)) |&gt;
+  slice("month", "Aug") 
+forecast_2055 = predict_stars(wflow, covars_rcp85_2055)
+forecast_2055</code></pre>
+</section>
+<section id="bind-time-series" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="bind-time-series"><span class="header-section-number">16.2</span> Bind time series</h2>
+<p>We want to bind the <code>.pred_presence</code> attribute for each of the predictions (nowcast, forecast_2055 and forecast_2075). Let’s assume the “present” mean 2020 so we can assign a year.</p>
+<pre class="{r bind}"><code>rcp85 = c(nowcast, forecast_2055, forecast_2075, along = list(year = c("2020", "2055", "2075")))</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-body-container">
-
+<div class="callout-title-container flex-fill">
+Note
 </div>
 </div>
+<div class="callout-body-container callout-body">
+<p>Curious about we provide year as a vector of characters instead of a vector of integers? Try running the command above again and check out the 3rd dimension.</p>
 </div>
+</div>
+<p>Since we are plotting multiple arrays, we need to plot the coastline using a “hook” function.</p>
+<pre class="{r plot_hsi_series}"><code>plot_coast = function(){
+  plot(coast, col = "orange", lwd = 2, add = TRUE)
+}
 
+plot(rcp85['.pred_presence'], 
+     hook = plot_coast,
+     axes = TRUE, breaks = seq(0, 1, by = 0.1), join_zlim  = TRUE, reset = FALSE)</code></pre>
+<p>Hmmmm. Why does there seem to be a strong shift between 2020 and 2055, while the 2055 to 2075 shift seems less pronounced?</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Don’t forget that <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Spatial">there are other ways</a> to plot array based spatial data.</p>
+</div>
+</div>
+</section>
+<section id="save-the-predictions" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="save-the-predictions"><span class="header-section-number">16.3</span> Save the predictions</h2>
+<p>We could save all three attributes, but <code>.pred_background</code> is just <code>1 - .pred_presence</code>, and <code>.pred</code> is just coding “presence” where <code>.pred_presence &gt;= 0.5</code>, so we can always compute those as needed if we have <code>.pred_presence</code>. In that case, let’s just save the first attribute, <code>.pred_presence</code>, in a multilayer <a href="https://en.wikipedia.org/wiki/GeoTIFF">GeoTIFF</a> formatted image array file. The <code>write_prediction()</code> function will do just that.</p>
+<pre class="{r save_pred}"><code># make sure the output directory exists
+path = data_path("predictions")
+if (!dir.exists(path)) ok = dir.create(path, recursive = TRUE)
 
+# write individual arrays?
+write_prediction(nowcast, file = file.path(path,"g_Aug_RCP85_2020.tif"))
+write_prediction(forecast_2055, file = file.path(path, "g_Aug_RCP85_2055.tif"))
+write_prediction(forecast_2075, file = file.path(path, "g_Aug_RCP85_2075.tif"))
+
+# or write them together in a "multi-layer" file?
+write_prediction(rcp85, file = file.path(path, "g_Aug_RCP85_all.tif"))</code></pre>
+<p>To read it back simply provide the filename to <code>read_prediction()</code>. If you are reading back a multi-layer array, be sure to check out the <code>time</code> argument to assign values to the time dimension. Single layer arrays don’t have the concept of time so the <code>time</code> argument is ignored.</p>
+</section>
+</section>
+<section id="recap-1" class="level1" data-number="17">
+<h1 data-number="17"><span class="header-section-number">17</span> Recap</h1>
+<p>We made both a nowcast and a number predictions using a previously saved workflow. Contrary to Yogi Berra’s claim, it’s actually pretty easy to predict the future. Perhaps more challenging is to interpret the prediction. We bundled these together to make time series plots, and we saved the <code>.pred_presence</code> values.</p>
+</section>
+<section id="coding-assignment-1" class="level1" data-number="18">
+<h1 data-number="18"><span class="header-section-number">18</span> Coding Assignment</h1>
+<p>For each each climate scenario create a monthly forecast (so that’s three: nowcast, forecast_2055 and forecast_2075) and save each to in your <code>predictions</code> directory. Whether you choose to draw upon the greedy background sampling method, the conservative background sampling method or both is up to you. Keep in mind that some months may not have enough data to model without throwing an error. We suggest that you wrap your critical steps in a <code>try()</code> function which will catch the error without crashing your iterator. There is a tutorial on <a href="https://bigelowlab.github.io/handytandy/try.html">error catching</a> that specifically uses <code>try()</code>.</p>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
