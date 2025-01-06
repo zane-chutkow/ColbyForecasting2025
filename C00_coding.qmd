@@ -57,15 +57,15 @@ buoys = gom_buoys()
 buoys
 ```
 :::{.callout-note}
-You can get the online documention for functions a couple of ways. You can type `?name_of_function`, or `docstring(name_of_function)` or `help(name_of_function)`.
+You can get the online documention for functions a couple of ways. You can type `?name_of_function`, or or `help(name_of_function)`. Try `?gom_buoys` as an example. 
 
-We are sorry to say that `?name_of_function` and `docstring(name_of_function)` don't always work the way we want - it's a bit maddening. the failure occurs when we are looking for help in homemade functions, like those you'll find in the `functions` directory.
+Sometimes you need more - like seeing the function itself.  You can always try typing the function name without any trailing parentheses.
 
-Try `?gom_buoys` and `docstring(gom_buoys)` - these are homemade functions so your luck in getting help is often good but may be spotty. `help(gom_buoys)` will never work for homegrown functions, but you can't know a function is homegrown just from its name. If all else fails, you could always open the `functions/buoys.R` file and look at the documention directly.
+```{r help}
+gom_buoys
+```
 
-Non-homegrown functions are stored in packages which areneat, tidy and well tested collections of functions.  For example, `read_stars` is a function in the stars package.  So using `?read_stars` and `help(read_stars)` should always work.  Unfortunately, using `docstring(read_stars)` will fail since it is in a package.  
-
-It's a bit of a mess.  Sorry about that!
+If that still doesn't work, we highly recommend trying [Rseek.org](https://rseek.org/) which is an R-language specific search engine.
 :::
 
 So there are 6 buoys, each with an attached attribute "name", "longname" and "id", as well as the spatial location datain the "geometry" column (just longitude and latitude in this case). We can easily plot these using the "name" column as a color key.  For more on plotting spatial data, see this [wiki page](Spatial).
@@ -91,8 +91,8 @@ Let's plot these geometries, and add the points on top.
 ```{r plot_coast_and_points, warning = FALSE}
 plot(coast, col = "orange", lwd = 2, axes = TRUE, reset = FALSE,
      main = "Buoys in the Gulf of Maine")
-plot(buoys, pch = 1, cex = 0.5, add = TRUE)
-text(buoys, labels = buoys$id, cex = 0.7, adj = c(1,-0.1))
+plot(st_geometry(buoys), pch = 1, cex = 0.5, add = TRUE)
+text(st_geometry(buoys), labels = buoys$id, cex = 0.7, adj = c(1,-0.1))
 ```
 
 ## Array data (aka raster data)
@@ -137,8 +137,8 @@ Then it's just plot, plot, plot.
 
 ```{r april_sss_plot}
 plot(april_sss, axes = TRUE, reset = FALSE)
-plot(coast, add = TRUE, col = "orange", lwd = 2)
-plot(buoys, add = TRUE, pch = 16, col = "purple")
+plot(st_geometry(coast), add = TRUE, col = "orange", lwd = 2)
+plot(st_geometry(buoys), add = TRUE, pch = 16, col = "purple")
 ```
 
 We can plot **ALL** twelve months of a variable ("SST") with the coast and points shown. There is one slight modification to be made since a single call to `plot()` actually gets invoked 12 times for this data.  So where do we add in the buoys and coast? Fortunately, we can create what is called a "hook" function - *who knows where the name hook came from?*  Once the hook function is defined, it will be applied to the each of the 12 subplots.
@@ -147,8 +147,8 @@ We can plot **ALL** twelve months of a variable ("SST") with the coast and point
 # a little function that gets called just after each sub-plot
 # it simple adds the coast and buoy
 add_coast_and_buoys = function(){
-  plot(coast, col = "orange", lwd = 2, add = TRUE)
-  plot(buoys, pch = 16, col = "purple", add = TRUE)
+  plot(st_geometry(coast), col = "orange", lwd = 2, add = TRUE)
+  plot(st_geometry(buoys), pch = 16, col = "purple", add = TRUE)
 }
 
 # here we call the plot, and tell R where to call `add_coast_and_buoys()` after
