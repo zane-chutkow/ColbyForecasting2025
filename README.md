@@ -95,9 +95,10 @@ Other resources of interes:
 
 ## **GRADING**
 
- - Roundtable Discussions / Writeups		20%
+ - Class discussions		10%
  - Coding Tutorials and Assignments		30%
- - Final Project					50%
+ - Final presentation 20%
+ - Final Project					40%
 
 
 ## **ATTENDANCE**
