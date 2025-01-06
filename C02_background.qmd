@@ -48,7 +48,7 @@ greedy_input
 ```
 You may encounter a warning message that says, "There are fewer available cells for raster...". This is useful information, there simply weren't a lot of non-NA cells to sample from.  Let's plot this.
 
-```{r plot_greedye_input}
+```{r plot_greedy_input}
 plot(greedy_input['class'], 
      axes = TRUE,  
      pch = ".", 
@@ -67,26 +67,43 @@ Well, that's imbalanced with a different number presences than background points
 
 # The conservative approach - data thinning
 
-The conservative approach says that the environmental covariates (that's the Brickman data), or more specifically the resolution of the envirnomental covariates, should dictate the sampling.  The core thought here is that it doesn't produce more or better information to have replicate measurements of either presences or  In this approach we eliminate (thin) presences so that we have no more than one per covariate array cell. 
+The conservative approach says that the environmental covariates (that's the Brickman data), or more specifically the resolution of the envirnomental covariates, should dictate the sampling.  The core thought here is that it doesn't produce more or better information to have replicate measurements of either presences or  
+
+## Thin by cell
+
+In this approach we eliminate (thin) presences so that we have no more than one per covariate array cell. 
 
 ```{r thin_by_cell}
 dim_before = dim(obs)
-cat("number of rows before thinning:", dim_before[1], "\n")
-obs = thin_by_cell(obs, mask)
-dim_after = dim(obs)
-cat("number of rows after thinning:", dim_after[1], "\n")
+cat("number of rows before cell thinning:", dim_before[1], "\n")
+thinned_obs = thin_by_cell(obs, mask)
+dim_after = dim(thinned_obs)
+cat("number of rows after cell thinning:", dim_after[1], "\n")
 ```
 
-So, that dropped quite a few!  Now let's take a look at the background, but this time we'll try to match the count of presences.
+So, that dropped quite a few!  
+
+## Make a weighted sampling map
+
+There is a technique we can use to to make a weighted sampling map.  Simply counting the number of original observations per cell will indicate where we are most likely to oberve `Mola mola`.  
+
+```{r sample_weight}
+samp_weight = rasterize_point_density(obs, mask)
+plot(samp_weight, axes = TRUE, breaks = "equal", col = rev(hcl.colors(10)), reset = FALSE)
+plot(coast, col = "orange", lwd = 2, add = TRUE)
+```
+
+Now let's take a look at the background, but this time we'll try to match the count of presences.
 
 ```{r sample_background_conservative}
-conservative_input = sample_background(obs, mask, 
+conservative_input = sample_background(thinned_obs, samp_weight, 
                               n = 2 * nrow(obs),
                               class_label = "background",
-                              method = c("dist_max", 30000),
+                              method = "bias",
                               return_pres = TRUE)
 count(conservative_input, class)
 ```
+Whoa - that's many fewer background points.
 
 ```{r plot_conservative_input}
 plot(conservative_input['class'], 
@@ -97,6 +114,7 @@ plot(conservative_input['class'],
      reset = FALSE)
 plot(coast, col = "orange", add = TRUE)
 ```
+It appears that background points are essentially shadowing the thinned presence points.
 
 # Greedy or Conservative?
 
@@ -176,13 +194,16 @@ make_model_input_by_month  = function(mon = "Jan",
   write_sf(greedy_input, file.path(path, filename))
   
   # thin the obs
-  obs = thin_by_cell(obs, raster)
+  thinned_obs = thin_by_cell(obs, raster)
+  
+  # sampling weight
+  samp_weight = rasterize_point_density(obs, raster)
   
   # make the conservative model
-  conservative_input = sample_background(obs, raster,
+  conservative_input = sample_background(thinned_obs, samp_weight,
                                    n = 2 * nrow(obs),
                                    class_label = "background",
-                                   method = c("dist_max", 30000),
+                                   method = "bias",
                                    return_pres = TRUE)
   
   # save the conservative data
@@ -198,7 +219,6 @@ make_model_input_by_month  = function(mon = "Jan",
   invisible(r)
 }
 ```
-
 
 # Reusing the function in a loop
 More phew!  But that is it!  Now we use a for loop to run through the months, calling our function each time. Happily, the built-in variable `month.abb` has all of the month names in order.
@@ -245,8 +265,8 @@ plot(coast, col = "orange", add = TRUE)
 We have prepared what we call "model inputs", in particular for *Mola mola*, by selecting background points using two different approaches: greedy and conservative.  There are lots of other approaches, too, but for the sake of learning we'll settle on just these two.  We developed a function that will produce our model inputs for a given month, and saved them to disk.  Then we read at least one back and showed that we can restore these from disk.
 
 # Coding Assignment
-Use the [iterations tutorial](https://bigelowlab.github.io/handytandy/iterations.html) to apply your `make_model_input_by_month()` for each month.  You'll know you have done it correctly if your result is a list filled with lists of greedy-conservative tables, **and** your `model_inputs` directory holds at least 24 files (12 months x 2 sampling schemes).
 
+Use the [iterations tutorial](https://bigelowlab.github.io/handytandy/iterations.html) to apply your `make_model_input_by_month()` for each month.  You'll know you have done it correctly if your result is a list filled with lists of greedy-conservative tables, **and** your `model_inputs` directory holds at least 24 files (12 months x 2 sampling schemes).
 
 
 # Challenge

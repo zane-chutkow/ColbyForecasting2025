@@ -226,7 +226,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#sample-background" id="toc-sample-background" class="nav-link" data-scroll-target="#sample-background"><span class="header-section-number">2.1</span> Sample background</a></li>
   </ul></li>
-  <li><a href="#the-conservative-approach---data-thinning" id="toc-the-conservative-approach---data-thinning" class="nav-link" data-scroll-target="#the-conservative-approach---data-thinning"><span class="header-section-number">3</span> The conservative approach - data thinning</a></li>
+  <li><a href="#the-conservative-approach---data-thinning" id="toc-the-conservative-approach---data-thinning" class="nav-link" data-scroll-target="#the-conservative-approach---data-thinning"><span class="header-section-number">3</span> The conservative approach - data thinning</a>
+  <ul class="collapse">
+  <li><a href="#thin-by-cell" id="toc-thin-by-cell" class="nav-link" data-scroll-target="#thin-by-cell"><span class="header-section-number">3.1</span> Thin by cell</a></li>
+  <li><a href="#make-a-weighted-sampling-map" id="toc-make-a-weighted-sampling-map" class="nav-link" data-scroll-target="#make-a-weighted-sampling-map"><span class="header-section-number">3.2</span> Make a weighted sampling map</a></li>
+  </ul></li>
   <li><a href="#greedy-or-conservative" id="toc-greedy-or-conservative" class="nav-link" data-scroll-target="#greedy-or-conservative"><span class="header-section-number">4</span> Greedy or Conservative?</a></li>
   <li><a href="#model-input-per-month" id="toc-model-input-per-month" class="nav-link" data-scroll-target="#model-input-per-month"><span class="header-section-number">5</span> Model input per month</a>
   <ul class="collapse">
@@ -333,7 +337,7 @@ Geodetic CRS:  WGS 84
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="C02_background_files/figure-html/plot_greedye_input-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="C02_background_files/figure-html/plot_greedy_input-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -359,49 +363,73 @@ Geodetic CRS:  WGS 84
 </section>
 <section id="the-conservative-approach---data-thinning" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> The conservative approach - data thinning</h1>
-<p>The conservative approach says that the environmental covariates (that’s the Brickman data), or more specifically the resolution of the envirnomental covariates, should dictate the sampling. The core thought here is that it doesn’t produce more or better information to have replicate measurements of either presences or In this approach we eliminate (thin) presences so that we have no more than one per covariate array cell.</p>
+<p>The conservative approach says that the environmental covariates (that’s the Brickman data), or more specifically the resolution of the envirnomental covariates, should dictate the sampling. The core thought here is that it doesn’t produce more or better information to have replicate measurements of either presences or</p>
+<section id="thin-by-cell" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="thin-by-cell"><span class="header-section-number">3.1</span> Thin by cell</h2>
+<p>In this approach we eliminate (thin) presences so that we have no more than one per covariate array cell.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dim_before <span class="ot">=</span> <span class="fu">dim</span>(obs)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"number of rows before thinning:"</span>, dim_before[<span class="dv">1</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"number of rows before cell thinning:"</span>, dim_before[<span class="dv">1</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>number of rows before thinning: 2459 </code></pre>
+<pre><code>number of rows before cell thinning: 2459 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">=</span> <span class="fu">thin_by_cell</span>(obs, mask)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dim_after <span class="ot">=</span> <span class="fu">dim</span>(obs)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"number of rows after thinning:"</span>, dim_after[<span class="dv">1</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>thinned_obs <span class="ot">=</span> <span class="fu">thin_by_cell</span>(obs, mask)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>dim_after <span class="ot">=</span> <span class="fu">dim</span>(thinned_obs)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"number of rows after cell thinning:"</span>, dim_after[<span class="dv">1</span>], <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>number of rows after thinning: 1204 </code></pre>
+<pre><code>number of rows after cell thinning: 1204 </code></pre>
 </div>
 </div>
-<p>So, that dropped quite a few! Now let’s take a look at the background, but this time we’ll try to match the count of presences.</p>
+<p>So, that dropped quite a few!</p>
+</section>
+<section id="make-a-weighted-sampling-map" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="make-a-weighted-sampling-map"><span class="header-section-number">3.2</span> Make a weighted sampling map</h2>
+<p>There is a technique we can use to to make a weighted sampling map. Simply counting the number of original observations per cell will indicate where we are most likely to oberve <code>Mola mola</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>conservative_input <span class="ot">=</span> <span class="fu">sample_background</span>(obs, mask, </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">n =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">nrow</span>(obs),</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">class_label =</span> <span class="st">"background"</span>,</span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"dist_max"</span>, <span class="dv">30000</span>),</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">return_pres =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(conservative_input, class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>samp_weight <span class="ot">=</span> <span class="fu">rasterize_point_density</span>(obs, mask)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(samp_weight, <span class="at">axes =</span> <span class="cn">TRUE</span>, <span class="at">breaks =</span> <span class="st">"equal"</span>, <span class="at">col =</span> <span class="fu">rev</span>(<span class="fu">hcl.colors</span>(<span class="dv">10</span>)), <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="C02_background_files/figure-html/sample_weight-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now let’s take a look at the background, but this time we’ll try to match the count of presences.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>conservative_input <span class="ot">=</span> <span class="fu">sample_background</span>(thinned_obs, samp_weight, </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                              <span class="at">n =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">nrow</span>(obs),</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                              <span class="at">class_label =</span> <span class="st">"background"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                              <span class="at">method =</span> <span class="st">"bias"</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                              <span class="at">return_pres =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (1204 presences) than the requested 4918 background points. Only 1204 will be returned.</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">count</span>(conservative_input, class)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Simple feature collection with 2 features and 2 fields
 Geometry type: MULTIPOINT
 Dimension:     XY
-Bounding box:  xmin: -74.89169 ymin: 38.8679 xmax: -65.02004 ymax: 45.21401
+Bounding box:  xmin: -74.5867 ymin: 38.868 xmax: -65.02004 ymax: 45.1333
 Geodetic CRS:  WGS 84
 # A tibble: 2 × 3
   class          n                                                      geometry
 * &lt;fct&gt;      &lt;int&gt;                                              &lt;MULTIPOINT [°]&gt;
-1 presence    1204 ((-65.07 42.68), (-65.05 42.6), (-65.067 42.617), (-65.16 42…
-2 background  2408 ((-65.02004 42.25251), (-65.02004 42.74609), (-65.1023 42.66…</code></pre>
+1 presence    1204 ((-65.067 42.65), (-65.05 42.6), (-65.067 42.617), (-65.16 4…
+2 background  1204 ((-65.1023 42.66383), (-65.02004 42.58157), (-65.1023 42.581…</code></pre>
 </div>
 </div>
+<p>Whoa - that’s many fewer background points.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(conservative_input[<span class="st">'class'</span>], </span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">TRUE</span>,  </span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="st">"."</span>, </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">extent =</span> mask, </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"August conservative class distribution"</span>,</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(conservative_input[<span class="st">'class'</span>], </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">TRUE</span>,  </span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="st">"."</span>, </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">extent =</span> mask, </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"August conservative class distribution"</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -410,6 +438,8 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 </div>
+<p>It appears that background points are essentially shadowing the thinned presence points.</p>
+</section>
 </section>
 <section id="greedy-or-conservative" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Greedy or Conservative?</h1>
@@ -445,73 +475,76 @@ Note
 <p>Phew! That’s a lot of steps. To manually run those steps 12 times would be tedious, so we roll that into a function that we can reuse 12 times instead.</p>
 <p>This function will have a name, <code>make_model_input_by_month</code>. It’s a long name, but it makes it obvious what it does. First we start with the documentation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Builds greedy and conservative model input data sets for a given month</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' </span></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param mon chr the month abbreviation for the month of interest ("Jan" by default)</span></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param obs table, the complete observation data set</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param raster stars, the object that defines the sampling space, usually a mask</span></span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param species chr, the name of the species prepended to the name of the output files.</span></span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">#'   (By default "Mola mola" which gets converted to "Mola_mola")</span></span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param path the output data path to store this data (be default "model_input")</span></span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param min_obs num this sets a threshold below which we wont try to make a model. (Default is 3)</span></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' @return a named two element list of greedy and conservative model inputs - they are tables</span></span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>make_model_input_by_month  <span class="ot">=</span> <span class="cf">function</span>(<span class="at">mon =</span> <span class="st">"Jan"</span>,</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">obs =</span> <span class="fu">read_observations</span>(<span class="st">"Mola mola"</span>),</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">raster =</span> <span class="cn">NULL</span>,</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">species =</span> <span class="st">"Mola mola"</span>,</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">path =</span> <span class="fu">data_path</span>(<span class="st">"model_input"</span>),</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">min_obs =</span> <span class="dv">3</span>){</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the user *must* provide a raster</span></span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(raster)) <span class="fu">stop</span>(<span class="st">"please provide a raster"</span>)</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter the obs</span></span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>  obs <span class="ot">=</span> obs <span class="sc">|&gt;</span></span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(month <span class="sc">==</span> mon[<span class="dv">1</span>])</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># check that we have at least some records, if not enough then alert the user</span></span>
-<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and return NULL</span></span>
-<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(obs) <span class="sc">&lt;</span> min_obs){</span>
-<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">"sorry, this month has too few records: "</span>, mon)</span>
-<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
-<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make sure the output path exists, if not, make it</span></span>
-<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">make_path</span>(path)</span>
-<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make the greedy model input by sampling the background</span></span>
-<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>  greedy_input <span class="ot">=</span> <span class="fu">sample_background</span>(obs, raster,</span>
-<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">nrow</span>(obs),</span>
-<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">class_label =</span> <span class="st">"background"</span>,</span>
-<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"dist_max"</span>, <span class="dv">30000</span>),</span>
-<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">return_pres =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># save the greedy data</span></span>
-<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>  filename <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%s-%s-greedy_input.gpkg"</span>, </span>
-<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, species),</span>
-<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>                     mon)</span>
-<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_sf</span>(greedy_input, <span class="fu">file.path</span>(path, filename))</span>
-<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># thin the obs</span></span>
-<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>  obs <span class="ot">=</span> <span class="fu">thin_by_cell</span>(obs, raster)</span>
-<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make the conservative model</span></span>
-<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>  conservative_input <span class="ot">=</span> <span class="fu">sample_background</span>(obs, raster,</span>
-<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">nrow</span>(obs),</span>
-<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">class_label =</span> <span class="st">"background"</span>,</span>
-<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"dist_max"</span>, <span class="dv">30000</span>),</span>
-<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">return_pres =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>  <span class="co"># save the conservative data</span></span>
-<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>  filename <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%s-%s-conservative_input.gpkg"</span>, </span>
-<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, species),</span>
-<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>                     mon)</span>
-<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_sf</span>(conservative_input, <span class="fu">file.path</span>(path,filename))</span>
-<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make a list</span></span>
-<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">list</span>(<span class="at">greedy =</span> greedy_input, <span class="at">conservative =</span> conservative_input)</span>
-<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return, but disable automatic printing</span></span>
-<span id="cb18-66"><a href="#cb18-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(r)</span>
-<span id="cb18-67"><a href="#cb18-67" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Builds greedy and conservative model input data sets for a given month</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' </span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param mon chr the month abbreviation for the month of interest ("Jan" by default)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param obs table, the complete observation data set</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param raster stars, the object that defines the sampling space, usually a mask</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param species chr, the name of the species prepended to the name of the output files.</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co">#'   (By default "Mola mola" which gets converted to "Mola_mola")</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param path the output data path to store this data (be default "model_input")</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param min_obs num this sets a threshold below which we wont try to make a model. (Default is 3)</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co">#' @return a named two element list of greedy and conservative model inputs - they are tables</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>make_model_input_by_month  <span class="ot">=</span> <span class="cf">function</span>(<span class="at">mon =</span> <span class="st">"Jan"</span>,</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">obs =</span> <span class="fu">read_observations</span>(<span class="st">"Mola mola"</span>),</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">raster =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">species =</span> <span class="st">"Mola mola"</span>,</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">path =</span> <span class="fu">data_path</span>(<span class="st">"model_input"</span>),</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>                                      <span class="at">min_obs =</span> <span class="dv">3</span>){</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the user *must* provide a raster</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">is.null</span>(raster)) <span class="fu">stop</span>(<span class="st">"please provide a raster"</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># filter the obs</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  obs <span class="ot">=</span> obs <span class="sc">|&gt;</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(month <span class="sc">==</span> mon[<span class="dv">1</span>])</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># check that we have at least some records, if not enough then alert the user</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># and return NULL</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nrow</span>(obs) <span class="sc">&lt;</span> min_obs){</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">"sorry, this month has too few records: "</span>, mon)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-30"><a href="#cb21-30" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make sure the output path exists, if not, make it</span></span>
+<span id="cb21-31"><a href="#cb21-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">make_path</span>(path)</span>
+<span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-34"><a href="#cb21-34" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make the greedy model input by sampling the background</span></span>
+<span id="cb21-35"><a href="#cb21-35" aria-hidden="true" tabindex="-1"></a>  greedy_input <span class="ot">=</span> <span class="fu">sample_background</span>(obs, raster,</span>
+<span id="cb21-36"><a href="#cb21-36" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">nrow</span>(obs),</span>
+<span id="cb21-37"><a href="#cb21-37" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">class_label =</span> <span class="st">"background"</span>,</span>
+<span id="cb21-38"><a href="#cb21-38" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">method =</span> <span class="fu">c</span>(<span class="st">"dist_max"</span>, <span class="dv">30000</span>),</span>
+<span id="cb21-39"><a href="#cb21-39" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">return_pres =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-40"><a href="#cb21-40" aria-hidden="true" tabindex="-1"></a>  <span class="co"># save the greedy data</span></span>
+<span id="cb21-41"><a href="#cb21-41" aria-hidden="true" tabindex="-1"></a>  filename <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%s-%s-greedy_input.gpkg"</span>, </span>
+<span id="cb21-42"><a href="#cb21-42" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, species),</span>
+<span id="cb21-43"><a href="#cb21-43" aria-hidden="true" tabindex="-1"></a>                     mon)</span>
+<span id="cb21-44"><a href="#cb21-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_sf</span>(greedy_input, <span class="fu">file.path</span>(path, filename))</span>
+<span id="cb21-45"><a href="#cb21-45" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-46"><a href="#cb21-46" aria-hidden="true" tabindex="-1"></a>  <span class="co"># thin the obs</span></span>
+<span id="cb21-47"><a href="#cb21-47" aria-hidden="true" tabindex="-1"></a>  thinned_obs <span class="ot">=</span> <span class="fu">thin_by_cell</span>(obs, raster)</span>
+<span id="cb21-48"><a href="#cb21-48" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-49"><a href="#cb21-49" aria-hidden="true" tabindex="-1"></a>  <span class="co"># sampling weight</span></span>
+<span id="cb21-50"><a href="#cb21-50" aria-hidden="true" tabindex="-1"></a>  samp_weight <span class="ot">=</span> <span class="fu">rasterize_point_density</span>(obs, raster)</span>
+<span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make the conservative model</span></span>
+<span id="cb21-53"><a href="#cb21-53" aria-hidden="true" tabindex="-1"></a>  conservative_input <span class="ot">=</span> <span class="fu">sample_background</span>(thinned_obs, samp_weight,</span>
+<span id="cb21-54"><a href="#cb21-54" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">n =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">nrow</span>(obs),</span>
+<span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">class_label =</span> <span class="st">"background"</span>,</span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">method =</span> <span class="st">"bias"</span>,</span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">return_pres =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>  <span class="co"># save the conservative data</span></span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a>  filename <span class="ot">=</span> <span class="fu">sprintf</span>(<span class="st">"%s-%s-conservative_input.gpkg"</span>, </span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">gsub</span>(<span class="st">" "</span>, <span class="st">"_"</span>, species),</span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>                     mon)</span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_sf</span>(conservative_input, <span class="fu">file.path</span>(path,filename))</span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a>  <span class="co"># make a list</span></span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>  r <span class="ot">=</span> <span class="fu">list</span>(<span class="at">greedy =</span> greedy_input, <span class="at">conservative =</span> conservative_input)</span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a>  <span class="co"># return, but disable automatic printing</span></span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(r)</span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>
@@ -519,19 +552,55 @@ Note
 <h1 data-number="6"><span class="header-section-number">6</span> Reusing the function in a loop</h1>
 <p>More phew! But that is it! Now we use a for loop to run through the months, calling our function each time. Happily, the built-in variable <code>month.abb</code> has all of the month names in order.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (this_month <span class="cf">in</span> month.abb){</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">make_model_input_by_month</span>(this_month,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">obs =</span> <span class="fu">read_observations</span>(<span class="at">scientificname =</span> <span class="st">"Mola mola"</span>),</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">raster =</span> mask,</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">species =</span> <span class="st">"Mola mola"</span>,</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">path =</span> <span class="fu">data_path</span>(<span class="st">"model_input"</span>),</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">min_obs =</span> <span class="dv">3</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (this_month <span class="cf">in</span> month.abb){</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  result <span class="ot">=</span> <span class="fu">make_model_input_by_month</span>(this_month,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">obs =</span> <span class="fu">read_observations</span>(<span class="at">scientificname =</span> <span class="st">"Mola mola"</span>),</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">raster =</span> mask,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">species =</span> <span class="st">"Mola mola"</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">path =</span> <span class="fu">data_path</span>(<span class="st">"model_input"</span>),</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">min_obs =</span> <span class="dv">3</span>)</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (4 presences) than the requested 8 background points. Only 4 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (16 presences) than the requested 34 background points. Only 16 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (13 presences) than the requested 28 background points. Only 13 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (148 presences) than the requested 480 background points. Only 148 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (364 presences) than the requested 1286 background points. Only 364 will be returned.</code></pre>
+</div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning in sample_background(obs, raster, n = 2 * nrow(obs), class_label = "background", : There are fewer available cells for raster 'NA' (2325 presences) than the requested 4650 background points. Only 3882 will be returned.</code></pre>
 </div>
 <div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (996 presences) than the requested 4650 background points. Only 996 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (968 presences) than the requested 4168 background points. Only 968 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
 <pre><code>Warning in sample_background(obs, raster, n = 2 * nrow(obs), class_label = "background", : There are fewer available cells for raster 'NA' (2459 presences) than the requested 4918 background points. Only 4818 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (1204 presences) than the requested 4918 background points. Only 1204 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (541 presences) than the requested 1844 background points. Only 542 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (311 presences) than the requested 832 background points. Only 312 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (210 presences) than the requested 676 background points. Only 210 will be returned.</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in sample_background(thinned_obs, samp_weight, n = 2 * nrow(obs), : There are fewer available cells for raster 'NA' (20 presences) than the requested 112 background points. Only 20 will be returned.</code></pre>
 </div>
 </div>
 </section>
@@ -539,9 +608,9 @@ Note
 <h1 data-number="7"><span class="header-section-number">7</span> Listing the output files</h1>
 <p>You can always look into you output directory to see if the files we made, but even better might be to use the computer to list them for you. If your species is found in sufficient numbers year round, you’ll have 24 files: 12 months x 2 approaches (greedy vs conservative)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">=</span> <span class="fu">data_path</span>(<span class="st">"model_input"</span>)</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>files <span class="ot">=</span> <span class="fu">list.files</span>(path, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>path <span class="ot">=</span> <span class="fu">data_path</span>(<span class="st">"model_input"</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>files <span class="ot">=</span> <span class="fu">list.files</span>(path, <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "/Users/ben/Dropbox/code/projects/ColbyForecasting_data/2025/ben/model_input/Mola_mola-Apr-conservative_input.gpkg"
  [2] "/Users/ben/Dropbox/code/projects/ColbyForecasting_data/2025/ben/model_input/Mola_mola-Apr-greedy_input.gpkg"      
@@ -574,15 +643,15 @@ Note
 <h1 data-number="8"><span class="header-section-number">8</span> Reading the files</h1>
 <p>We know that each file should have a table with spatial information included. Let’s read one back and plot it.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">read_sf</span>(files[<span class="dv">1</span>])</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="fu">basename</span>(files[<span class="dv">1</span>])</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x[<span class="st">'class'</span>], </span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">TRUE</span>,  </span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="st">"+"</span>, </span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">extent =</span> mask, </span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> filename,</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">read_sf</span>(files[<span class="dv">1</span>])</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>filename <span class="ot">=</span> <span class="fu">basename</span>(files[<span class="dv">1</span>])</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x[<span class="st">'class'</span>], </span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">axes =</span> <span class="cn">TRUE</span>,  </span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">pch =</span> <span class="st">"+"</span>, </span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>     <span class="at">extent =</span> mask, </span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> filename,</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>     <span class="at">reset =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coast, <span class="at">col =</span> <span class="st">"orange"</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -606,18 +675,18 @@ Note
 <p>Create a function to read the correct model input when given the species, month and approach.</p>
 <p>Use the menu option <code>File &gt; New File &gt; R Script</code> to create a blank file. Save the file (even though it is empty) in the “functions” directory as “model_input.R”. Use this file to build a function (or set of functions) that uses this set of arguments. Below is a template to help you get started.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Reads a model input file given species, month, approach and path</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' </span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param scientificname chr, the species name</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param mon chr month abbreviation</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param approach chr, one of "greedy" or "conservative"</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param path chr the path to the data directory</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>read_model_input <span class="ot">=</span> <span class="cf">function</span>(<span class="at">scientificname =</span> <span class="st">"Mola mola"</span>,</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">mon =</span> <span class="st">"Jan"</span>,</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">approach =</span> <span class="st">"greedy"</span>,</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">path =</span> <span class="fu">data_path</span>(<span class="st">"model_input"</span>)){</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># your part goes in here</span></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Reads a model input file given species, month, approach and path</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' </span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param scientificname chr, the species name</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param mon chr month abbreviation</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param approach chr, one of "greedy" or "conservative"</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co">#' @param path chr the path to the data directory</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>read_model_input <span class="ot">=</span> <span class="cf">function</span>(<span class="at">scientificname =</span> <span class="st">"Mola mola"</span>,</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>                            <span class="at">mon =</span> <span class="st">"Jan"</span>,</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>                            <span class="at">approach =</span> <span class="st">"greedy"</span>,</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">path =</span> <span class="fu">data_path</span>(<span class="st">"model_input"</span>)){</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># your part goes in here</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
