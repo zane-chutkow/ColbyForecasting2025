@@ -10,12 +10,13 @@ phone: 207-315-2567 x316
 
 Meeting times: MWF 1:00-4:00 pm
 
+Virtual (zoom) office hours: TTh 10:00-12:00 AM
+
 Location: 
 
 ## **COURSE DESCRIPTION**
 
 There is an increasing demand for real-time forecasts of the world around us. With the proliferation of big data sources and learning algorithms, it is possible to produce forecasts on wide ranging phenomenon, from the migrations of endangered species to outbreaks of toxic plankton. Such forecasts have the potential to improve health, quality of life, and economic activity. However, the algorithms and data on which forecasts are based can also carry hidden biases and lead to unintended consequences. This course will take a broad look at ocean forecasting, from stakeholder engagement, to coding and analyzing forecasts, to understanding the complexities of forecasts' impacts.
-
 
 
 ## **SCHEDULE** (subject to change)
@@ -28,7 +29,9 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
  - Reading assignment:
     - The Gulf of Maine articles in this folder - https://github.com/BigelowLab/ColbyForecasting2025/tree/main/reading/Woodard
 
-
+**Thursday Jan 9 10-12** 
+  [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
+  
 **Friday Jan 10**
  - Lecture: Ocean Science / Gulf of Maine Primer
  - Discussion: Forecast cards
@@ -39,11 +42,17 @@ ____________________________________________________________________________
  - Lecture: Predicting the distributions of right whales and white sharks in the Gulf of Maine (Camille and Kyle guest lectures)
  - **R Tutorial: Background Points**
 
+**Tuesday Jan 14 10-12** 
+  [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
+
 **Wednesday Jan 15**
  - Lecture: Forecasting Methodologies
  - Paper: Brickman
  - **R Tutorial: Covariates**
 
+**Thursday Jan 16 10-12** 
+  [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
+  
 **Friday Jan 17**
  - Lecture: Algorithms and Accoutability
  - **R Tutorial: Modeling**
@@ -52,17 +61,26 @@ ____________________________________________________________________________
 **Monday Jan 20 (MLK)**
  - No Class, Federal Holiday
 
+**Tuesday Jan 21 10-12** 
+  [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
+
 **Wednesday Jan 22**
  - Project abstract discussions
  - Roundtable Discussion 2: Algorithm Accountability and Data Justice
  - **R Tutorial: Predicting**
 
+**Thursday Jan 23 10-12** 
+  [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
+  
 **Friday Jan 24**
  - **R Tutorial: Spillover**
 
 ____________________________________________________________________________
 **Monday Jan 27**
  - Project presentations
+
+**Tuesday Jan 14 10-12** 
+  [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
 
 **Wednesday Jan 29**
  - **R Tutorial: Additional time for project help**
@@ -88,7 +106,7 @@ ____________________________________________________________________________
 
 There is no textbook for this course. Readings will be provided (including primarly literature searches by the students). The tuturial for the coding portion is provided here: https://bigelowlab.github.io/ColbyForecasting2025/ 
 
-Other resources of interes:
+Other resources of interest:
  - TidyModels: https://www.tidymodels.org/
  - Forecasting Principles and Practice: https://otexts.com/fpp3/
 
