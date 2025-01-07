@@ -5,7 +5,7 @@
 
 # Here we list the packages by name, CRAN is easier than GITHUB
 packages = list(
-  CRAN = c("remotes", "ggplot2", "readr", "tidyr", "tidymodels", "sf", 
+  CRAN = c("remotes", "usethis", "ggplot2", "readr", "tidyr", "tidymodels", "sf", 
            "imager", "stars", "rnaturalearth", "robis", "httr", "yaml",
            "effectplots", "ranger", "bundle", "butcher", "dplyr"),
   GITHUB = list(
