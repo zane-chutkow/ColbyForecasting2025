@@ -96,6 +96,8 @@ ____________________________________________________________________________
   
 **Friday Jan 24**
  - **R Tutorial: Spillover**
+ - Reading assignment for Monday:
+   - Pershing 2020 - https://github.com/BigelowLab/ColbyForecasting2025/blob/main/reading/Pershing.elementa.2020.00076.pdf
 
 ____________________________________________________________________________
 ____________________________________________________________________________
