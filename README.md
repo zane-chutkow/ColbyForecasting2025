@@ -12,7 +12,7 @@ Meeting times: MWF 1:00-4:00 pm
 
 Virtual (zoom) office hours: TTh 10:00-12:00 AM
 
-Location: 
+Location: Miller 205
 
 ## **COURSE DESCRIPTION**
 
@@ -26,7 +26,7 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
  - Discussion: What are we forecasting?
  - Lecture: Forecasting Introduction
  - **R Tutorial: Coding**
- - Reading assignment:
+ - Reading assignment for Friday:
     - The Gulf of Maine articles in this folder - https://github.com/BigelowLab/ColbyForecasting2025/tree/main/reading/Woodard
 
 **Thursday Jan 9 10-12** 
@@ -37,6 +37,8 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
  - Discussion: Forecast cards
     - See Table 1 in this paper - https://github.com/BigelowLab/ColbyForecasting2025/blob/main/reading/RecordEtal2025inreview.pdf
  - **R Tutorial: Observations**
+ - Reading assignment for Monday:
+   - Mollomo 1998 - https://github.com/BigelowLab/ColbyForecasting2025/blob/main/reading/Mollomo1998.pdf
 ____________________________________________________________________________
 **Monday Jan 13**
  - Lecture: Predicting the distributions of right whales and white sharks in the Gulf of Maine (Camille and Kyle guest lectures)
