@@ -20,7 +20,7 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
 
 ____________________________________________________________________________
 
-## **SCHEDULE** (subject to change)
+## **SCHEDULE** (changes will be noted)
 
 **Wednesday Jan 8**
  - Syllabus & Introductions
