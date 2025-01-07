@@ -24,6 +24,8 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
 **Wednesday Jan 8**
  - Syllabus & Introductions
  - Discussion: What are we forecasting?
+   - Discussion notes: https://docs.google.com/document/d/1YNo4EiQP9spu2X-jKcjaEqujNmfNFCV2vHqsuTsw1iI/edit?tab=t.0
+   - Superforecasting challenge: https://docs.google.com/forms/d/1BNwFlr1gvsdxa4CP8sKJJXYmClo5jaqkj9eQnRPvKIs/viewform?edit_requested=true#settings
  - Lecture: Forecasting Introduction
  - **R Tutorial: Coding**
  - Reading assignment for Friday:
