@@ -42,6 +42,7 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
 ____________________________________________________________________________
 **Monday Jan 13**
  - Lecture: Predicting the distributions of right whales and white sharks in the Gulf of Maine (Camille and Kyle guest lectures)
+ - Discussion: Where does our data come from?
  - **R Tutorial: Background Points**
 
 **Tuesday Jan 14 10-12** 
