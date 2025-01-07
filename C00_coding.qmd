@@ -76,7 +76,7 @@ plot(buoys['id'], axes = TRUE, pch = 16)
 
 Well, that's pretty, but without a shoreline it lacks context.  
 
-## Linestrings and polygon data
+### Linestrings and polygon data
 
 Linestrings (open shapes) and polygons (closed shape) are much like point data, except that each geometry is linestring or polygon.  We have a set of polygons/linestring that represent the coastline.
 
@@ -95,7 +95,7 @@ plot(st_geometry(buoys), pch = 1, cex = 0.5, add = TRUE)
 text(st_geometry(buoys), labels = buoys$id, cex = 0.7, adj = c(1,-0.1))
 ```
 
-## Array data (aka raster data)
+### Array data (aka raster data)
 
 Often spatial data comes in grids, like regular arrays of pixels.  These are great for all sorts of data like satellite images, bathymetry maps and environmental modeling data.  We'll be working with environmental modeling data which we call "Brickman data".  You can learn more about [Brickman data in the wiki](https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman).  We'll be glossing over the details here, but there's lots of detail in the wiki.
 
@@ -156,7 +156,7 @@ add_coast_and_buoys = function(){
 plot(current['SST'], hook = add_coast_and_buoys)
 ```
 
-## Coding Assignment
+# Coding Assignment
 ::: {.callout-note appearance="simple"}
 Use the menu option `File > New File > R Script` to create a blank file. Save the file (even though it is empty) in the "assignment" directory as "assignment_script_1.R".  Use this file to build a script that meets the following challenge.  Note that the existing file, "assignment_script_0.R" is already there as an example.
 

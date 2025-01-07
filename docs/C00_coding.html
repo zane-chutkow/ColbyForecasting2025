@@ -230,11 +230,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#spatial-data" id="toc-spatial-data" class="nav-link" data-scroll-target="#spatial-data"><span class="header-section-number">4.2</span> Spatial data</a>
   <ul class="collapse">
   <li><a href="#point-data" id="toc-point-data" class="nav-link" data-scroll-target="#point-data"><span class="header-section-number">4.2.1</span> Point data</a></li>
+  <li><a href="#linestrings-and-polygon-data" id="toc-linestrings-and-polygon-data" class="nav-link" data-scroll-target="#linestrings-and-polygon-data"><span class="header-section-number">4.2.2</span> Linestrings and polygon data</a></li>
+  <li><a href="#array-data-aka-raster-data" id="toc-array-data-aka-raster-data" class="nav-link" data-scroll-target="#array-data-aka-raster-data"><span class="header-section-number">4.2.3</span> Array data (aka raster data)</a></li>
   </ul></li>
-  <li><a href="#linestrings-and-polygon-data" id="toc-linestrings-and-polygon-data" class="nav-link" data-scroll-target="#linestrings-and-polygon-data"><span class="header-section-number">4.3</span> Linestrings and polygon data</a></li>
-  <li><a href="#array-data-aka-raster-data" id="toc-array-data-aka-raster-data" class="nav-link" data-scroll-target="#array-data-aka-raster-data"><span class="header-section-number">4.4</span> Array data (aka raster data)</a></li>
-  <li><a href="#coding-assignment" id="toc-coding-assignment" class="nav-link" data-scroll-target="#coding-assignment"><span class="header-section-number">4.5</span> Coding Assignment</a></li>
   </ul></li>
+  <li><a href="#coding-assignment" id="toc-coding-assignment" class="nav-link" data-scroll-target="#coding-assignment"><span class="header-section-number">5</span> Coding Assignment</a></li>
   </ul>
 </nav>
     </div>
@@ -345,7 +345,7 @@ Note
         x = sf::st_as_sf(x, coords = c("lon", "lat"), crs = 4326)
     x
 }
-&lt;bytecode: 0x7fcb072131b8&gt;</code></pre>
+&lt;bytecode: 0x7fb553661b48&gt;</code></pre>
 </div>
 </div>
 <p>If that still doesn’t work, we highly recommend trying <a href="https://rseek.org/">Rseek.org</a> which is an R-language specific search engine.</p>
@@ -364,9 +364,8 @@ Note
 </div>
 <p>Well, that’s pretty, but without a shoreline it lacks context.</p>
 </section>
-</section>
-<section id="linestrings-and-polygon-data" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="linestrings-and-polygon-data"><span class="header-section-number">4.3</span> Linestrings and polygon data</h2>
+<section id="linestrings-and-polygon-data" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="linestrings-and-polygon-data"><span class="header-section-number">4.2.2</span> Linestrings and polygon data</h3>
 <p>Linestrings (open shapes) and polygons (closed shape) are much like point data, except that each geometry is linestring or polygon. We have a set of polygons/linestring that represent the coastline.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>coast <span class="ot">=</span> <span class="fu">read_coastline</span>()</span>
@@ -412,8 +411,8 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 </section>
-<section id="array-data-aka-raster-data" class="level2" data-number="4.4">
-<h2 data-number="4.4" class="anchored" data-anchor-id="array-data-aka-raster-data"><span class="header-section-number">4.4</span> Array data (aka raster data)</h2>
+<section id="array-data-aka-raster-data" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="array-data-aka-raster-data"><span class="header-section-number">4.2.3</span> Array data (aka raster data)</h3>
 <p>Often spatial data comes in grids, like regular arrays of pixels. These are great for all sorts of data like satellite images, bathymetry maps and environmental modeling data. We’ll be working with environmental modeling data which we call “Brickman data”. You can learn more about <a href="https://github.com/BigelowLab/ColbyForecasting2025/wiki/Brickman">Brickman data in the wiki</a>. We’ll be glossing over the details here, but there’s lots of detail in the wiki.</p>
 <p>We’ll read in the database that tracks 82 Brickman data files, and then immediately filter out the rows that define the “PRESENT” scenario (where present means 1982–2013) and monthly climatology models.</p>
 <div class="cell">
@@ -532,8 +531,10 @@ y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
 </div>
 </div>
 </section>
-<section id="coding-assignment" class="level2" data-number="4.5">
-<h2 data-number="4.5" class="anchored" data-anchor-id="coding-assignment"><span class="header-section-number">4.5</span> Coding Assignment</h2>
+</section>
+</section>
+<section id="coding-assignment" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Coding Assignment</h1>
 <div class="callout callout-style-simple callout-note">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -553,7 +554,6 @@ y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
 </div>
 
 
-</section>
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
