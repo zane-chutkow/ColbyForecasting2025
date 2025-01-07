@@ -18,6 +18,7 @@ Location: Miller 205
 
 There is an increasing demand for real-time forecasts of the world around us. With the proliferation of big data sources and learning algorithms, it is possible to produce forecasts on wide ranging phenomenon, from the migrations of endangered species to outbreaks of toxic plankton. Such forecasts have the potential to improve health, quality of life, and economic activity. However, the algorithms and data on which forecasts are based can also carry hidden biases and lead to unintended consequences. This course will take a broad look at ocean forecasting, from stakeholder engagement, to coding and analyzing forecasts, to understanding the complexities of forecasts' impacts.
 
+____________________________________________________________________________
 
 ## **SCHEDULE** (subject to change)
 
@@ -30,10 +31,13 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
  - **R Tutorial: Coding**
  - Reading assignment for Friday:
     - The Gulf of Maine articles in this folder - https://github.com/BigelowLab/ColbyForecasting2025/tree/main/reading/Woodard
+____________________________________________________________________________
 
 **Thursday Jan 9 10-12** 
   [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
-  
+
+____________________________________________________________________________
+
 **Friday Jan 10**
  - Lecture: Ocean Science / Gulf of Maine Primer
  - Discussion: Forecast cards
@@ -42,59 +46,74 @@ There is an increasing demand for real-time forecasts of the world around us. Wi
  - Reading assignment for Monday:
    - Mollomo 1998 - https://github.com/BigelowLab/ColbyForecasting2025/blob/main/reading/Mollomo1998.pdf
 ____________________________________________________________________________
+____________________________________________________________________________
 **Monday Jan 13**
  - Lecture: Predicting the distributions of right whales and white sharks in the Gulf of Maine (Camille and Kyle guest lectures)
  - Discussion: Where does our data come from?
  - **R Tutorial: Background Points**
  - Reading assignment for Wednesday:
    - Brickman 2020 - https://github.com/BigelowLab/ColbyForecasting2025/blob/main/reading/Brickman.elementa.2020.20.00055.pdf
+____________________________________________________________________________
 
 **Tuesday Jan 14 10-12** 
   [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
+____________________________________________________________________________
 
 **Wednesday Jan 15**
  - Lecture: Forecasting Methodologies
  - Discussion:
  - **R Tutorial: Covariates**
  - Reading assignment:
+____________________________________________________________________________
 
 **Thursday Jan 16 10-12** 
   [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
-  
+____________________________________________________________________________
+
 **Friday Jan 17**
  - Lecture: Algorithms and Accoutability
  - **R Tutorial: Modeling**
  - Assignments: 
 ____________________________________________________________________________
+____________________________________________________________________________
 **Monday Jan 20 (MLK)**
  - No Class, Federal Holiday
+____________________________________________________________________________
 
 **Tuesday Jan 21 10-12** 
   [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
+____________________________________________________________________________
 
 **Wednesday Jan 22**
  - Lecture:
  - Discussion: Project abstracts
  - **R Tutorial: Predicting**
+____________________________________________________________________________
 
 **Thursday Jan 23 10-12** 
   [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
+____________________________________________________________________________
   
 **Friday Jan 24**
  - **R Tutorial: Spillover**
 
 ____________________________________________________________________________
+____________________________________________________________________________
 **Monday Jan 27**
  - Project presentations
+____________________________________________________________________________
 
 **Tuesday Jan 14 10-12** 
   [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
+____________________________________________________________________________
 
 **Wednesday Jan 29**
  - **R Tutorial: Additional time for project help**
+____________________________________________________________________________
 
 **Thursday Jan 30**
  - Final project due
+____________________________________________________________________________
 ____________________________________________________________________________
 
 ## **LEARNING OUTCOMES**
