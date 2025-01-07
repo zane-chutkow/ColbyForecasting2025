@@ -44,14 +44,17 @@ ____________________________________________________________________________
  - Lecture: Predicting the distributions of right whales and white sharks in the Gulf of Maine (Camille and Kyle guest lectures)
  - Discussion: Where does our data come from?
  - **R Tutorial: Background Points**
+ - Reading assignment for Wednesday:
+   - Brickman 2020 - https://github.com/BigelowLab/ColbyForecasting2025/blob/main/reading/Brickman.elementa.2020.20.00055.pdf
 
 **Tuesday Jan 14 10-12** 
   [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
 
 **Wednesday Jan 15**
  - Lecture: Forecasting Methodologies
- - Paper: Brickman
+ - Discussion:
  - **R Tutorial: Covariates**
+ - Reading assignment:
 
 **Thursday Jan 16 10-12** 
   [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
@@ -68,8 +71,8 @@ ____________________________________________________________________________
   [zoom office hours](https://www.google.com/url?q=https://bigelow.zoom.us/j/2073152562&sa=D&source=calendar&ust=1736619807370933&usg=AOvVaw35OxV39iGWWmJSttdFS6hr)
 
 **Wednesday Jan 22**
- - Project abstract discussions
- - Roundtable Discussion 2: Algorithm Accountability and Data Justice
+ - Lecture:
+ - Discussion: Project abstracts
  - **R Tutorial: Predicting**
 
 **Thursday Jan 23 10-12** 
