@@ -77,9 +77,10 @@ ____________________________________________________________________________
 
 **Friday Jan 17**
  - Lecture: Algorithms and Accountability
+ - Discussion: Forecasting unintended consequences
  - **R Tutorial: Modeling**
  - Reading assignment for next week:
-   - ...
+   - TBD
 ____________________________________________________________________________
 ____________________________________________________________________________
 **Monday Jan 20 (MLK)**
@@ -91,11 +92,11 @@ ____________________________________________________________________________
 ____________________________________________________________________________
 
 **Wednesday Jan 22**
- - Lecture:
+ - Lecture: Reproducible Research
  - Discussion: Project abstracts
  - **R Tutorial: Predicting**
  - Reading assignment for Friday:
-   - ...
+   - TBD
 ____________________________________________________________________________
 
 **Thursday Jan 23 10-12** 
