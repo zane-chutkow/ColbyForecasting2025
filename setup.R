@@ -26,9 +26,9 @@ if ("CRAN" %in% names(packages)){
 
 if ("GITHUB" %in% names(packages)){
 ix = names(packages$GITHUB) %in% installed
-  for (package in names(packages$GITHUB)[!ix]) {
-    remotes::install_github(packages$GITHUB[[package]]$repo,
-                            ref = packages$GITHUB[[package]]$ref)
+  for(package in names(packages$GITHUB)[!ix]) {
+    remotes::install_github(getElement(packages$GITHUB[[package]], "repos"),
+                            ref = getElement(packages$GITHUB[[package]], "ref"))
   }
 }
 
