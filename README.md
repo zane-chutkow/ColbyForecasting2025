@@ -63,7 +63,8 @@ ____________________________________________________________________________
  - Lecture: Forecasting Methodologies
  - Discussion:
  - **R Tutorial: Covariates**
- - Reading assignment:
+ - Reading assignment for Friday:
+   - 
 ____________________________________________________________________________
 
 **Thursday Jan 16 10-12** 
@@ -73,7 +74,8 @@ ____________________________________________________________________________
 **Friday Jan 17**
  - Lecture: Algorithms and Accoutability
  - **R Tutorial: Modeling**
- - Assignments: 
+ - Reading assignment for next week:
+   - 
 ____________________________________________________________________________
 ____________________________________________________________________________
 **Monday Jan 20 (MLK)**
@@ -88,6 +90,8 @@ ____________________________________________________________________________
  - Lecture:
  - Discussion: Project abstracts
  - **R Tutorial: Predicting**
+ - Reading assignment for Friday:
+   - 
 ____________________________________________________________________________
 
 **Thursday Jan 23 10-12** 
