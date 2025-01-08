@@ -66,7 +66,9 @@ ____________________________________________________________________________
  - Discussion:
  - **R Tutorial: Covariates**
  - Reading assignment for Friday:
-   - ...
+   - What is algorithmic bias - https://bdtechtalks.com/2018/03/26/racist-sexist-ai-deep-learning-algorithms/
+   - Predictive Policing - https://www.science.org/content/article/can-predictive-policing-prevent-crime-it-happens
+   - Managing bias in AI - https://lin-web.clarkson.edu/~jmatthew/publications/ManagingBiasInAI_CAMERAREADY.pdf
 ____________________________________________________________________________
 
 **Thursday Jan 16 10-12** 
@@ -74,7 +76,7 @@ ____________________________________________________________________________
 ____________________________________________________________________________
 
 **Friday Jan 17**
- - Lecture: Algorithms and Accoutability
+ - Lecture: Algorithms and Accountability
  - **R Tutorial: Modeling**
  - Reading assignment for next week:
    - ...
