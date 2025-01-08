@@ -14,6 +14,8 @@ Virtual (zoom) office hours: TTh 10:00-12:00 AM
 
 Location: Miller 205
 
+Coding Tutorial Pages: https://bigelowlab.github.io/ColbyForecasting2025/
+
 ## **COURSE DESCRIPTION**
 
 There is an increasing demand for real-time forecasts of the world around us. With the proliferation of big data sources and learning algorithms, it is possible to produce forecasts on wide ranging phenomenon, from the migrations of endangered species to outbreaks of toxic plankton. Such forecasts have the potential to improve health, quality of life, and economic activity. However, the algorithms and data on which forecasts are based can also carry hidden biases and lead to unintended consequences. This course will take a broad look at ocean forecasting, from stakeholder engagement, to coding and analyzing forecasts, to understanding the complexities of forecasts' impacts.
