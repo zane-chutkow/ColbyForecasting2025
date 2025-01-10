@@ -43,6 +43,7 @@ ____________________________________________________________________________
 **Friday Jan 10**
  - Lecture: Ocean Science / Gulf of Maine Primer
  - Discussion: Forecast cards
+    - Link for discussion: https://docs.google.com/spreadsheets/d/1gPwJF2XAKD9WftHAgRY9X_CXpn-S0gQFDZeF7yxdIGo/edit?gid=0#gid=0
     - See Table 1 in this paper - https://github.com/BigelowLab/ColbyForecasting2025/blob/main/reading/RecordEtal2025inreview.pdf
  - **R Tutorial: Observations**
  - Reading assignment for Monday:
