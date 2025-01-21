@@ -650,66 +650,6 @@ y    1  89  46.08 -0.08226 WGS 84 FALSE [y]</code></pre>
 <p>On the other hand, filtering by <code>basisOfRecord</code> or <code>individualCount</code> might need more flexibility, especially if you might switch to other species.</p>
 <p>Speaking of which, we provided <code>scientificname</code> with a default value - we chose “Mola mola” because we are a bit lazy. If you are feeling lazy, you can change the default to your own species.</p>
 <p>As you build your function, pause every so often and run the following to test things out.</p>
-<pre><code>obs = read_obis("Cetorhinus maximus")
-
-obs = obs |&gt;
-  filter(!is.na(eventDate))
-
-obs = obs |&gt;
-  filter(!is.na(individualCount))
-
-summary(obs)
-
-
-obs |&gt; count(basisOfRecord)
-
-obs |&gt; count(individualCount &gt; 10)
-
-ggplot(data = obs,
-       mapping = aes(x = year)) + 
-  geom_bar() + 
-  geom_vline(xintercept = c(1982, 2013), linetype = "dashed") + 
-  labs(title = "Lobster counts per year")
-  
-  obs = obs |&gt;
-  mutate(month = factor(month, levels = month.abb))
-  
-
-ggplot(data = obs,
-       mapping = aes(x = month)) + 
-  geom_bar() + 
-  labs(title = "Lobster Counts per month")
-  
-  
-
-obs = obs |&gt;
-  filter(year &gt;= 1960)
-
-
-ggplot(data = obs,
-       mapping = aes(x = year)) + 
-  geom_bar() + 
-  geom_vline(xintercept = c(1982, 2013), linetype = "dashed") + 
-  labs(title = "Lobster counts per year")
-
-
-
-obs = read_observations(scientificname = "Homarus americanus",minimum_year = 2000)
-db = brickman_database() |&gt;
-  filter(scenario == "STATIC", var == "mask")
-mask = read_brickman(db, add_depth = FALSE)
-plot(mask, breaks = "equal", axes = TRUE, reset = FALSE)
-plot(st_geometry(obs), pch = ".", add = TRUE)
-
-
-obs = read_observations(scientificname = "Cetorhinus maximus",minimum_year = 2010)
-db = brickman_database() |&gt;
-  filter(scenario == "STATIC", var == "mask")
-mask = read_brickman(db, add_depth = FALSE)
-plot(mask, breaks = "equal", axes = TRUE, reset = FALSE)
-plot(st_geometry(obs), pch = ".", add = TRUE)
-
-</code></pre>
 
 
 </section>
