@@ -217,6 +217,7 @@ make_model_input_by_month  = function(mon = "Jan",
   
   # return, but disable automatic printing
   invisible(r)
+  
 }
 ```
 
@@ -285,9 +286,22 @@ Use the menu option `File > New File > R Script` to create a blank file. Save th
 #' @param approach chr, one of "greedy" or "conservative"
 #' @param path chr the path to the data directory
 read_model_input = function(scientificname = "Mola mola",
-                            mon = "Jan",
+                            mon = "Dec",
                             approach = "greedy",
                             path = data_path("model_input")){
     # your part goes in here
+  print(path)
+  filename = sprintf("%s-%s-greedy_input.gpkg", 
+                     gsub(" ", "_", scientificname),
+                     mon)
+  if (approach == "conservative"){
+    filename = sprintf("%s-%s-conservative_input.gpkg", 
+                       gsub(" ", "_", scientificname),
+                       mon)
+  }
+  x = read_sf(path,layer = filename)
+  
+  x
 }
+
 ```

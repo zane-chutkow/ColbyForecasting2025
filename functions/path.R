@@ -17,7 +17,7 @@ get_user = function(){
   #' 
   #' @return username
   
-  system("whoami", intern = TRUE)
+  system("whoami", intern = TRUE) 
 }
 
 
