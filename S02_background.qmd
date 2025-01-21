@@ -291,6 +291,8 @@ read_model_input = function(scientificname = "Mola mola",
                             path = data_path("model_input")){
     # your part goes in here
   print(path)
+  
+  #makes the filenames
   filename = sprintf("%s-%s-greedy_input.gpkg", 
                      gsub(" ", "_", scientificname),
                      mon)
@@ -299,6 +301,8 @@ read_model_input = function(scientificname = "Mola mola",
                        gsub(" ", "_", scientificname),
                        mon)
   }
+  
+  #reads the file
   x = read_sf(path,layer = filename)
   
   x
