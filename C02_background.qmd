@@ -17,6 +17,7 @@ source("setup.R")
 
 We also will need the Brickman mask and the observation data. Note that we are making a model for each month.  Given that most *Mola mola* observations are in the summer, we filter our data to just one summer month, August.
 
+
 ```{r load_obs_mask}
 coast = read_coastline()
 obs = read_observations(scientificname = "Mola mola") |>

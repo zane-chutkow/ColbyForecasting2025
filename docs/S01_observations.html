@@ -513,7 +513,7 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 </div>
-<p>For this species, it seem like it is only the record from 1932 that might be a stretch, so let’s filter that out by rejecting records before 1970. This time, instead of asking for a sumamry, we’ll print the dimensions (rows, columns) of the table.</p>
+<p>For this species, it seem like it is only the record from 1932 that might be a stretch, so let’s filter that out by rejecting records before 1970. This time, instead of asking for a summary, we’ll print the dimensions (rows, columns) of the table.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>obs <span class="ot">=</span> obs <span class="sc">|&gt;</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">1970</span>)</span>
