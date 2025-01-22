@@ -1,6 +1,6 @@
 
 read_observations = function(scientificname = "Homarus americanus",
-                             minimum_year = 1970, basis = NULL, 
+                             minimum_year = 1970, basis = "HumanObservation", 
                              minCount = NULL,maxCount = NULL
                              ){
   
@@ -27,7 +27,7 @@ read_observations = function(scientificname = "Homarus americanus",
   
   # if the user provided a non-Null filter by observation type
   if(!is.null(basis)){
-    x = x |> filter(basisofRecord == basis)
+    x = x |> filter(basisOfRecord == basis)
   }
   x = x |> filter(!is.na(eventDate))
   
