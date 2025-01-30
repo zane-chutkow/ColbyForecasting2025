@@ -34,8 +34,8 @@ present = read_brickman(filter(db, scenario == "PRESENT", interval == "mon"))
 We have used August before as our example, let's continue with August.
 
 ```{r August_present}
-aug = present |>
-  dplyr::slice("month", "Aug")
+oct = present |>
+  dplyr::slice("month", "Oct")
 ```
 
 ## Make a `pairs` plot
@@ -43,7 +43,7 @@ aug = present |>
 A `pairs` plot is a plot often used in exploratory data analysis.  It makes a grid of mini-plots of a set of variables, and reveals the relationships among the variables pair-by-pair.  It's easy to make.
 
 ```{r pairs}
-pairs(aug)
+pairs(oct)
 ```
 
 In the lower left portion of the plot we see paired scatter plots, at upper right we see the correlation values of the pairs, and long the diagonal we see a histogram of each variable. Some pairs are highly correlated, say over `0.7`, and to include both in the modeling might not provide us with greater predictive power. It may feel counterintuitive to remove any variables - more data means more information, right?  And more information means more informed models. Consider two measurements, human arm length and inseam. We might use these to predict if a person is tall, but since they are probably strongly collinear/correlated do we really need both?
@@ -53,7 +53,7 @@ In the lower left portion of the plot we see paired scatter plots, at upper righ
 We have a function that can help use select which variables to remove.  `filter_collinear()` returns a listing of variables it suggests we keep. It attaches to the return value an attribute (like a post-it note stuck on a box) that lists the complementary variables that it suggests we drop. We are choosing a particular method, but you can learn more about using R's help for `?filter_collinear`.
 
 ```{r filter_collinear}
-keep = filter_collinear(aug, method = "vif_step")
+keep = filter_collinear(oct, method = "vif_step")
 keep
 ```
 
@@ -66,16 +66,16 @@ Whatever selection of variables we decide to model with, we will save this listi
 Before we do commit to a selection of variables, let's turn our attention back to our presence-background points, and look at just those chosen values rather than at values drawn form across the entire domain. Let's open the file that contains the "greedy" model input for August during the PRESENT climate scenario.
 
 ```{r present_august_model_input}
-model_input = read_model_input(scientificname = "Homarus americanus", 
+model_input = read_model_input(scientificname = "Doryteuthis pealeii", 
                                approach = "greedy", 
-                               mon = "Aug")
+                               mon = "Oct")
 model_input
 ```
 
 Next we'll extract data values from our August covariates.
 
 ```{r extract_aug}
-variables = extract_brickman(aug, model_input, form = "wide")
+variables = extract_brickman(oct, model_input, form = "wide")
 variables
 ```
 
@@ -106,10 +106,10 @@ Let's make a confuguration list that holds 4 items: version identifier, species 
 
 ```{r make_config}
 cfg = list(
-  version = "g_Aug",               # g for greedy!
-  scientificname = "Homarus americanus",
+  version = "g_Oct",               # g for greedy!
+  scientificname = "Doryteuthis pealeii",
   approach = "greedy",
-  mon = "Aug",
+  mon = "Oct",
   keep_vars =  keep)
 ```
 

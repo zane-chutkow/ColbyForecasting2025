@@ -19,8 +19,8 @@ We also will need the Brickman mask and the observation data. Note that we are m
 
 ```{r load_obs_mask}
 coast = read_coastline()
-obs = read_observations(scientificname = "Homarus Americanus") |>
-  filter(month == "Dec")
+obs = read_observations(scientificname = "Doryteuthis pealeii") |>
+  filter(month == "Oct")
 db = brickman_database() |>
   filter(scenario == "STATIC", var == "mask")
 mask = read_brickman(db, add_depth = FALSE)
@@ -159,9 +159,9 @@ This function will have a name, `make_model_input_by_month`.  It's a long name, 
 #' @param min_obs num this sets a threshold below which we wont try to make a model. (Default is 3)
 #' @return a named two element list of greedy and conservative model inputs - they are tables
 make_model_input_by_month  = function(mon = "Jan",
-                                      obs = read_observations("Homarus americanus"),
+                                      obs = read_observations("Doryteuthis pealeii"),
                                       raster = NULL,
-                                      species = "Homarus americanus",
+                                      species = "Doryteuthis pealeii",
                                       path = data_path("model_input"),
                                       min_obs = 3){
   # the user *must* provide a raster
@@ -227,9 +227,9 @@ More phew!  But that is it!  Now we use a for loop to run through the months, ca
 ```{r for_loop}
 for (this_month in month.abb){
   result = make_model_input_by_month(this_month,
-                                     obs = read_observations(scientificname = "Homarus americanus"),
+                                     obs = read_observations(scientificname = "Doryteuthis pealeii"),
                                      raster = mask,
-                                     species = "Homarus americanus",
+                                     species = "Doryteuthis pealeii",
                                      path = data_path("model_input"),
                                      min_obs = 3)
 }
@@ -253,7 +253,7 @@ x = read_sf(files[1])
 filename = basename(files[1])
 plot(x['class'], 
      axes = TRUE,  
-     pch = "+", 
+     pch = ".", 
      extent = mask, 
      main = filename,
      reset = FALSE)

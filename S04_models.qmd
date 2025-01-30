@@ -40,20 +40,21 @@ source("setup.R")
 Let's load what we need to build a model for August using the greedy sampling technique. We'll also need the model configuration (which is "g_Aug"). And we'll need the covariate data.  Notice that we select the covariates that are included in our configuration.
 
 ```{r load_data}
-model_input = read_model_input(scientificname = "Homarus americanus", 
+model_input = read_model_input(scientificname = "Doryteuthis pealeii", 
                                approach = "greedy", 
-                               mon = "Aug")
-cfg = read_configuration(version = "g_Aug")
+                               mon = "Oct")
+cfg = read_configuration(version = "g_Oct")
 db = brickman_database()
 covars = read_brickman(db |> filter(scenario == "PRESENT", interval == "mon"))|>
   select(all_of(cfg$keep_vars))
+covars
 ```
 
 Of course we need covariates for August only, for this we can use a function we prepared earlier, `prep_model_data()`.  Note the we specifically ask for a plain table which means we are dropping the spatial information for now.  Also, we select only the variables required in the configuration, plus the `class` label.
 
 ```{r august_data}
 all_data = prep_model_data(model_input, 
-                           month = "Aug",
+                           month = "Oct",
                            covars = covars, 
                            form = "table") |>
   select(all_of(c("class", cfg$keep_vars)))
@@ -352,9 +353,10 @@ We have built a random forest model using tools from the [tidymodels universe](h
 Use the [iterations tutorial](https://bigelowlab.github.io/handytandy/iterations.html) to build a workflow for each month using one or both of your background selection methods.  Save each workflow in the `models` directory.  If you chose to do both background selection methods then you should end up with 24 workflows (12 months x 2 background sampling methods).
 
 ```{r}
+print("greedy")
 for (month in month.abb){
   iterMon = month
-  model_input = read_model_input(scientificname = "Homarus americanus", 
+  model_input = read_model_input(scientificname = "Doryteuthis pealeii", 
                                  approach = "greedy", 
                                  mon = iterMon)
   
@@ -371,17 +373,6 @@ for (month in month.abb){
                              form = "table") |>
     select(all_of(c("class", cfg$keep_vars)))
   
-  # A little function to compute the ratio of presences to background
-# @param x table with a "class" column
-# @return numeric ratio presences/background
-get_ratio = function(x){
-  counts = count(x, class)
-  np = filter(counts, class == "presence") |> pull(n)
-  nb = filter(counts, class == "background") |> pull(n)
-  return(np/nb)
-}
-
-cat("ratio of presence/background in full data set:", get_ratio(all_data), "\n")
 
 split_data = initial_split(all_data, 
                            prop = 3/4,
@@ -421,13 +412,19 @@ train_pred = predict_table(fitted_wflow, tr_data, type = "prob")
 
 write_workflow(fitted_wflow, version = cfg$version)
 
+#prints the accuracy of each model
+test_data = testing(split_data)
+test_pred = predict_table(fitted_wflow, test_data, type = "prob")
+
+print(paste(month, accuracy(test_pred, class, .pred)))
 
   
 }
+print("Conservative")
 
 for (month in month.abb){
   iterMon = month
-  model_input = read_model_input(scientificname = "Homarus americanus", 
+  model_input = read_model_input(scientificname = "Doryteuthis pealeii", 
                                  approach = "conservative", 
                                  mon = iterMon)
   
@@ -444,17 +441,8 @@ for (month in month.abb){
                              form = "table") |>
     select(all_of(c("class", cfg$keep_vars)))
   
-  # A little function to compute the ratio of presences to background
-# @param x table with a "class" column
-# @return numeric ratio presences/background
-get_ratio = function(x){
-  counts = count(x, class)
-  np = filter(counts, class == "presence") |> pull(n)
-  nb = filter(counts, class == "background") |> pull(n)
-  return(np/nb)
-}
 
-cat("ratio of presence/background in full data set:", get_ratio(all_data), "\n")
+
 
 split_data = initial_split(all_data, 
                            prop = 3/4,
@@ -493,6 +481,13 @@ fitted_wflow = fit(wflow, data = tr_data)
 train_pred = predict_table(fitted_wflow, tr_data, type = "prob")
 
 write_workflow(fitted_wflow, version = cfg$version)
+
+
+#prints the accuracy of each model
+test_data = testing(split_data)
+test_pred = predict_table(fitted_wflow, test_data, type = "prob")
+
+print(paste(month, accuracy(test_pred, class, .pred)))
 
 }
 ```

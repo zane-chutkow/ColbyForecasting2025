@@ -8,13 +8,13 @@
 #' @param mon chr month abbreviation
 #' @param approach chr, one of "greedy" or "conservative"
 #' @param path chr the path to the data directory
-read_model_input = function(scientificname = "Homarus americanus",
+read_model_input = function(scientificname = "Doryteuthis pealeii",
                             mon = "Jan",
                             approach = "greedy",
                             path = data_path("model_input")){
   # your part goes in here
   if(FALSE){
-    scientificname = "Homarus americanus"
+    scientificname = "Doryteuthis pealeii"
     mon = "Jan"
     approach = "greedy"
     path = data_path("model_input")
